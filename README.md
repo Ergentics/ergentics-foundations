@@ -44,6 +44,8 @@ This synthetic empty-content transition still advances the generation. Possessio
 
 No external package dependencies are fetched. The Swift standard library, Foundation and CryptoKit are execution dependencies. The synthetic vector generator uses Python's standard library solely as an independent byte-encoding/hash reference; it is not a runtime dependency.
 
+For application integration, see the [consumer integration guide](docs/consumer-integration.md), informed by the bounded CIT-01 study. It separates consumer semantic validation from reference admission, scope and commit behavior.
+
 ## Limits
 
 This is software reference behavior, not formal verification, hardware isolation, authentication, a production service or universal acceleration. The trusted holder of the authority actor can issue capabilities. Capabilities are epoch-scoped; each verified proposal is generation-bound. Commit history is in-memory only. Public evidence, hashes and equality never grant authority. UUID collision resistance and SHA-256 assumptions are not proofs. Resource limits, persistence, distributed concurrency and production hardening are unimplemented.
