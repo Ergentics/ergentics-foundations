@@ -1,0 +1,503 @@
+{
+  "continuityRows": [
+    {
+      "cell": 0,
+      "commonAgreement": 65457,
+      "commonDenominator": 65457,
+      "evidenceId": "EV-E26-CONTINUITY",
+      "level": "aggregate",
+      "multisetEqual": 63,
+      "orderedEqual": 0,
+      "sweep": 1,
+      "transitionDenominator": 63
+    },
+    {
+      "cell": 1,
+      "commonAgreement": 64323,
+      "commonDenominator": 65457,
+      "evidenceId": "EV-E26-CONTINUITY",
+      "level": "aggregate",
+      "multisetEqual": 0,
+      "orderedEqual": 0,
+      "sweep": 1,
+      "transitionDenominator": 63
+    },
+    {
+      "cell": 0,
+      "commonAgreement": 65457,
+      "commonDenominator": 65457,
+      "evidenceId": "EV-E26-CONTINUITY",
+      "level": "aggregate",
+      "multisetEqual": 63,
+      "orderedEqual": 0,
+      "sweep": 2,
+      "transitionDenominator": 63
+    },
+    {
+      "cell": 1,
+      "commonAgreement": 64323,
+      "commonDenominator": 65457,
+      "evidenceId": "EV-E26-CONTINUITY",
+      "level": "aggregate",
+      "multisetEqual": 0,
+      "orderedEqual": 0,
+      "sweep": 2,
+      "transitionDenominator": 63
+    },
+    {
+      "cell": 0,
+      "commonAgreement": 65457,
+      "commonDenominator": 65457,
+      "evidenceId": "EV-E26-CONTINUITY",
+      "level": "clean",
+      "multisetEqual": 63,
+      "orderedEqual": 0,
+      "sweep": 1,
+      "transitionDenominator": 63
+    },
+    {
+      "cell": 1,
+      "commonAgreement": 64323,
+      "commonDenominator": 65457,
+      "evidenceId": "EV-E26-CONTINUITY",
+      "level": "clean",
+      "multisetEqual": 0,
+      "orderedEqual": 0,
+      "sweep": 1,
+      "transitionDenominator": 63
+    },
+    {
+      "cell": 0,
+      "commonAgreement": 65457,
+      "commonDenominator": 65457,
+      "evidenceId": "EV-E26-CONTINUITY",
+      "level": "clean",
+      "multisetEqual": 63,
+      "orderedEqual": 0,
+      "sweep": 2,
+      "transitionDenominator": 63
+    },
+    {
+      "cell": 1,
+      "commonAgreement": 64323,
+      "commonDenominator": 65457,
+      "evidenceId": "EV-E26-CONTINUITY",
+      "level": "clean",
+      "multisetEqual": 0,
+      "orderedEqual": 0,
+      "sweep": 2,
+      "transitionDenominator": 63
+    },
+    {
+      "cell": 0,
+      "commonAgreement": 65457,
+      "commonDenominator": 65457,
+      "evidenceId": "EV-E26-CONTINUITY",
+      "level": "diagnostic",
+      "multisetEqual": 63,
+      "orderedEqual": 0,
+      "sweep": 1,
+      "transitionDenominator": 63
+    },
+    {
+      "cell": 1,
+      "commonAgreement": 64323,
+      "commonDenominator": 65457,
+      "evidenceId": "EV-E26-CONTINUITY",
+      "level": "diagnostic",
+      "multisetEqual": 0,
+      "orderedEqual": 0,
+      "sweep": 1,
+      "transitionDenominator": 63
+    },
+    {
+      "cell": 0,
+      "commonAgreement": 65457,
+      "commonDenominator": 65457,
+      "evidenceId": "EV-E26-CONTINUITY",
+      "level": "diagnostic",
+      "multisetEqual": 63,
+      "orderedEqual": 0,
+      "sweep": 2,
+      "transitionDenominator": 63
+    },
+    {
+      "cell": 1,
+      "commonAgreement": 64323,
+      "commonDenominator": 65457,
+      "evidenceId": "EV-E26-CONTINUITY",
+      "level": "diagnostic",
+      "multisetEqual": 0,
+      "orderedEqual": 0,
+      "sweep": 2,
+      "transitionDenominator": 63
+    }
+  ],
+  "experiments": [
+    {
+      "bottleneck": "Numerical reference boundary",
+      "classification": "PASS; no letter assigned",
+      "comparisonBoundary": "Identical CPU FP32 toy parameters, gradients and state",
+      "economicFinding": "NOT_PERFORMANCE",
+      "evidenceIds": [
+        "EV-E01-REPORT"
+      ],
+      "id": "E01",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "General convergence, model quality and corrected AdamW equivalence unestablished",
+      "result": "Tested matching update and saved-state trajectories",
+      "title": "Optimizer equivalence"
+    },
+    {
+      "bottleneck": "Derivative and accumulation boundary",
+      "classification": "PASS; no letter assigned",
+      "comparisonBoundary": "Declared FP32 tolerances and independent small finite differences",
+      "economicFinding": "NOT_PERFORMANCE",
+      "evidenceIds": [
+        "EV-E02-REPORT"
+      ],
+      "id": "E02",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Production size, all dtypes and model quality unestablished",
+      "result": "Tested thirteen VJP families, small Logic gradients and continuation",
+      "title": "First-party reverse mode"
+    },
+    {
+      "bottleneck": "Backend identity and runtime capture",
+      "classification": "Validated local implementation; no letter assigned",
+      "comparisonBoundary": "Synthetic small CPU graph and generation identities",
+      "economicFinding": "NOT_PERFORMANCE",
+      "evidenceIds": [
+        "EV-E03-REPORT"
+      ],
+      "id": "E03",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "No complete MLX independence or kernel visibility",
+      "result": "First-party graph/VJP ownership separated from MLX tensor execution",
+      "title": "Tensor execution boundary"
+    },
+    {
+      "bottleneck": "Change detection and dense replacement",
+      "classification": "No formal letter; no beneficial region",
+      "comparisonBoundary": "Estimated unit-work gather/multiply/full-sum graph",
+      "economicFinding": "NEGATIVE",
+      "evidenceIds": [
+        "EV-E04-REPORT"
+      ],
+      "id": "E04",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "No elapsed-time or physical saving follows from logical arithmetic reduction",
+      "result": "Sparse arithmetic frontier is correct but eager materialization remains",
+      "title": "Selective execution"
+    },
+    {
+      "bottleneck": "Overlay management and dense consumer",
+      "classification": "Correct for tested cases; not computationally beneficial",
+      "comparisonBoundary": "Declared end-to-end overlay accounting and depth/density fixtures",
+      "economicFinding": "NEGATIVE",
+      "evidenceIds": [
+        "EV-E05-REPORT"
+      ],
+      "id": "E05",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "No FULL crossover; compaction horizon is not economic crossover",
+      "result": "Unchanged numerical writes avoided; metadata and realization dominate",
+      "title": "Immutable overlays"
+    },
+    {
+      "bottleneck": "Per-operation mediation and dense consumer",
+      "classification": "Both overhead and dense-consumer cost; intrinsic suitability inconclusive",
+      "comparisonBoundary": "Measured implementation and consumer cases",
+      "economicFinding": "NEGATIVE",
+      "evidenceIds": [
+        "EV-E06-REPORT"
+      ],
+      "id": "E06",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Ideal estimates are not a physical or wall-time lower bound",
+      "result": "Local dependency survival does not establish total production gain",
+      "title": "Locality survival"
+    },
+    {
+      "bottleneck": "Repeated change rediscovery",
+      "classification": "A. RECEIPT BREAKTHROUGH, frozen-output scope",
+      "comparisonBoundary": "Warm static graph frozen output: 24 paired wins; all 78 active local trials lose",
+      "economicFinding": "SCOPED_DELTA_WIN",
+      "evidenceIds": [
+        "EV-E07-REPORT"
+      ],
+      "id": "E07",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "New shared wrapper prevents single-cause cross-experiment attribution",
+      "result": "Producer journal and complete reverse index enable eligible frozen-output reuse",
+      "title": "Generation-bound receipts"
+    },
+    {
+      "bottleneck": "Per-node execution mediation",
+      "classification": "A. ACTIVE EXECUTION BREAKTHROUGH",
+      "comparisonBoundary": "Same-panel FULL/NODE versus compact host-output execution",
+      "economicFinding": "SCOPED_DELTA_WIN",
+      "evidenceIds": [
+        "EV-E08-REPORT"
+      ],
+      "id": "E08",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Host endpoint; persistent backend output and cold start unestablished",
+      "result": "Compact host frontier wins nine tested warm active configurations",
+      "title": "Compact frontier"
+    },
+    {
+      "bottleneck": "Publication and persistent consumption",
+      "classification": "A. PERSISTENT ACTIVE BREAKTHROUGH",
+      "comparisonBoundary": "Warm cumulative sequences with actual backend publication/reads",
+      "economicFinding": "SCOPED_DELTA_WIN",
+      "evidenceIds": [
+        "EV-E09-REPORT"
+      ],
+      "id": "E09",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Wide/dense losses; only seven of nine earlier geometries retain benefit",
+      "result": "Eleven of 21 configurations win both sweeps over 64 updates",
+      "title": "Compact publication"
+    },
+    {
+      "bottleneck": "Lineage lookup to read-plan construction",
+      "classification": "Qualified B. LINEAGE BOTTLENECK REMOVED",
+      "comparisonBoundary": "Frozen CURRENT already batches; unbatched index is ablation",
+      "economicFinding": "NO_NEW_REGION",
+      "evidenceIds": [
+        "EV-E10-REPORT"
+      ],
+      "id": "E10",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "No new FULL win; supplied backend-dominance clause unsupported",
+      "result": "Immutable affine index reduces repeated lineage resolution",
+      "title": "Indexed reads"
+    },
+    {
+      "bottleneck": "Read-plan mapping and encoding",
+      "classification": "A. INCREMENTAL PLAN BREAKTHROUGH",
+      "comparisonBoundary": "Original bootstrap-inclusive fixed-request panel",
+      "economicFinding": "SCOPED_DELTA_WIN",
+      "evidenceIds": [
+        "EV-E11-REPORT"
+      ],
+      "id": "E11",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Narrow margin does not reproduce in later unchanged-control regressions",
+      "result": "One original fixed-MIXED q1/q2 region wins paired controls and FULL",
+      "title": "Incremental plans"
+    },
+    {
+      "bottleneck": "Changing-request reconstruction",
+      "classification": "A. REQUEST-DELTA BREAKTHROUGH, request-only scope",
+      "comparisonBoundary": "Request-only edits with actual requested-output change; supplied-request FULL",
+      "economicFinding": "SCOPED_DELTA_WIN",
+      "evidenceIds": [
+        "EV-E12-REPORT"
+      ],
+      "id": "E12",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Joint small source/request MIXED does not win; structural fallback retained",
+      "result": "Small request-only MIXED edits win q1/q2/q4",
+      "title": "Request deltas"
+    },
+    {
+      "bottleneck": "Order maintenance to commitment construction",
+      "classification": "C. ORDER-COMMITMENT LIMITED",
+      "comparisonBoundary": "Bootstrap-inclusive native versus structural/discovered/FULL controls",
+      "economicFinding": "NO_NEW_REGION",
+      "evidenceIds": [
+        "EV-E13-REPORT"
+      ],
+      "id": "E13",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Discovered replacement has different historical semantics; no new FULL region",
+      "result": "Native MOVE preserves occurrences/history and local maintenance",
+      "title": "Incremental reorder"
+    },
+    {
+      "bottleneck": "Recurring exact encoding to duplicated bootstrap",
+      "classification": "E. BOOTSTRAP LIMITED",
+      "comparisonBoundary": "Exact-root controls and all required differential bootstrap charged",
+      "economicFinding": "NO_NEW_REGION",
+      "evidenceIds": [
+        "EV-E14-REPORT"
+      ],
+      "id": "E14",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Recurring reduction does not establish cumulative benefit",
+      "result": "Recurring commitment work falls but genuine seed plus candidate dominates",
+      "title": "Exact-root reuse"
+    },
+    {
+      "bottleneck": "Duplicate bootstrap to repeated reads",
+      "classification": "B. SINGLE-CONSTRUCTION BOOTSTRAP BOTTLENECK REMOVED",
+      "comparisonBoundary": "Original native/duplicate controls with data-only frozen oracle afterward",
+      "economicFinding": "PATH_IMPROVEMENT",
+      "evidenceIds": [
+        "EV-E15-REPORT"
+      ],
+      "id": "E15",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Low-q native improvement is not historically new region; larger-q not reproduced",
+      "result": "Removes completed frozen initializer prerequisite with exact initial roots",
+      "title": "Single-construction bootstrap"
+    },
+    {
+      "bottleneck": "Repeated numerical consumer to reuse validation",
+      "classification": "D. REUSE-VALIDATION LIMITED",
+      "comparisonBoundary": "Independent matched FULL memo producer and no-reuse Single",
+      "economicFinding": "NO_NEW_REGION",
+      "evidenceIds": [
+        "EV-E16-REPORT"
+      ],
+      "id": "E16",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "No gain over no-reuse Single; full-vector validation and first sealing costly",
+      "result": "Current-generation hits avoid numerical consumer calls",
+      "title": "Requested-result reuse"
+    },
+    {
+      "bottleneck": "Structural hit checks to output integrity; first seal remains",
+      "classification": "E. OUTPUT-INTEGRITY LIMITED, recurring hits",
+      "comparisonBoundary": "Matched FULL sealed rights plus Single sealed context and no-reuse controls",
+      "economicFinding": "GENERIC_NOT_NEW_REGION",
+      "evidenceIds": [
+        "EV-E17-REPORT"
+      ],
+      "id": "E17",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Mandatory output integrity dominates hits; first admission dominates cumulative economics",
+      "result": "Admit correspondence once per generation and check current authority on hits",
+      "title": "Sealed read contexts"
+    },
+    {
+      "bottleneck": "Duplicate full serialization to first construction",
+      "classification": "C. GENERIC CANONICAL-CONSTRUCTION IMPROVEMENT",
+      "comparisonBoundary": "Both candidate paths improve paired sealed controls in 30/30; candidate wins over normal Single: 0/30",
+      "economicFinding": "GENERIC_NOT_NEW_REGION",
+      "evidenceIds": [
+        "EV-E18-REPORT"
+      ],
+      "id": "E18",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "One complete encoding and locator remain; historical sparse/local wins only",
+      "result": "Second full serialization removed for both Single and FULL",
+      "title": "Single metadata sealing"
+    },
+    {
+      "bottleneck": "Repeated handle encoding to scans/assembly/eligibility",
+      "classification": "C. GENERIC CANONICAL COMPONENT REUSE IMPROVEMENT",
+      "comparisonBoundary": "Fresh accepted integrity envelope; no rejected census timings",
+      "economicFinding": "GENERIC_NOT_NEW_REGION",
+      "evidenceIds": [
+        "EV-E19-REPORT"
+      ],
+      "id": "E19",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Q20 sparse/local loses all q; 0/30 candidate wins over normal Single; current authority remains fresh",
+      "result": "Exact components improve both paired E18 paths in 24/30 comparisons",
+      "title": "Canonical component reuse"
+    },
+    {
+      "bottleneck": "Distributed index/provenance/request validation",
+      "classification": "B. VALIDATION COST DISTRIBUTED",
+      "comparisonBoundary": "Separate clean/aggregate/detailed surfaces",
+      "economicFinding": "MEASUREMENT_ONLY",
+      "evidenceIds": [
+        "EV-E20-REPORT"
+      ],
+      "id": "E20",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "No redundant check inferred; strict positional Set FAIL differs from source-faithful PASS",
+      "result": "Clean coarse index resolution largest bounded child",
+      "title": "First-admission census"
+    },
+    {
+      "bottleneck": "Index relation reconstruction to current-order projection",
+      "classification": "B. RELATIONAL RECONSTRUCTION BOTTLENECK REMOVED",
+      "comparisonBoundary": "Single improves 27/30 against component control; actual matched FULL remains control",
+      "economicFinding": "PATH_IMPROVEMENT",
+      "evidenceIds": [
+        "EV-E21-REPORT"
+      ],
+      "id": "E21",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Changed-source fallback loses all q; matched FULL candidate loses all 30; no new region",
+      "result": "Eligible complete relation reused over 63 primary transitions",
+      "title": "Relational evidence reuse"
+    },
+    {
+      "bottleneck": "Representation construction and locator",
+      "classification": "B. REPRESENTATION COST DISTRIBUTED",
+      "comparisonBoundary": "Clean economics kept distinct from diagnostic decomposition",
+      "economicFinding": "MEASUREMENT_ONLY",
+      "evidenceIds": [
+        "EV-E22-REPORT"
+      ],
+      "id": "E22",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Semantic-byte necessity/amplification and causal per-field cost unknown",
+      "result": "Exact spans/dependencies plus separate authority join characterize costs",
+      "title": "Representation census"
+    },
+    {
+      "bottleneck": "Root locator to construction-derived evidence",
+      "classification": "C. GENERIC CONSTRUCTION-EVIDENCE IMPROVEMENT",
+      "comparisonBoundary": "Both Single and FULL improve; exact bytes and authority unchanged",
+      "economicFinding": "GENERIC_NOT_NEW_REGION",
+      "evidenceIds": [
+        "EV-E23-REPORT"
+      ],
+      "id": "E23",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "No cross-generation slot authority; no new differential region",
+      "result": "Current one-shot slot evidence removes final locator on tested hits",
+      "title": "Root seal-slot evidence"
+    },
+    {
+      "bottleneck": "Template scan removed while skeleton scan persists",
+      "classification": "F. PARTIAL-CALL-SITE LIMITED",
+      "comparisonBoundary": "Original opaque encoder and skeleton scan retained",
+      "economicFinding": "NO_REPEATABLE_PRIMARY_GAIN",
+      "evidenceIds": [
+        "EV-E24-REPORT"
+      ],
+      "id": "E24",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "About 99.5% of narrow primary control scan is skeleton; no repeatable primary end-to-end gain",
+      "result": "Template has exact current boundary evidence; skeleton does not",
+      "title": "Component-span evidence"
+    },
+    {
+      "bottleneck": "Residual provenance/index/extraction and temporal guards",
+      "classification": "B. RESIDUAL VALIDATION COST DISTRIBUTED",
+      "comparisonBoundary": "Clean children and observed temporal boundary inventory",
+      "economicFinding": "MEASUREMENT_ONLY",
+      "evidenceIds": [
+        "EV-E25-REPORT"
+      ],
+      "id": "E25",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Changed source makes relation/index largest; repetition does not establish redundancy",
+      "result": "128 pre/post callbacks plus 64 guards per 64 rich admissions remain distinct",
+      "title": "Residual validation census"
+    },
+    {
+      "bottleneck": "Mixed projection/construction/equality/append loop",
+      "classification": "H. MEASUREMENT DECOMPOSITION INCONCLUSIVE",
+      "comparisonBoundary": "Clean broad timers separate from perturbed fine observer scopes",
+      "economicFinding": "MEASUREMENT_ONLY",
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "id": "E26",
+      "interpretation": "POST_HOC_REPORT_SYNTHESIS",
+      "limitation": "Pure CLEAN split, validation-result reuse/authority, removability and net benefit UNKNOWN; no speedup tested",
+      "result": "Persistent relation association coexists with reordered vectors and fresh full work",
+      "title": "Internal-provenance census"
+    }
+  ],
+  "scope": "POST_HOC; separate experiment-local comparisons, not pooled replicates"
+}

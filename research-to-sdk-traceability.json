@@ -1,0 +1,712 @@
+{
+  "canonicalVectors": [
+    {
+      "id": "VECTOR-01",
+      "jsonPointer": "/0",
+      "kind": "SYNTHETIC_CANONICAL_VECTOR",
+      "name": "synthetic-base",
+      "source": "Tests/ChangeFoundationTests/vectors.json",
+      "sourceSha256": "04bd29ae37dfaf0abe3bec0a5483722193f4690c52e39e8c3818a573891d23c3",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "VECTOR-02",
+      "jsonPointer": "/1",
+      "kind": "SYNTHETIC_CANONICAL_VECTOR",
+      "name": "synthetic-order-change",
+      "source": "Tests/ChangeFoundationTests/vectors.json",
+      "sourceSha256": "04bd29ae37dfaf0abe3bec0a5483722193f4690c52e39e8c3818a573891d23c3",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "VECTOR-03",
+      "jsonPointer": "/2",
+      "kind": "SYNTHETIC_CANONICAL_VECTOR",
+      "name": "synthetic-source-change",
+      "source": "Tests/ChangeFoundationTests/vectors.json",
+      "sourceSha256": "04bd29ae37dfaf0abe3bec0a5483722193f4690c52e39e8c3818a573891d23c3",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "VECTOR-04",
+      "jsonPointer": "/3",
+      "kind": "SYNTHETIC_CANONICAL_VECTOR",
+      "name": "synthetic-empty-transition",
+      "source": "Tests/ChangeFoundationTests/vectors.json",
+      "sourceSha256": "04bd29ae37dfaf0abe3bec0a5483722193f4690c52e39e8c3818a573891d23c3",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "VECTOR-05",
+      "jsonPointer": "/4",
+      "kind": "SYNTHETIC_CANONICAL_VECTOR",
+      "name": "synthetic-signed-bounds",
+      "source": "Tests/ChangeFoundationTests/vectors.json",
+      "sourceSha256": "04bd29ae37dfaf0abe3bec0a5483722193f4690c52e39e8c3818a573891d23c3",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "VECTOR-06",
+      "jsonPointer": "/5",
+      "kind": "SYNTHETIC_CANONICAL_VECTOR",
+      "name": "synthetic-empty-domain",
+      "source": "Tests/ChangeFoundationTests/vectors.json",
+      "sourceSha256": "04bd29ae37dfaf0abe3bec0a5483722193f4690c52e39e8c3818a573891d23c3",
+      "status": "EXISTING_RETAINED_PASS"
+    }
+  ],
+  "chains": [
+    {
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-Generation",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-IDENTITY"
+      ],
+      "referenceTests": [
+        "TEST-02",
+        "TEST-06",
+        "TEST-12"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E03-REPORT",
+        "EV-E07-REPORT",
+        "EV-E12-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [
+        "VECTOR-01",
+        "VECTOR-02",
+        "VECTOR-03",
+        "VECTOR-04",
+        "VECTOR-05",
+        "VECTOR-06"
+      ],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-State",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-IDENTITY"
+      ],
+      "referenceTests": [
+        "TEST-11",
+        "TEST-02"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E03-REPORT",
+        "EV-E09-REPORT",
+        "EV-E12-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [
+        "VECTOR-01",
+        "VECTOR-02",
+        "VECTOR-03",
+        "VECTOR-04",
+        "VECTOR-05",
+        "VECTOR-06"
+      ],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-StateID",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "ENGINEERING_DERIVED",
+      "postHocConclusions": [
+        "PH-IDENTITY"
+      ],
+      "referenceTests": [
+        "TEST-10",
+        "TEST-01"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E03-REPORT",
+        "EV-E09-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-Transition",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-IDENTITY"
+      ],
+      "referenceTests": [
+        "TEST-02",
+        "TEST-06"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E07-REPORT",
+        "EV-E09-REPORT",
+        "EV-E12-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [],
+      "classification": "ACCEPT",
+      "contract": "SDK-CandidateTransition",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-ADMISSION"
+      ],
+      "referenceTests": [
+        "TEST-10",
+        "TEST-11",
+        "TEST-06"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E09-REPORT",
+        "EV-E12-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-ConsequentialChange",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-CHANGE"
+      ],
+      "referenceTests": [
+        "TEST-04",
+        "TEST-03",
+        "TEST-02"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E07-REPORT",
+        "EV-E12-REPORT",
+        "EV-E26-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-Evidence",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-PERSISTENCE"
+      ],
+      "referenceTests": [
+        "TEST-08"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E17-REPORT",
+        "EV-E19-REPORT",
+        "EV-E26-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-Relation",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-PERSISTENCE"
+      ],
+      "referenceTests": [
+        "TEST-03",
+        "TEST-04"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E21-REPORT",
+        "EV-E26-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [
+        "VECTOR-01",
+        "VECTOR-02",
+        "VECTOR-03",
+        "VECTOR-04",
+        "VECTOR-05",
+        "VECTOR-06"
+      ],
+      "classification": "INTERNAL_ONLY",
+      "contract": "SDK-Representation",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-EXACTNESS"
+      ],
+      "referenceTests": [
+        "TEST-01"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E19-REPORT",
+        "EV-E22-REPORT",
+        "EV-E23-REPORT",
+        "EV-E24-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-ValidationResult",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "evaluatedCandidateName": "ValidationResult",
+      "implementationName": "VerifiedTransition (unchanged)",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-PERSISTENCE"
+      ],
+      "proposedPublicName": "AdmissionResult",
+      "publicNameOrigin": "ENGINEERING_DERIVED",
+      "referenceTests": [
+        "TEST-02",
+        "TEST-07",
+        "TEST-06"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E17-REPORT",
+        "EV-E25-REPORT",
+        "EV-E26-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-Capability",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-ADMISSION"
+      ],
+      "referenceTests": [
+        "TEST-09",
+        "TEST-07",
+        "TEST-08"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E07-REPORT",
+        "EV-E09-REPORT",
+        "EV-E17-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-Authority",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-ADMISSION"
+      ],
+      "referenceTests": [
+        "TEST-08",
+        "TEST-07",
+        "TEST-06"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E09-REPORT",
+        "EV-E17-REPORT",
+        "EV-E21-REPORT",
+        "EV-E25-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [
+        "VECTOR-01",
+        "VECTOR-02",
+        "VECTOR-03",
+        "VECTOR-04",
+        "VECTOR-05",
+        "VECTOR-06"
+      ],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-Commitment",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-EXACTNESS"
+      ],
+      "referenceTests": [
+        "TEST-01",
+        "TEST-10"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E07-REPORT",
+        "EV-E14-REPORT",
+        "EV-E18-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-CommitResult",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "ENGINEERING_DERIVED",
+      "postHocConclusions": [
+        "PH-ADMISSION"
+      ],
+      "referenceTests": [
+        "TEST-02",
+        "TEST-07",
+        "TEST-05"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E09-REPORT",
+        "EV-E17-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [],
+      "classification": "DEFER",
+      "contract": "SDK-ObjectID",
+      "coverage": "DEFERRED_NO_DIRECT_VECTOR",
+      "origin": "ENGINEERING_DERIVED",
+      "postHocConclusions": [
+        "PH-EXACTNESS"
+      ],
+      "referenceTests": [],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E03-REPORT",
+        "EV-E09-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-EvidenceRoot",
+      "coverage": "DEFERRED_NO_DIRECT_VECTOR",
+      "origin": "ENGINEERING_DERIVED",
+      "postHocConclusions": [
+        "PH-BOUNDARY"
+      ],
+      "referenceTests": [],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E19-REPORT",
+        "EV-E26-REPORT"
+      ]
+    },
+    {
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "contract": "SDK-ReferenceVerifier",
+      "coverage": "EXISTING_BOUNDED_REFERENCE",
+      "origin": "RESEARCH_DERIVED",
+      "postHocConclusions": [
+        "PH-ADMISSION"
+      ],
+      "referenceTests": [
+        "TEST-11",
+        "TEST-10",
+        "TEST-05",
+        "TEST-07"
+      ],
+      "release": "SDK-0.1.x-PROPOSED",
+      "researchFindings": [
+        "EV-E07-REPORT",
+        "EV-E17-REPORT",
+        "EV-E25-REPORT"
+      ]
+    }
+  ],
+  "kind": "RESEARCH_TO_SDK_TRACEABILITY",
+  "limits": [
+    "Traceability completeness is not implementation completeness",
+    "DEFER/INTERNAL_ONLY candidates are not promised public APIs",
+    "Existing runtime tests are new synthetic engineering reference evidence, never private E-series primary data"
+  ],
+  "newExecution": false,
+  "postHocConclusions": [
+    {
+      "evidenceIds": [
+        "EV-E03-REPORT",
+        "EV-E09-REPORT"
+      ],
+      "finding": "Logical state/generation identity differs from storage and current authority",
+      "id": "PH-IDENTITY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E17-REPORT",
+        "EV-E21-REPORT",
+        "EV-E23-REPORT",
+        "EV-E26-REPORT"
+      ],
+      "finding": "Relation, representation, construction, validation result and authority require separate applicability evidence",
+      "id": "PH-PERSISTENCE"
+    },
+    {
+      "evidenceIds": [
+        "EV-E07-REPORT",
+        "EV-E09-REPORT",
+        "EV-E17-REPORT",
+        "EV-E25-REPORT"
+      ],
+      "finding": "Proposal/private current admission/commit remain distinct; repeated use needs currentness and replay rules",
+      "id": "PH-ADMISSION"
+    },
+    {
+      "evidenceIds": [
+        "EV-E14-REPORT",
+        "EV-E18-REPORT",
+        "EV-E19-REPORT",
+        "EV-E23-REPORT"
+      ],
+      "finding": "Exact canonical identity and representation are useful but never self-authorize",
+      "id": "PH-EXACTNESS"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "finding": "E26 does not establish reusable current provenance decision, authority persistence or positive reuse economics",
+      "id": "PH-BOUNDARY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E07-REPORT",
+        "EV-E12-REPORT",
+        "EV-E26-REPORT"
+      ],
+      "finding": "Consequential-change and semantic relation predicates must be named separately from generation/order/history",
+      "id": "PH-CHANGE"
+    }
+  ],
+  "requirementCoverage": [
+    {
+      "limit": "Reference success and +1 generation",
+      "requirement": "valid generation transition",
+      "status": "COVERED_BOUNDED",
+      "testIds": [
+        "TEST-02"
+      ]
+    },
+    {
+      "limit": "Empty change still advances by engineering convention",
+      "requirement": "no consequential change",
+      "status": "COVERED_BOUNDED",
+      "testIds": [
+        "TEST-02"
+      ]
+    },
+    {
+      "limit": "Synthetic entry/value change only",
+      "requirement": "consequential source change",
+      "status": "COVERED_BOUNDED",
+      "testIds": [
+        "TEST-04"
+      ]
+    },
+    {
+      "limit": "Proposal and preverified sibling rechecked",
+      "requirement": "stale generation rejection",
+      "status": "COVERED_BOUNDED",
+      "testIds": [
+        "TEST-06"
+      ]
+    },
+    {
+      "limit": "Consumed ticket in same process only",
+      "requirement": "replay rejection",
+      "status": "COVERED_BOUNDED",
+      "testIds": [
+        "TEST-05"
+      ]
+    },
+    {
+      "limit": "Wrong immediate base commitment/lineage tested; recursive parents not implemented",
+      "requirement": "wrong parent",
+      "status": "PARTIAL",
+      "testIds": [
+        "TEST-10"
+      ]
+    },
+    {
+      "limit": "Wrong lineage field and separate owner rejected; no real branch graph/ancestry model",
+      "requirement": "sibling lineage",
+      "status": "PARTIAL",
+      "testIds": [
+        "TEST-10",
+        "TEST-08"
+      ]
+    },
+    {
+      "limit": "Distinct order, equal ID/value relation",
+      "requirement": "order-only change",
+      "status": "COVERED_BOUNDED",
+      "testIds": [
+        "TEST-03"
+      ]
+    },
+    {
+      "limit": "Synthetic canonical states and relation hashes",
+      "requirement": "relation persists despite representation change",
+      "status": "COVERED_BOUNDED",
+      "testIds": [
+        "TEST-03",
+        "TEST-01"
+      ]
+    },
+    {
+      "limit": "Equal inspectable Evidence with sibling owner cannot confer capability; no generic WitnessValid verifier",
+      "requirement": "structurally valid evidence without current authority",
+      "status": "PARTIAL",
+      "testIds": [
+        "TEST-08"
+      ]
+    },
+    {
+      "limit": "Wrong capability and revocation tested; wall-clock expiration unimplemented/deferred",
+      "requirement": "invalid/expired/revoked authority",
+      "status": "PARTIAL",
+      "testIds": [
+        "TEST-07",
+        "TEST-09"
+      ]
+    },
+    {
+      "limit": "Six fixed-binary vectors, not CBOR",
+      "requirement": "deterministic canonical identity",
+      "status": "COVERED_BOUNDED",
+      "testIds": [
+        "TEST-01"
+      ]
+    },
+    {
+      "limit": "State return, not durable receipt",
+      "requirement": "accepted commit",
+      "status": "COVERED_BOUNDED",
+      "testIds": [
+        "TEST-02",
+        "TEST-04"
+      ]
+    },
+    {
+      "limit": "Expected rejections; no exhaustive fault atomicity proof",
+      "requirement": "rejected commit",
+      "status": "COVERED_BOUNDED",
+      "testIds": [
+        "TEST-05",
+        "TEST-07",
+        "TEST-06"
+      ]
+    }
+  ],
+  "researchBasis": "E01-E26",
+  "status": "PASS_FOR_DOCUMENTED_ORIGIN_AND_COVERAGE_NOT_FULL_IMPLEMENTATION",
+  "testCases": [
+    {
+      "id": "TEST-01",
+      "kind": "SYNTHETIC_REFERENCE_TEST",
+      "method": "testIndependentCanonicalVectors",
+      "source": "Tests/ChangeFoundationTests/FoundationTests.swift",
+      "sourceSha256": "5e64913da5b6d0f7fe54d95ea0b39bf530caa98f75c2d5c70e430ddb70cd1d2c",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "TEST-02",
+      "kind": "SYNTHETIC_REFERENCE_TEST",
+      "method": "testVerifyDoesNotCommitAndEmptyTransitionAdvances",
+      "source": "Tests/ChangeFoundationTests/FoundationTests.swift",
+      "sourceSha256": "5e64913da5b6d0f7fe54d95ea0b39bf530caa98f75c2d5c70e430ddb70cd1d2c",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "TEST-03",
+      "kind": "SYNTHETIC_REFERENCE_TEST",
+      "method": "testRelationPersistsAcrossOrderChange",
+      "source": "Tests/ChangeFoundationTests/FoundationTests.swift",
+      "sourceSha256": "5e64913da5b6d0f7fe54d95ea0b39bf530caa98f75c2d5c70e430ddb70cd1d2c",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "TEST-04",
+      "kind": "SYNTHETIC_REFERENCE_TEST",
+      "method": "testConsequentialSourceChange",
+      "source": "Tests/ChangeFoundationTests/FoundationTests.swift",
+      "sourceSha256": "5e64913da5b6d0f7fe54d95ea0b39bf530caa98f75c2d5c70e430ddb70cd1d2c",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "TEST-05",
+      "kind": "SYNTHETIC_REFERENCE_TEST",
+      "method": "testReplayRejected",
+      "source": "Tests/ChangeFoundationTests/FoundationTests.swift",
+      "sourceSha256": "5e64913da5b6d0f7fe54d95ea0b39bf530caa98f75c2d5c70e430ddb70cd1d2c",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "TEST-06",
+      "kind": "SYNTHETIC_REFERENCE_TEST",
+      "method": "testStaleProposalAndVerifiedSiblingRecheckedAtCommit",
+      "source": "Tests/ChangeFoundationTests/FoundationTests.swift",
+      "sourceSha256": "5e64913da5b6d0f7fe54d95ea0b39bf530caa98f75c2d5c70e430ddb70cd1d2c",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "TEST-07",
+      "kind": "SYNTHETIC_REFERENCE_TEST",
+      "method": "testRevocationBetweenVerifyAndCommit",
+      "source": "Tests/ChangeFoundationTests/FoundationTests.swift",
+      "sourceSha256": "5e64913da5b6d0f7fe54d95ea0b39bf530caa98f75c2d5c70e430ddb70cd1d2c",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "TEST-08",
+      "kind": "SYNTHETIC_REFERENCE_TEST",
+      "method": "testSiblingAuthorityCannotUseIdenticalRepresentation",
+      "source": "Tests/ChangeFoundationTests/FoundationTests.swift",
+      "sourceSha256": "5e64913da5b6d0f7fe54d95ea0b39bf530caa98f75c2d5c70e430ddb70cd1d2c",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "TEST-09",
+      "kind": "SYNTHETIC_REFERENCE_TEST",
+      "method": "testAnotherCurrentCapabilityCannotConsumeTicket",
+      "source": "Tests/ChangeFoundationTests/FoundationTests.swift",
+      "sourceSha256": "5e64913da5b6d0f7fe54d95ea0b39bf530caa98f75c2d5c70e430ddb70cd1d2c",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "TEST-10",
+      "kind": "SYNTHETIC_REFERENCE_TEST",
+      "method": "testWrongLineageAndCommitment",
+      "source": "Tests/ChangeFoundationTests/FoundationTests.swift",
+      "sourceSha256": "5e64913da5b6d0f7fe54d95ea0b39bf530caa98f75c2d5c70e430ddb70cd1d2c",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "TEST-11",
+      "kind": "SYNTHETIC_REFERENCE_TEST",
+      "method": "testInvalidDomainRejectedWithoutMutation",
+      "source": "Tests/ChangeFoundationTests/FoundationTests.swift",
+      "sourceSha256": "5e64913da5b6d0f7fe54d95ea0b39bf530caa98f75c2d5c70e430ddb70cd1d2c",
+      "status": "EXISTING_RETAINED_PASS"
+    },
+    {
+      "id": "TEST-12",
+      "kind": "SYNTHETIC_REFERENCE_TEST",
+      "method": "testGenerationOverflowRejected",
+      "source": "Tests/ChangeFoundationTests/FoundationTests.swift",
+      "sourceSha256": "5e64913da5b6d0f7fe54d95ea0b39bf530caa98f75c2d5c70e430ddb70cd1d2c",
+      "status": "EXISTING_RETAINED_PASS"
+    }
+  ]
+}

@@ -1,0 +1,717 @@
+{
+  "additionalEvaluatedComponent": "ReferenceVerifier, requested in section12",
+  "candidateCount": 17,
+  "candidateStatus": "UNPUBLISHED_SCOPE_REFINEMENT_NO_IMPLEMENTATION_CHANGE",
+  "contracts": [
+    {
+      "authorityImplications": "A generation number never grants rights",
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "An ordered revision within a declared lineage; not a global clock.",
+      "developerPurpose": "Detect stale proposals and state transitions",
+      "engineeringConventions": [
+        "Every successful reference commit advances, including empty change; E12 historical request no-op policy was different and remains unchanged"
+      ],
+      "existingReference": "UInt64 fields; no dedicated Generation type",
+      "generationBinding": "Candidate binds current base; reference next equals base+1",
+      "id": "SDK-Generation",
+      "invalidationConditions": "Current-base applicability ends on advance; overflow rejects",
+      "invariants": [
+        "Never silently reuse a committed generation in a lineage",
+        "Compare generation together with lineage and commitment"
+      ],
+      "knownLimitations": [
+        "UInt64 counter and no-op advancement are engineering choices, not universal research semantics",
+        "No distributed clock or durable restart guarantee"
+      ],
+      "name": "Generation",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "Historical snapshots remain knowledge after advancement",
+      "postHocConclusions": [
+        "PH-IDENTITY"
+      ],
+      "referenceTests": [
+        "TEST-02",
+        "TEST-06",
+        "TEST-12"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E03-REPORT",
+        "EV-E07-REPORT",
+        "EV-E12-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Public State is knowledge, not admitted authority",
+      "canonicalVectors": [
+        "VECTOR-01",
+        "VECTOR-02",
+        "VECTOR-03",
+        "VECTOR-04",
+        "VECTOR-05",
+        "VECTOR-06"
+      ],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "Immutable snapshot with declared content, order, lineage and revision.",
+      "developerPurpose": "Inspect proposed/current data without giving write rights",
+      "engineeringConventions": [
+        "Toy entry schema is engineering-derived; it is not an E26 backing vector"
+      ],
+      "existingReference": "Existing State with canonical sorted entries and separate order",
+      "generationBinding": "Snapshot carries lineage and generation",
+      "id": "SDK-State",
+      "invalidationConditions": "Advancement does not corrupt history; it makes prior state non-current",
+      "invariants": [
+        "Entry IDs unique",
+        "Order is an exact permutation of entry IDs",
+        "Snapshot construction grants no currentness"
+      ],
+      "knownLimitations": [
+        "Synthetic UInt64/Int64 entry domain only",
+        "No tensor/model or arbitrary object graph schema"
+      ],
+      "name": "State",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "Historical snapshot readable; current status belongs to authority",
+      "postHocConclusions": [
+        "PH-IDENTITY"
+      ],
+      "referenceTests": [
+        "TEST-11",
+        "TEST-02"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E03-REPORT",
+        "EV-E09-REPORT",
+        "EV-E12-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "No authority from digest equality",
+      "canonicalVectors": [
+        "VECTOR-01",
+        "VECTOR-02",
+        "VECTOR-03",
+        "VECTOR-04",
+        "VECTOR-05",
+        "VECTOR-06"
+      ],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "Typed state identity scoped by lineage, generation and canonical commitment.",
+      "developerPurpose": "Bind requests and evidence to an exact state",
+      "engineeringConventions": [
+        "Proposed tuple is a public contract design; SHA256 is not collision-free proof"
+      ],
+      "existingReference": "Represented by State fields, not a public wrapper",
+      "generationBinding": "Include lineage and generation in state identity",
+      "id": "SDK-StateID",
+      "invalidationConditions": "Different commitment, revision or lineage changes identity",
+      "invariants": [
+        "Never use a pointer/address as semantic identity",
+        "Identity equality is not current admission"
+      ],
+      "knownLimitations": [
+        "No dedicated StateID type exists",
+        "Global collision/namespace ownership not established"
+      ],
+      "name": "StateID",
+      "origin": "ENGINEERING_DERIVED",
+      "persistenceBehavior": "Stable for exact same declared snapshot",
+      "postHocConclusions": [
+        "PH-IDENTITY"
+      ],
+      "referenceTests": [
+        "TEST-10",
+        "TEST-01"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E03-REPORT",
+        "EV-E09-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "A described transition is not an authorization",
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "A state change considered in relation to an explicit predecessor and successor.",
+      "developerPurpose": "Describe state advancement and eventual audit records",
+      "engineeringConventions": [
+        "Durable transition schema/identifier and cross-process history are deferred"
+      ],
+      "existingReference": "CandidateTransition plus commit-returned State realize a small part",
+      "generationBinding": "From/to revisions have same admitted lineage",
+      "id": "SDK-Transition",
+      "invalidationConditions": "A pending transition fails when its base becomes stale or authority is revoked",
+      "invariants": [
+        "Keep proposal, admission and mutation distinct",
+        "Record predecessor applicability before commit"
+      ],
+      "knownLimitations": [
+        "No durable Transition record/type currently emitted",
+        "No branching or history store implementation"
+      ],
+      "name": "Transition",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "Committed history persists conceptually; current reference stores only current state and consumed-ticket IDs",
+      "postHocConclusions": [
+        "PH-IDENTITY"
+      ],
+      "referenceTests": [
+        "TEST-02",
+        "TEST-06"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E07-REPORT",
+        "EV-E09-REPORT",
+        "EV-E12-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Must be checked with current authority before commit",
+      "canonicalVectors": [],
+      "classification": "ACCEPT",
+      "definition": "Untrusted proposed next content/order plus exact base identity.",
+      "developerPurpose": "Prepare a proposal without mutating current state",
+      "engineeringConventions": [
+        "Specific fields and wire JSON schema are engineering choices"
+      ],
+      "existingReference": "Existing public Codable CandidateTransition",
+      "generationBinding": "lineage, baseGeneration and baseCommitment required",
+      "id": "SDK-CandidateTransition",
+      "invalidationConditions": "Wrong lineage/generation/commitment, invalid domain or exhaustion reject",
+      "invariants": [
+        "Freely constructing/decoding candidate confers no rights",
+        "Validate domain and base before admission"
+      ],
+      "knownLimitations": [
+        "Wire JSON requires integer-preserving decode",
+        "No arbitrary graph witness verification"
+      ],
+      "name": "CandidateTransition",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "Candidate remains inspectable after staleness",
+      "postHocConclusions": [
+        "PH-ADMISSION"
+      ],
+      "referenceTests": [
+        "TEST-10",
+        "TEST-11",
+        "TEST-06"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E09-REPORT",
+        "EV-E12-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Change description never authorizes mutation",
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "Declared semantic consequences of a proposal, separated by named predicate.",
+      "developerPurpose": "Distinguish relation/value change from order-only or no change",
+      "engineeringConventions": [
+        "Boolean representation is bounded reference design; generic region algebra deferred"
+      ],
+      "existingReference": "Existing ConsequentialChange emitted by verification",
+      "generationBinding": "Compare proposed successor with exact base",
+      "id": "SDK-ConsequentialChange",
+      "invalidationConditions": "Recompute change classification against correct base; stale base invalidates prior applicability",
+      "invariants": [
+        "Do not equate numerical equality, dependency equality and history equality",
+        "Name the comparison predicate"
+      ],
+      "knownLimitations": [
+        "Reference only relationChanged/orderChanged booleans",
+        "No selective tensor recomputation or complete dependency delta"
+      ],
+      "name": "ConsequentialChange",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "Empty semantic delta can coexist with new committed generation in this reference",
+      "postHocConclusions": [
+        "PH-CHANGE"
+      ],
+      "referenceTests": [
+        "TEST-04",
+        "TEST-03",
+        "TEST-02"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E07-REPORT",
+        "EV-E12-REPORT",
+        "EV-E26-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Evidence equality does not transfer issuer rights",
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "Inspectable statement about a specified state/relationship, with explicit verification scope.",
+      "developerPurpose": "Exchange inspectable assertions without granting commit permissions",
+      "engineeringConventions": [
+        "Public witness schema and trust policy are intentionally not inferred from E26 layouts"
+      ],
+      "existingReference": "Existing Evidence(stateCommitment, relationCommitment)",
+      "generationBinding": "Bind statement to exact state commitment and relevant context",
+      "id": "SDK-Evidence",
+      "invalidationConditions": "Use against mismatched state/context is inapplicable; forged witness handling depends on verifier profile",
+      "invariants": [
+        "Evidence is not Capability",
+        "A hash alone does not prove current applicability or archival recovery"
+      ],
+      "knownLimitations": [
+        "Current Evidence merely contains two commitments and is freely constructible",
+        "General witness/attestation verifier absent"
+      ],
+      "name": "Evidence",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "Historic evidence may remain valid as history after authority changes",
+      "postHocConclusions": [
+        "PH-PERSISTENCE"
+      ],
+      "referenceTests": [
+        "TEST-08"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E17-REPORT",
+        "EV-E19-REPORT",
+        "EV-E26-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Persistent relation is not persistent current authority",
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "A named association distinct from its traversal or presentation order.",
+      "developerPurpose": "Compare semantic association separately from order",
+      "engineeringConventions": [
+        "Unique-entry map is engineering reduction; preserves distinction, not private representation"
+      ],
+      "existingReference": "Existing Relation(entries) and commitment",
+      "generationBinding": "Reference relation derives from one State; equality may span generations",
+      "id": "SDK-Relation",
+      "invalidationConditions": "Value/association changes invalidate equality; source-driven research eligibility had additional checks",
+      "invariants": [
+        "State exact association predicate and multiplicity policy",
+        "Do not substitute multiset equality for ordered equality silently"
+      ],
+      "knownLimitations": [
+        "Reference relation is unique ID/value mapping, not research coordinate/backing relation",
+        "No generic multigraph or duplicate-occurrence schema"
+      ],
+      "name": "Relation",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "Equal associations can survive order change",
+      "postHocConclusions": [
+        "PH-PERSISTENCE"
+      ],
+      "referenceTests": [
+        "TEST-03",
+        "TEST-04"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E21-REPORT",
+        "EV-E26-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Representation evidence never grants current admission",
+      "canonicalVectors": [
+        "VECTOR-01",
+        "VECTOR-02",
+        "VECTOR-03",
+        "VECTOR-04",
+        "VECTOR-05",
+        "VECTOR-06"
+      ],
+      "classification": "INTERNAL_ONLY",
+      "definition": "Exact chosen serialization/layout of a semantic object.",
+      "developerPurpose": "Keep canonical format explicit without exposing E26 vector internals",
+      "engineeringConventions": [
+        "First-class representation type deferred; documentation remains public"
+      ],
+      "existingReference": "Private Canonical helper; its wire rule is documented",
+      "generationBinding": "Include whichever generation fields the type declares",
+      "id": "SDK-Representation",
+      "invalidationConditions": "Profile/schema/meaning changes require new identity domain or migration",
+      "invariants": [
+        "Version encoding explicitly",
+        "Exact bytes do not imply authority or semantic applicability"
+      ],
+      "knownLimitations": [
+        "No generic public Representation object justified",
+        "Do not expose opaque encoder spans or private one-shot layout capsules"
+      ],
+      "name": "Representation",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "Canonical components may persist only under matching profile and semantics",
+      "postHocConclusions": [
+        "PH-EXACTNESS"
+      ],
+      "referenceTests": [
+        "TEST-01"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E19-REPORT",
+        "EV-E22-REPORT",
+        "EV-E23-REPORT",
+        "EV-E24-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Existing VerifiedTransition combines validation with admitted private capability binding; not pure public validation result",
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "deferredPureConcept": "A pure ValidationResult/VerificationOutcome is deferred until a separately reviewed Verify/Authorize split exists",
+      "definition": "A scoped co-admission outcome binding the checks and current private admission context of a proposed transition; not an authority-free validation result or a commit.",
+      "developerPurpose": "Separate checked proposals from commits",
+      "engineeringConventions": [
+        "Future split result/ticket schemas require contract-impact review; no code change now",
+        "AdmissionResult is a proposed public name; existing code remains VerifiedTransition and its semantics are unchanged"
+      ],
+      "evaluatedCandidateName": "ValidationResult",
+      "existingReference": "Existing private-constructor VerifiedTransition is narrower co-admission ticket",
+      "generationBinding": "Reference VerifiedTransition binds candidate base indirectly plus issuer/capability epoch",
+      "id": "SDK-ValidationResult",
+      "invalidationConditions": "Consumed ticket, stale base, wrong issuer/capability or epoch reject",
+      "invariants": [
+        "Result must state predicate/context and reference base",
+        "Do not infer cross-generation applicability"
+      ],
+      "knownLimitations": [
+        "Generic pure ValidationResult API absent",
+        "No cross-generation provenance-decision reuse proved"
+      ],
+      "name": "ValidationResult",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "Reference ticket remains pending knowledge until consumed/stale/revoked",
+      "postHocConclusions": [
+        "PH-PERSISTENCE"
+      ],
+      "proposedPublicName": "AdmissionResult",
+      "publicNameOrigin": "ENGINEERING_DERIVED",
+      "referenceTests": [
+        "TEST-02",
+        "TEST-07",
+        "TEST-06"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E17-REPORT",
+        "EV-E25-REPORT",
+        "EV-E26-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Capability is permission within trusted bootstrap authority, not user authentication",
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "Privately issued, scoped permission whose validity must be checked at use.",
+      "developerPurpose": "Require possession of current scoped permission at verification and commit",
+      "engineeringConventions": [
+        "UUID identity and epoch are reference engineering choices"
+      ],
+      "existingReference": "Existing non-Codable fileprivate-constructible Capability",
+      "generationBinding": "Reference capability binds authority epoch, not generation; candidate ticket supplies base generation",
+      "id": "SDK-Capability",
+      "invalidationConditions": "Wrong issuer/epoch, revocation, or different capability for ticket rejects",
+      "invariants": [
+        "Do not serialize/reconstruct private rights from public descriptors",
+        "Bind verified ticket to issuing capability identity"
+      ],
+      "knownLimitations": [
+        "Actor holder may issue/revoke; no external identity authentication",
+        "No durable or remote signed capability"
+      ],
+      "name": "Capability",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "May remain current over commits within epoch; ticket is one-use and base-bound",
+      "postHocConclusions": [
+        "PH-ADMISSION"
+      ],
+      "referenceTests": [
+        "TEST-09",
+        "TEST-07",
+        "TEST-08"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E07-REPORT",
+        "EV-E09-REPORT",
+        "EV-E17-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Trusted bootstrap holder owns reference authority; isolation not claimed",
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "A current decision boundary permitted to admit/commit state changes under explicit policy.",
+      "developerPurpose": "Centralize current admission/commit policy",
+      "engineeringConventions": [
+        "Actor serialization is engineering, not a research proof of isolation"
+      ],
+      "existingReference": "Existing ReferenceAuthority actor; no await between commit rechecks and mutation",
+      "generationBinding": "Current actor head and epoch delimit applicability",
+      "id": "SDK-Authority",
+      "invalidationConditions": "Revocation and current-head advancement invalidate affected admissions",
+      "invariants": [
+        "Backend/storage/evidence objects cannot grant authority by themselves",
+        "Recheck currentness before mutation"
+      ],
+      "knownLimitations": [
+        "No microkernel/hardware enforcement, authentication, restart durability or distributed consensus"
+      ],
+      "name": "Authority",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "Authority applicability distinct from historical structure persistence",
+      "postHocConclusions": [
+        "PH-ADMISSION"
+      ],
+      "referenceTests": [
+        "TEST-08",
+        "TEST-07",
+        "TEST-06"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E09-REPORT",
+        "EV-E17-REPORT",
+        "EV-E21-REPORT",
+        "EV-E25-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Digest is knowledge, never permission",
+      "canonicalVectors": [
+        "VECTOR-01",
+        "VECTOR-02",
+        "VECTOR-03",
+        "VECTOR-04",
+        "VECTOR-05",
+        "VECTOR-06"
+      ],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "Digest of a precisely defined, versioned preimage used to bind representation/content.",
+      "developerPurpose": "Detect mismatched base representation and create deterministic fixture identities",
+      "engineeringConventions": [
+        "Specific fixed-width encoding is ENGINEERING_DERIVED, not validated canonical CBOR"
+      ],
+      "existingReference": "Canonical v1 fixed-binary encoding using CryptoKit SHA256",
+      "generationBinding": "State preimage includes lineage and generation; relation preimage intentionally omits them",
+      "id": "SDK-Commitment",
+      "invalidationConditions": "Changing preimage/profile changes expected binding; cryptographic collision freedom not proved",
+      "invariants": [
+        "Name algorithm/domain/preimage rules",
+        "Do not hash Swift native memory layout",
+        "Do not call history-chain or inventory hashes full-state/Merkle proofs"
+      ],
+      "knownLimitations": [
+        "Current public values are lowercase SHA256 strings, not dedicated typed Commitment",
+        "Hash security is library/algorithm reliance"
+      ],
+      "name": "Commitment",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "Same canonical preimage gives same digest within profile",
+      "postHocConclusions": [
+        "PH-EXACTNESS"
+      ],
+      "referenceTests": [
+        "TEST-01",
+        "TEST-10"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E07-REPORT",
+        "EV-E14-REPORT",
+        "EV-E18-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Observed success is not a reusable capability",
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "Explicit outcome distinguishing committed new state from rejected, unchanged authority state.",
+      "developerPurpose": "Make state mutation effects visible to callers",
+      "engineeringConventions": [
+        "Result wrapper design would be new API work, not performed"
+      ],
+      "existingReference": "commit returns State or throws typed Rejection",
+      "generationBinding": "Success returns next generation; failure retains previous state",
+      "id": "SDK-CommitResult",
+      "invalidationConditions": "An outcome cannot be replayed as permission",
+      "invariants": [
+        "Only successful commit may advance current head",
+        "Rejected reference commit must not mutate current state"
+      ],
+      "knownLimitations": [
+        "No dedicated CommitResult type or durable commit receipt",
+        "Broad failure atomicity not formally verified"
+      ],
+      "name": "CommitResult",
+      "origin": "ENGINEERING_DERIVED",
+      "persistenceBehavior": "Outcome can be retained as history, but no durable receipt implementation exists",
+      "postHocConclusions": [
+        "PH-ADMISSION"
+      ],
+      "referenceTests": [
+        "TEST-02",
+        "TEST-07",
+        "TEST-05"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E09-REPORT",
+        "EV-E17-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Object identity does not authorize access",
+      "canonicalVectors": [],
+      "classification": "DEFER",
+      "definition": "Potential canonical semantic object identifier distinct from backend address and storage location.",
+      "developerPurpose": "Future backend/store object addressing",
+      "engineeringConventions": [
+        "Do not promote canonical CBOR or global content address merely to fill API"
+      ],
+      "existingReference": "No canonical ObjectID type; current toy IDs only",
+      "generationBinding": "Object-level and state-version-level identity must not be conflated",
+      "id": "SDK-ObjectID",
+      "invalidationConditions": "Namespace/migration rules unresolved",
+      "invariants": [
+        "Identity domain must be explicit",
+        "Storage location/pointer not identity"
+      ],
+      "knownLimitations": [
+        "No general object schema/global namespace or canonical ObjectID profile validated",
+        "Reference Entry.id and lineage are synthetic integers, not complete ObjectID"
+      ],
+      "name": "ObjectID",
+      "origin": "ENGINEERING_DERIVED",
+      "persistenceBehavior": "Would identify object across revisions under chosen schema",
+      "postHocConclusions": [
+        "PH-EXACTNESS"
+      ],
+      "referenceTests": [],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E03-REPORT",
+        "EV-E09-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "EvidenceRoot grants no runtime/research execution authority",
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "Typed descriptor of an evidence commitment including commitment kind, algorithm and inventory/schema interpretation.",
+      "developerPurpose": "Link SDK release research basis to an immutable acceptance boundary",
+      "engineeringConventions": [
+        "Metadata descriptor is release-engineering convention; primary inventory semantics unchanged"
+      ],
+      "existingReference": "Release provenance can carry E26 canonical inventory SHA256; no runtime API",
+      "generationBinding": "Research acceptance binds exact frozen evidence; runtime generation roots require separately specified profile",
+      "id": "SDK-EvidenceRoot",
+      "invalidationConditions": "Different inventory bytes/membership/schema invalidate same-root claim",
+      "invariants": [
+        "Declare whether inventory, graph, tree or history-chain commitment",
+        "Never relabel canonical inventory SHA256 as Merkle root",
+        "Hash is not backup or authority"
+      ],
+      "knownLimitations": [
+        "Current reference has no EvidenceRoot runtime type",
+        "General proof paths/partial membership verification deferred"
+      ],
+      "name": "EvidenceRoot",
+      "origin": "ENGINEERING_DERIVED",
+      "persistenceBehavior": "Frozen inventory commitment persists as historical evidence identity",
+      "postHocConclusions": [
+        "PH-BOUNDARY"
+      ],
+      "referenceTests": [],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E19-REPORT",
+        "EV-E26-REPORT"
+      ]
+    },
+    {
+      "authorityImplications": "Current verify method checks capability and admissibility together; commit remains distinct",
+      "canonicalVectors": [],
+      "classification": "ACCEPT_WITH_LIMITATIONS",
+      "definition": "Small contract checking candidate domain, immediate base binding and current scoped admission before commit.",
+      "developerPurpose": "Expose bounded rejection behavior without pretending full proof engine",
+      "engineeringConventions": [
+        "ReferenceVerifier is the 17th evaluated component from \u00a712; \u00a78 itself lists 16"
+      ],
+      "existingReference": "ReferenceAuthority.verify/commit implement bounded co-admission verifier",
+      "generationBinding": "Immediate current base only; no recursive parent graph",
+      "id": "SDK-ReferenceVerifier",
+      "invalidationConditions": "Domain/base mismatch, stale generation, replay, revocation and wrong capability reject",
+      "invariants": [
+        "State precisely which validity clauses are implemented",
+        "Failure does not imply repaired evidence or automatic fallback",
+        "Current commit rechecks applicable predicates"
+      ],
+      "knownLimitations": [
+        "General ParentsValid/WitnessValid absent; no formal verification or hardware enforcement"
+      ],
+      "name": "ReferenceVerifier",
+      "origin": "RESEARCH_DERIVED",
+      "persistenceBehavior": "Historical check results do not preserve current authority",
+      "postHocConclusions": [
+        "PH-ADMISSION"
+      ],
+      "referenceTests": [
+        "TEST-11",
+        "TEST-10",
+        "TEST-05",
+        "TEST-07"
+      ],
+      "releaseStatus": "PROPOSED_CONTRACT_NOT_PRODUCTION_SDK",
+      "researchBasis": [
+        "EV-E07-REPORT",
+        "EV-E17-REPORT",
+        "EV-E25-REPORT"
+      ]
+    }
+  ],
+  "foundationAcceptance": "YES_WITH_LIMITATIONS",
+  "kind": "SDK_CONTRACT_CANDIDATE_MATRIX",
+  "normativeInvariant": "Structural persistence does not imply authority persistence",
+  "originDefinitions": {
+    "COMPATIBILITY_DERIVED": "Transport/language adaptation required to preserve semantics; no compatibility-wide test claim",
+    "ENGINEERING_DERIVED": "Explicit design convention not itself experimental finding",
+    "RESEARCH_DERIVED": "Semantic distinction supported by frozen findings; particular API still engineering"
+  },
+  "scope": "Design and provenance; existing bounded reference is not production SDK",
+  "scopeRevision": 2,
+  "section8NamedCandidates": 16,
+  "separateEngineeringChoices": [
+    {
+      "evidence": "Current JSON schemas and six signed-bound/canonical vectors; no JavaScript round-trip claimed",
+      "name": "Integer-preserving JSON transport",
+      "origin": "COMPATIBILITY_DERIVED",
+      "reason": "UInt64/Int64 wire range must not be silently rounded by other-language decoding",
+      "status": "ACCEPT_WITH_LIMITATIONS"
+    },
+    {
+      "name": "Canonical CBOR profile",
+      "origin": "ENGINEERING_DERIVED",
+      "reason": "No retained CBOR implementation, profile, vector suite or semantic equivalence evidence",
+      "status": "DEFER"
+    },
+    {
+      "name": "Swift adapter",
+      "origin": "COMPATIBILITY_DERIVED",
+      "reason": "Apple-native initial implementation; wire semantics remain independent of Swift memory layout and actor syntax",
+      "status": "ACCEPT_WITH_LIMITATIONS"
+    }
+  ]
+}

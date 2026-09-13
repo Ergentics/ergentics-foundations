@@ -1,0 +1,86 @@
+{
+  "ContractSchema": {
+    "file": "sdk-contract-candidates.json",
+    "kind": "Proposed semantic matrix; not complete executable wire schema",
+    "sha256": "ffb7990c2dd5671b162678b0f34d331e1240183f139b26b65a8f8e9f14c5c65f"
+  },
+  "DifferentialValidationGraph": {
+    "primaryEvidence": false,
+    "sha256": "6604678e01136f4ace8192cab792068e9b88c6edbe1215d43fb412e3f4f0aabf"
+  },
+  "E-SeriesStatus": "CLOSED_AFTER_E26",
+  "E26Classification": "H. MEASUREMENT DECOMPOSITION INCONCLUSIVE",
+  "E26EvidenceCommitment": {
+    "algorithm": "SHA-256",
+    "kind": "CANONICAL_INVENTORY_COMMITMENT_NOT_MERKLE_ROOT",
+    "value": "34d3858e8f40e84f2effbba4852de4a0d8a4ff7bc1581280632c6cdee7d41a12"
+  },
+  "E26SpeedupTested": false,
+  "E27Started": false,
+  "ExistingTransportSchemas": [
+    {
+      "file": "schemas/candidate-transition.schema.json",
+      "scope": "Proposal/evidence transport only; not complete SDK wire semantics or authority",
+      "sha256": "9e5106fe90bef2788d73450ffa466671f59a879e607cf4aec3dc833d6a963d0e"
+    },
+    {
+      "file": "schemas/evidence.schema.json",
+      "scope": "Proposal/evidence transport only; not complete SDK wire semantics or authority",
+      "sha256": "60d1cf757cb6029d387a6b360b0ad495493abe1826afe4fa3e556173be361260"
+    }
+  ],
+  "PostHocSynthesis": {
+    "publicEvidenceId": "POSTHOC-E01-E26-CLOSEOUT",
+    "sha256": "d966cbdd232feb96c1370b6d98901e76287f441d9a11d14f82560c53e42aa012"
+  },
+  "ReferenceVectors": {
+    "count": 6,
+    "file": "Tests/ChangeFoundationTests/vectors.json",
+    "retainedResult": "PASS",
+    "sha256": "04bd29ae37dfaf0abe3bec0a5483722193f4690c52e39e8c3818a573891d23c3",
+    "testMethods": 12
+  },
+  "ResearchBasis": "E01-E26",
+  "SDKScope": {
+    "file": "SDK-v0.1-SCOPE.md",
+    "sha256": "aed309f20e1d37988d8b43353484708dd86e3ba6576bbf84de287848d6f666bc"
+  },
+  "SDKVersion": "0.1.x",
+  "ScopeRevision": 2,
+  "Traceability": {
+    "file": "research-to-sdk-traceability.json",
+    "sha256": "088063afbc45be4fe540d611c2e8bb05e26e31b5e32697bbaafe6a5b4548b4f5"
+  },
+  "authorization": "DESIGN_PROVENANCE_ONLY",
+  "economicExhaustion": "UNKNOWN",
+  "foundationAcceptance": "YES_WITH_LIMITATIONS",
+  "futureProjectsBlocked": false,
+  "kind": "SDK_RELEASE_BASIS_PROPOSAL",
+  "knownLimitations": [
+    "No production SDK or general proof/witness verifier",
+    "Pure Verify/Authorize APIs not split in current synthetic reference",
+    "No canonical CBOR/ObjectID profile",
+    "No durable replay/commit recovery, external authentication, hardware isolation or clock expiry",
+    "No backend/store production adapters",
+    "No generalized cross-generation validation-result cache",
+    "No performance or model-quality claim",
+    "Final public tree and repository owner await human publication approval"
+  ],
+  "publication": "NOT_PUSHED; NO_REMOTE_CREATED",
+  "repository": "ergentics-foundations",
+  "role": "Public research-derived evolvable SDK/foundation",
+  "versionSelection": "EXACT_RELEASE_VERSION_NOT_SELECTED",
+  "versioningPolicy": "Candidate SDK-v0.1-SCOPE.md section 1.1; no release published",
+  "License": {
+    "spdxIdentifier": "Apache-2.0",
+    "name": "Apache License, Version 2.0",
+    "file": "LICENSE",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "copyright": "Copyright 2026 Ergentics, LLC",
+    "adoption": "HUMAN_APPROVED_OPTION_C",
+    "coverage": "Candidate code, documentation, schemas and synthetic vectors to the extent licensable rights exist",
+    "customErgenticsCandidateAdopted": false
+  },
+  "PublicationApproval": "HUMAN_PUBLICATION_APPROVAL_REQUIRED",
+  "LicensingRevision": 1
+}

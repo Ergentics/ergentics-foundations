@@ -1,0 +1,67 @@
+# Ergentics Foundations
+
+Ergentics Foundations is a proposed public, research-derived, evolvable SDK/foundation. This unpublished v0.1 scope checkpoint includes a small Swift semantic reference for **State → CandidateTransition → Verify → Commit**, contract extraction, synthetic vectors and a public-safe post-hoc synthesis of E01–E26. It is not a production SDK or a private research archive. The selected repository name is `ergentics-foundations`.
+
+Consequential-change research asks which consequences must be recomputed when state changes, and what exactness, applicability and authority must be established before those consequences can be used. Differential computation includes the cost of discovering changes, maintaining dependencies, storing results, validating reuse and checking output integrity.
+
+“A Delta Processing Unit is an accelerator that computes the consequences of change” describes an execution-model research direction here. No dedicated ΔPU hardware has been established.
+
+## What the research supports
+
+The 26 experiments progressed from first-party optimizer/autodiff boundaries through selective execution, persistent representations, request maintenance, commitments and current validation. Selected sparse, warm and request-only regions produced differential wins against their contemporaneous FULL controls. Arithmetic reduction alone often lost once management and materialization were included. Later representation improvements frequently helped both FULL and differential paths. Source changes reversed some reuse benefits. See the [public synthesis](docs/e01-e26-public-synthesis.md) and [experiment-local dataset](docs/longitudinal-dataset.json) for comparison boundaries and negative results.
+
+E26 is **H. MEASUREMENT DECOMPOSITION INCONCLUSIVE**; no speedup was tested. It concentrates a mixed provenance loop without isolating removable work or establishing reusable validation authority or net benefit. E01–E26 closes here because the evidence no longer uniquely nominates another intervention. There is no E27 in this series. **Economic exhaustion remains UNKNOWN; successor projects are not blocked.**
+
+## What this code does
+
+The reference implements immutable logical state, domain-checked proposals, deterministic canonical commitments, a distinction between order and relation, opaque process-local capabilities, generation-bound verified proposals, fresh commit admission, revocation, and stale/replay rejection. A verified proposal does not mutate state. Commit rechecks authority and currentness without an actor suspension between checks and mutation.
+
+Twelve deterministic XCTest cases include six independently generated canonical vectors and rejection cases. This is a new synthetic semantic reference, not the private benchmark engine or a model. It performs no training, tensor execution or performance benchmark.
+
+On macOS with Swift 6 or newer:
+
+```sh
+swift test --scratch-path ../foundation-build
+```
+
+A bounded example (inside an async Swift context):
+
+```swift
+import ChangeFoundation
+let initial = try State(lineage: 1, generation: 0,
+                        entries: [Entry(id: 1, value: 10)], order: [1])
+let authority = ReferenceAuthority(initial: initial)
+let capability = await authority.issueCapability()
+let proposal = CandidateTransition(lineage: initial.lineage,
+    baseGeneration: initial.generation, baseCommitment: initial.commitment,
+    entries: initial.entries, order: initial.order)
+let checked = try await authority.verify(proposal, using: capability)
+let committed = try await authority.commit(checked, using: capability)
+// committed.generation == 1; checked.change.isEmpty == true
+```
+
+This synthetic empty-content transition still advances the generation. Possession of the actor is trusted issuer access; the example provides no external authentication.
+
+No external package dependencies are fetched. The Swift standard library, Foundation and CryptoKit are execution dependencies. The synthetic vector generator uses Python's standard library solely as an independent byte-encoding/hash reference; it is not a runtime dependency.
+
+## Limits
+
+This is software reference behavior, not formal verification, hardware isolation, authentication, a production service or universal acceleration. The trusted holder of the authority actor can issue capabilities. Capabilities are epoch-scoped; each verified proposal is generation-bound. Commit history is in-memory only. Public evidence, hashes and equality never grant authority. UUID collision resistance and SHA-256 assumptions are not proofs. Resource limits, persistence, distributed concurrency and production hardening are unimplemented.
+
+Primary research evidence remains privately retained and awaits verified archival; this public dataset is a derivative, not a replacement. Private paths, Git history, model data and raw payloads are excluded. Research integrity and runtime authority are separate boundaries.
+
+Start with [architecture](docs/architecture-principles.md), [authority](docs/authority-model.md), [canonical reference](reference/README.md), and the [roadmap](docs/roadmap.md). No later roadmap phase is implemented by this release preparation.
+
+## SDK scope and evolution
+
+The [SDK v0.1 scope](SDK-v0.1-SCOPE.md) separates immutable evidence, versioned interpretation, evolvable contracts and editable implementation. Significant contracts trace through research findings, post-hoc conclusions and synthetic reference coverage into a proposed release basis. Future accepted research can change contracts through an impact review and a new version; it cannot rewrite the provenance of an earlier release.
+
+The retained `ChangeFoundation` module is a tested synthetic prototype, not the final SDK module layout. No new production implementation or later backend work began for this scope amendment.
+
+## License
+
+Copyright 2026 Ergentics, LLC
+
+Licensed under the **Apache License, Version 2.0**. See [LICENSE](LICENSE) for the complete terms and [licensing](docs/licensing.md) for coverage and redistribution guidance. SPDX license identifier: `Apache-2.0`.
+
+Apache-2.0 is the approved license for this candidate's code, documentation, schemas and synthetic vectors, to the extent covered by licensable rights. The custom Ergentics License Candidate 0.1 was not adopted and remains a private historical design/review artifact. License adoption does not approve publication: the exact final tree and repository owner still require human approval. No public Git repository, remote or push has been created by this release preparation.

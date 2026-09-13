@@ -1,0 +1,146 @@
+{
+  "items": [
+    {
+      "classification": "TRANSFER",
+      "evidenceIds": [
+        "EV-E03-REPORT",
+        "EV-E07-REPORT",
+        "EV-E12-REPORT"
+      ],
+      "limit": "Transfer concept and reviewed synthetic interface; not private fixture IDs",
+      "reason": "Small semantic contracts, explicit lineage/currentness and typed change boundaries",
+      "subject": "Generation, state identity, transition and consequential-change distinction"
+    },
+    {
+      "classification": "TRANSFER",
+      "evidenceIds": [
+        "EV-E17-REPORT",
+        "EV-E21-REPORT",
+        "EV-E26-REPORT"
+      ],
+      "limit": "General provenance-result reuse remains unproven",
+      "reason": "Prevent representation/equality from silently granting applicability",
+      "subject": "Evidence, relation, validation result and authority separation"
+    },
+    {
+      "classification": "TRANSFER",
+      "evidenceIds": [
+        "EV-E09-REPORT",
+        "EV-E16-REPORT",
+        "EV-E17-REPORT"
+      ],
+      "limit": "Software reference contract; no hardware enforcement claim",
+      "reason": "Use privately issued current rights and explicit scope; proposal is not commit",
+      "subject": "Capability and private admission boundary"
+    },
+    {
+      "classification": "TRANSFER",
+      "evidenceIds": [
+        "EV-E14-REPORT",
+        "EV-E18-REPORT",
+        "EV-E23-REPORT"
+      ],
+      "limit": "New format is a Foundation contract; do not claim private encoder equivalence",
+      "reason": "Deterministic synthetic canonical format can be independently checked",
+      "subject": "Canonical identity and exact transition vectors"
+    },
+    {
+      "classification": "TRANSFER",
+      "evidenceIds": [
+        "EV-E07-REPORT",
+        "EV-E09-REPORT",
+        "EV-E12-REPORT"
+      ],
+      "limit": "No formal verification or adversarial-memory protection claim",
+      "reason": "Make successful verification and current commit distinct with bounded negative vectors",
+      "subject": "Stale/replay/sibling-lineage rejection and verifier interface"
+    },
+    {
+      "classification": "TRANSFER",
+      "evidenceIds": [
+        "EV-E17-REPORT",
+        "EV-E19-REPORT",
+        "EV-E21-REPORT",
+        "EV-E23-REPORT",
+        "EV-E26-REPORT"
+      ],
+      "limit": "Taxonomy is post-hoc; no universal decay model",
+      "reason": "Expose semantics, relation, representation, construction, decision and authority separately",
+      "subject": "Six persistence classes"
+    },
+    {
+      "classification": "REFERENCE",
+      "evidenceIds": [
+        "EV-E01-REPORT",
+        "EV-E02-REPORT"
+      ],
+      "limit": "Not needed in minimal transition Foundation; no model training",
+      "reason": "Retain numerical regression oracle and provenance",
+      "subject": "Validated first-party optimizer and VJP/reference suites"
+    },
+    {
+      "classification": "REFERENCE",
+      "evidenceIds": [
+        "EV-E04-REPORT",
+        "EV-E05-REPORT",
+        "EV-E18-REPORT",
+        "EV-E24-REPORT"
+      ],
+      "limit": "Do not import all historical modes into active Foundation",
+      "reason": "Preserve correctness/economic oracles with exact tested contracts",
+      "subject": "FULL, selective executor, overlay and exact canonical audit controls"
+    },
+    {
+      "classification": "ARCHIVE",
+      "evidenceIds": [
+        "EV-E19-REPORT",
+        "EV-E20-REPORT",
+        "EV-E26-REPORT"
+      ],
+      "limit": "ARCHIVE is a dependency classification, not proof an external backup exists or permission to remove",
+      "reason": "Authoritative scientific history remains needed for verification",
+      "subject": "E01–E26 raw panels, failures, integrity and acceptance records"
+    },
+    {
+      "classification": "ARCHIVE",
+      "evidenceIds": [
+        "EV-E20-REPORT",
+        "EV-E25-REPORT",
+        "EV-E26-REPORT"
+      ],
+      "limit": "Any required source remains recovery material; no deletion authorized",
+      "reason": "Preserve implementation/measurement lineage without making all machinery active architecture",
+      "subject": "Historical benchmark drivers, observer schemas and prior manuscript versions"
+    },
+    {
+      "classification": "REGENERABLE",
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "limit": "Keep accepted closeout/checkpoint copies; regenerability alone grants no cleanup approval",
+      "reason": "Small non-authoritative export derivatives have declared generation recipe and input identities",
+      "subject": "Post-hoc public graph tables/figures rebuilt from retained synthesis inputs"
+    },
+    {
+      "classification": "UNRESOLVED",
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "limit": "Do not remove; root storage census assigns exact paths separately",
+      "reason": "This conceptual synthesis does not establish archive completeness or sole-copy status",
+      "subject": "Opaque build/cache/model payloads without independently checked recovery boundary"
+    },
+    {
+      "classification": "UNRESOLVED",
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "limit": "Do not import hypothetical optimization as accepted Foundation behavior",
+      "reason": "Current applicability, revocation and net management economics unestablished",
+      "subject": "Cross-generation provenance validation-result cache"
+    }
+  ],
+  "kind": "POST_HOC_SUCCESSOR_DEPENDENCY_CLASSIFICATION",
+  "rule": "Preserve contracts and reference evidence, not accidental implementation history",
+  "scope": "Concepts and artifact classes, not deletion boundary; exact storage units handled by separate census"
+}

@@ -1,0 +1,116 @@
+[
+  {
+    "entries": [
+      {
+        "id": 1,
+        "value": 10
+      },
+      {
+        "id": 2,
+        "value": 20
+      }
+    ],
+    "expectedRelationCommitment": "8d9a2d58f1f7f5f813ca7700127e2db09bada4c7d2cac71269e2b35620cf2815",
+    "expectedStateCommitment": "d9a07b92d21590167b300c10be7410322ecb78ed1a56ee0e531803fe263ccc22",
+    "generation": 0,
+    "lineage": 1,
+    "name": "synthetic-base",
+    "order": [
+      1,
+      2
+    ]
+  },
+  {
+    "entries": [
+      {
+        "id": 2,
+        "value": 20
+      },
+      {
+        "id": 1,
+        "value": 10
+      }
+    ],
+    "expectedRelationCommitment": "8d9a2d58f1f7f5f813ca7700127e2db09bada4c7d2cac71269e2b35620cf2815",
+    "expectedStateCommitment": "82932dd07193fc66bf74450d36599f6e6017cf800a0a7781702a8f4999bb87a1",
+    "generation": 1,
+    "lineage": 1,
+    "name": "synthetic-order-change",
+    "order": [
+      2,
+      1
+    ]
+  },
+  {
+    "entries": [
+      {
+        "id": 1,
+        "value": 11
+      },
+      {
+        "id": 2,
+        "value": 20
+      }
+    ],
+    "expectedRelationCommitment": "2d71f60c8d757af34e10471734028e9f950156954effd27e3930700d139edfe1",
+    "expectedStateCommitment": "2f014f089c0ca0f3c9f6455d3c669fb80f39f7a29689db997f1619692c7e3d98",
+    "generation": 1,
+    "lineage": 1,
+    "name": "synthetic-source-change",
+    "order": [
+      1,
+      2
+    ]
+  },
+  {
+    "entries": [
+      {
+        "id": 1,
+        "value": 10
+      },
+      {
+        "id": 2,
+        "value": 20
+      }
+    ],
+    "expectedRelationCommitment": "8d9a2d58f1f7f5f813ca7700127e2db09bada4c7d2cac71269e2b35620cf2815",
+    "expectedStateCommitment": "dfc8bdb18a18d1cb8568abfe31817c56b2a7892b26b37b71031db5e9b4965269",
+    "generation": 1,
+    "lineage": 1,
+    "name": "synthetic-empty-transition",
+    "order": [
+      1,
+      2
+    ]
+  },
+  {
+    "entries": [
+      {
+        "id": 0,
+        "value": -9223372036854775808
+      },
+      {
+        "id": 18446744073709551615,
+        "value": 9223372036854775807
+      }
+    ],
+    "expectedRelationCommitment": "1e8ae9be425676e787c8e167dd57c0e743c07724f241c903d82f047bb4278439",
+    "expectedStateCommitment": "3bf3026ba802c83065202b425da324b294ece1fcbcc43cad85384a363a0e33c1",
+    "generation": 0,
+    "lineage": 2,
+    "name": "synthetic-signed-bounds",
+    "order": [
+      18446744073709551615,
+      0
+    ]
+  },
+  {
+    "entries": [],
+    "expectedRelationCommitment": "7e4c231979dbdc832d81d2804ba36639293305b243815eec7852e3c91f504fb3",
+    "expectedStateCommitment": "79183bcab4550c2f585b74f9374a381ffb8e0037efbc9b6e58ac2fbdae25298b",
+    "generation": 0,
+    "lineage": 0,
+    "name": "synthetic-empty-domain",
+    "order": []
+  }
+]

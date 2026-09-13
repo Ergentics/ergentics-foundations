@@ -1,0 +1,1709 @@
+{
+  "assertionProvenance": "Every node and edge names one or more stable evidence IDs; private evidence-map binds full SHA256 and line or JSON selector",
+  "edgeTypes": {
+    "AUTHORIZED_BY": "Private authority boundary",
+    "DEPENDS_ON": "Semantic relation dependence",
+    "DERIVED_FROM": "Construction-derived representation evidence",
+    "FOLLOWED_BY": "Historical focus progression; neither causal elimination nor pooled measurement",
+    "INVALIDATED_BY": "Tested conditional eligibility invalidation",
+    "OBSERVED_AT": "Bounded evidence association",
+    "REQUIRES": "Semantic requirement or explicitly unestablished proposed applicability"
+  },
+  "edges": [
+    {
+      "evidenceIds": [
+        "EV-E01-REPORT"
+      ],
+      "from": "E01-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E01",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E01-REPORT"
+      ],
+      "from": "E01-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E01",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E02-REPORT"
+      ],
+      "from": "E02-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E02",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E02-REPORT"
+      ],
+      "from": "E02-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E02",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E03-REPORT"
+      ],
+      "from": "E03-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E03",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E03-REPORT"
+      ],
+      "from": "E03-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E03",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E04-REPORT"
+      ],
+      "from": "E04-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E04",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E04-REPORT"
+      ],
+      "from": "E04-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E04",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E05-REPORT"
+      ],
+      "from": "E05-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E05",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E05-REPORT"
+      ],
+      "from": "E05-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E05",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E06-REPORT"
+      ],
+      "from": "E06-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E06",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E06-REPORT"
+      ],
+      "from": "E06-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E06",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E07-REPORT"
+      ],
+      "from": "E07-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E07",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E07-REPORT"
+      ],
+      "from": "E07-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E07",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E08-REPORT"
+      ],
+      "from": "E08-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E08",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E08-REPORT"
+      ],
+      "from": "E08-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E08",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E09-REPORT"
+      ],
+      "from": "E09-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E09",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E09-REPORT"
+      ],
+      "from": "E09-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E09",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E10-REPORT"
+      ],
+      "from": "E10-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E10",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E10-REPORT"
+      ],
+      "from": "E10-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E10",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E11-REPORT"
+      ],
+      "from": "E11-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E11",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E11-REPORT"
+      ],
+      "from": "E11-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E11",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E12-REPORT"
+      ],
+      "from": "E12-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E12",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E12-REPORT"
+      ],
+      "from": "E12-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E12",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E13-REPORT"
+      ],
+      "from": "E13-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E13",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E13-REPORT"
+      ],
+      "from": "E13-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E13",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E14-REPORT"
+      ],
+      "from": "E14-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E14",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E14-REPORT"
+      ],
+      "from": "E14-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E14",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E15-REPORT"
+      ],
+      "from": "E15-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E15",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E15-REPORT"
+      ],
+      "from": "E15-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E15",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E16-REPORT"
+      ],
+      "from": "E16-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E16",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E16-REPORT"
+      ],
+      "from": "E16-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E16",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E17-REPORT"
+      ],
+      "from": "E17-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E17",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E17-REPORT"
+      ],
+      "from": "E17-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E17",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E18-REPORT"
+      ],
+      "from": "E18-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E18",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E18-REPORT"
+      ],
+      "from": "E18-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E18",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E19-REPORT"
+      ],
+      "from": "E19-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E19",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E19-REPORT"
+      ],
+      "from": "E19-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E19",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E20-REPORT"
+      ],
+      "from": "E20-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E20",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E20-REPORT"
+      ],
+      "from": "E20-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E20",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT"
+      ],
+      "from": "E21-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E21",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT"
+      ],
+      "from": "E21-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E21",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E22-REPORT"
+      ],
+      "from": "E22-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E22",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E22-REPORT"
+      ],
+      "from": "E22-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E22",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E23-REPORT"
+      ],
+      "from": "E23-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E23",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E23-REPORT"
+      ],
+      "from": "E23-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E23",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E24-REPORT"
+      ],
+      "from": "E24-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E24",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E24-REPORT"
+      ],
+      "from": "E24-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E24",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E25-REPORT"
+      ],
+      "from": "E25-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E25",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E25-REPORT"
+      ],
+      "from": "E25-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E25",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "from": "E26-classification",
+      "interpretation": "Report-local classification; labels are not universal categories",
+      "to": "E26",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "from": "E26-focus",
+      "interpretation": "Bounded report focus; not proof this cost dominated every regime",
+      "to": "E26",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E07-REPORT"
+      ],
+      "from": "semantic-state",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E07",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E12-REPORT"
+      ],
+      "from": "semantic-state",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E12",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT"
+      ],
+      "from": "relation",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E21",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "from": "relation",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E26",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E19-REPORT"
+      ],
+      "from": "representation",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E19",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E22-REPORT"
+      ],
+      "from": "representation",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E22",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E23-REPORT"
+      ],
+      "from": "construction",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E23",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E24-REPORT"
+      ],
+      "from": "construction",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E24",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E17-REPORT"
+      ],
+      "from": "current-authority",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E17",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT"
+      ],
+      "from": "current-authority",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E21",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E25-REPORT"
+      ],
+      "from": "current-authority",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E25",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "from": "current-authority",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E26",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "from": "validation-result",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E26",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E17-REPORT"
+      ],
+      "from": "integrity",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E17",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "from": "integrity",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E26",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E10-REPORT"
+      ],
+      "from": "read-plan",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E10",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E11-REPORT"
+      ],
+      "from": "read-plan",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E11",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E12-REPORT"
+      ],
+      "from": "read-plan",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E12",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E08-REPORT"
+      ],
+      "from": "published-state",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E08",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E09-REPORT"
+      ],
+      "from": "published-state",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E09",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT"
+      ],
+      "from": "source-change",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E21",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E25-REPORT"
+      ],
+      "from": "source-change",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E25",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "from": "source-change",
+      "interpretation": "Specific concept discussed/tested within this report; not a universal law",
+      "to": "E26",
+      "type": "OBSERVED_AT"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT",
+        "EV-E26-REPORT"
+      ],
+      "from": "relation",
+      "interpretation": "Reusing structural association requires fresh eligibility/current authority; structure itself grants none",
+      "to": "current-authority",
+      "type": "REQUIRES"
+    },
+    {
+      "evidenceIds": [
+        "EV-E23-REPORT",
+        "EV-E24-REPORT"
+      ],
+      "from": "construction",
+      "interpretation": "Evidence is bound to current construction of the exact representation, not a prior absolute position",
+      "to": "representation",
+      "type": "DERIVED_FROM"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "from": "validation-result",
+      "interpretation": "Applicability of a hypothetical reused provenance decision remains UNKNOWN",
+      "to": "current-authority",
+      "type": "REQUIRES"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT"
+      ],
+      "from": "relation",
+      "interpretation": "Edge records conditional relationship only: consequential source change invalidates relational eligibility in tested changed-source cell; see direction note",
+      "to": "source-change",
+      "type": "INVALIDATED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E10-REPORT",
+        "EV-E21-REPORT"
+      ],
+      "from": "read-plan",
+      "interpretation": "Current read plans use actual coordinate-to-backing relations",
+      "to": "relation",
+      "type": "DEPENDS_ON"
+    },
+    {
+      "evidenceIds": [
+        "EV-E09-REPORT"
+      ],
+      "from": "published-state",
+      "interpretation": "Private current parent/source/producer checks precede publication",
+      "to": "current-authority",
+      "type": "AUTHORIZED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E17-REPORT"
+      ],
+      "from": "validation-result",
+      "interpretation": "Later admitted result hits retain separate output-integrity checks",
+      "to": "integrity",
+      "type": "REQUIRES"
+    },
+    {
+      "evidenceIds": [
+        "EV-E04-REPORT",
+        "EV-E05-REPORT"
+      ],
+      "from": "E04-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E05-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E05-REPORT",
+        "EV-E06-REPORT"
+      ],
+      "from": "E05-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E06-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E06-REPORT",
+        "EV-E07-REPORT"
+      ],
+      "from": "E06-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E07-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E07-REPORT",
+        "EV-E08-REPORT"
+      ],
+      "from": "E07-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E08-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E08-REPORT",
+        "EV-E09-REPORT"
+      ],
+      "from": "E08-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E09-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E09-REPORT",
+        "EV-E10-REPORT"
+      ],
+      "from": "E09-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E10-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E10-REPORT",
+        "EV-E11-REPORT"
+      ],
+      "from": "E10-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E11-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E11-REPORT",
+        "EV-E12-REPORT"
+      ],
+      "from": "E11-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E12-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E12-REPORT",
+        "EV-E13-REPORT"
+      ],
+      "from": "E12-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E13-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E13-REPORT",
+        "EV-E14-REPORT"
+      ],
+      "from": "E13-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E14-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E14-REPORT",
+        "EV-E15-REPORT"
+      ],
+      "from": "E14-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E15-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E15-REPORT",
+        "EV-E16-REPORT"
+      ],
+      "from": "E15-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E16-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E16-REPORT",
+        "EV-E17-REPORT"
+      ],
+      "from": "E16-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E17-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E17-REPORT",
+        "EV-E18-REPORT"
+      ],
+      "from": "E17-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E18-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E18-REPORT",
+        "EV-E19-REPORT"
+      ],
+      "from": "E18-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E19-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E19-REPORT",
+        "EV-E20-REPORT"
+      ],
+      "from": "E19-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E20-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E20-REPORT",
+        "EV-E21-REPORT"
+      ],
+      "from": "E20-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E21-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT",
+        "EV-E22-REPORT"
+      ],
+      "from": "E21-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E22-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E22-REPORT",
+        "EV-E23-REPORT"
+      ],
+      "from": "E22-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E23-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E23-REPORT",
+        "EV-E24-REPORT"
+      ],
+      "from": "E23-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E24-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E24-REPORT",
+        "EV-E25-REPORT"
+      ],
+      "from": "E24-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E25-focus",
+      "type": "FOLLOWED_BY"
+    },
+    {
+      "evidenceIds": [
+        "EV-E25-REPORT",
+        "EV-E26-REPORT"
+      ],
+      "from": "E25-focus",
+      "interpretation": "POST_HOC historical focus progression, not causal disappearance, equality of controls, or a claim that earlier costs vanished",
+      "to": "E26-focus",
+      "type": "FOLLOWED_BY"
+    }
+  ],
+  "kind": "POST_HOC_DIFFERENTIAL_VALIDATION_GRAPH",
+  "nodes": [
+    {
+      "evidenceIds": [
+        "EV-E01-REPORT"
+      ],
+      "id": "E01",
+      "label": "Optimizer equivalence",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E01-REPORT"
+      ],
+      "id": "E01-classification",
+      "label": "PASS; no letter assigned",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E01-REPORT"
+      ],
+      "id": "E01-focus",
+      "label": "Numerical reference boundary",
+      "type": "Validation"
+    },
+    {
+      "evidenceIds": [
+        "EV-E02-REPORT"
+      ],
+      "id": "E02",
+      "label": "First-party reverse mode",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E02-REPORT"
+      ],
+      "id": "E02-classification",
+      "label": "PASS; no letter assigned",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E02-REPORT"
+      ],
+      "id": "E02-focus",
+      "label": "Derivative and accumulation boundary",
+      "type": "Validation"
+    },
+    {
+      "evidenceIds": [
+        "EV-E03-REPORT"
+      ],
+      "id": "E03",
+      "label": "Tensor execution boundary",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E03-REPORT"
+      ],
+      "id": "E03-classification",
+      "label": "Validated local implementation; no letter assigned",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E03-REPORT"
+      ],
+      "id": "E03-focus",
+      "label": "Backend identity and runtime capture",
+      "type": "Validation"
+    },
+    {
+      "evidenceIds": [
+        "EV-E04-REPORT"
+      ],
+      "id": "E04",
+      "label": "Selective execution",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E04-REPORT"
+      ],
+      "id": "E04-classification",
+      "label": "No formal letter; no beneficial region",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E04-REPORT"
+      ],
+      "id": "E04-focus",
+      "label": "Change detection and dense replacement",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E05-REPORT"
+      ],
+      "id": "E05",
+      "label": "Immutable overlays",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E05-REPORT"
+      ],
+      "id": "E05-classification",
+      "label": "Correct for tested cases; not computationally beneficial",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E05-REPORT"
+      ],
+      "id": "E05-focus",
+      "label": "Overlay management and dense consumer",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E06-REPORT"
+      ],
+      "id": "E06",
+      "label": "Locality survival",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E06-REPORT"
+      ],
+      "id": "E06-classification",
+      "label": "Both overhead and dense-consumer cost; intrinsic suitability inconclusive",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E06-REPORT"
+      ],
+      "id": "E06-focus",
+      "label": "Per-operation mediation and dense consumer",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E07-REPORT"
+      ],
+      "id": "E07",
+      "label": "Generation-bound receipts",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E07-REPORT"
+      ],
+      "id": "E07-classification",
+      "label": "A. RECEIPT BREAKTHROUGH, frozen-output scope",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E07-REPORT"
+      ],
+      "id": "E07-focus",
+      "label": "Repeated change rediscovery",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E08-REPORT"
+      ],
+      "id": "E08",
+      "label": "Compact frontier",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E08-REPORT"
+      ],
+      "id": "E08-classification",
+      "label": "A. ACTIVE EXECUTION BREAKTHROUGH",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E08-REPORT"
+      ],
+      "id": "E08-focus",
+      "label": "Per-node execution mediation",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E09-REPORT"
+      ],
+      "id": "E09",
+      "label": "Compact publication",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E09-REPORT"
+      ],
+      "id": "E09-classification",
+      "label": "A. PERSISTENT ACTIVE BREAKTHROUGH",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E09-REPORT"
+      ],
+      "id": "E09-focus",
+      "label": "Publication and persistent consumption",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E10-REPORT"
+      ],
+      "id": "E10",
+      "label": "Indexed reads",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E10-REPORT"
+      ],
+      "id": "E10-classification",
+      "label": "Qualified B. LINEAGE BOTTLENECK REMOVED",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E10-REPORT"
+      ],
+      "id": "E10-focus",
+      "label": "Lineage lookup to read-plan construction",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E11-REPORT"
+      ],
+      "id": "E11",
+      "label": "Incremental plans",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E11-REPORT"
+      ],
+      "id": "E11-classification",
+      "label": "A. INCREMENTAL PLAN BREAKTHROUGH",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E11-REPORT"
+      ],
+      "id": "E11-focus",
+      "label": "Read-plan mapping and encoding",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E12-REPORT"
+      ],
+      "id": "E12",
+      "label": "Request deltas",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E12-REPORT"
+      ],
+      "id": "E12-classification",
+      "label": "A. REQUEST-DELTA BREAKTHROUGH, request-only scope",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E12-REPORT"
+      ],
+      "id": "E12-focus",
+      "label": "Changing-request reconstruction",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E13-REPORT"
+      ],
+      "id": "E13",
+      "label": "Incremental reorder",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E13-REPORT"
+      ],
+      "id": "E13-classification",
+      "label": "C. ORDER-COMMITMENT LIMITED",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E13-REPORT"
+      ],
+      "id": "E13-focus",
+      "label": "Order maintenance to commitment construction",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E14-REPORT"
+      ],
+      "id": "E14",
+      "label": "Exact-root reuse",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E14-REPORT"
+      ],
+      "id": "E14-classification",
+      "label": "E. BOOTSTRAP LIMITED",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E14-REPORT"
+      ],
+      "id": "E14-focus",
+      "label": "Recurring exact encoding to duplicated bootstrap",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E15-REPORT"
+      ],
+      "id": "E15",
+      "label": "Single-construction bootstrap",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E15-REPORT"
+      ],
+      "id": "E15-classification",
+      "label": "B. SINGLE-CONSTRUCTION BOOTSTRAP BOTTLENECK REMOVED",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E15-REPORT"
+      ],
+      "id": "E15-focus",
+      "label": "Duplicate bootstrap to repeated reads",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E16-REPORT"
+      ],
+      "id": "E16",
+      "label": "Requested-result reuse",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E16-REPORT"
+      ],
+      "id": "E16-classification",
+      "label": "D. REUSE-VALIDATION LIMITED",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E16-REPORT"
+      ],
+      "id": "E16-focus",
+      "label": "Repeated numerical consumer to reuse validation",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E17-REPORT"
+      ],
+      "id": "E17",
+      "label": "Sealed read contexts",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E17-REPORT"
+      ],
+      "id": "E17-classification",
+      "label": "E. OUTPUT-INTEGRITY LIMITED, recurring hits",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E17-REPORT"
+      ],
+      "id": "E17-focus",
+      "label": "Structural hit checks to output integrity; first seal remains",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E18-REPORT"
+      ],
+      "id": "E18",
+      "label": "Single metadata sealing",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E18-REPORT"
+      ],
+      "id": "E18-classification",
+      "label": "C. GENERIC CANONICAL-CONSTRUCTION IMPROVEMENT",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E18-REPORT"
+      ],
+      "id": "E18-focus",
+      "label": "Duplicate full serialization to first construction",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E19-REPORT"
+      ],
+      "id": "E19",
+      "label": "Canonical component reuse",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E19-REPORT"
+      ],
+      "id": "E19-classification",
+      "label": "C. GENERIC CANONICAL COMPONENT REUSE IMPROVEMENT",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E19-REPORT"
+      ],
+      "id": "E19-focus",
+      "label": "Repeated handle encoding to scans/assembly/eligibility",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E20-REPORT"
+      ],
+      "id": "E20",
+      "label": "First-admission census",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E20-REPORT"
+      ],
+      "id": "E20-classification",
+      "label": "B. VALIDATION COST DISTRIBUTED",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E20-REPORT"
+      ],
+      "id": "E20-focus",
+      "label": "Distributed index/provenance/request validation",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT"
+      ],
+      "id": "E21",
+      "label": "Relational evidence reuse",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT"
+      ],
+      "id": "E21-classification",
+      "label": "B. RELATIONAL RECONSTRUCTION BOTTLENECK REMOVED",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT"
+      ],
+      "id": "E21-focus",
+      "label": "Index relation reconstruction to current-order projection",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E22-REPORT"
+      ],
+      "id": "E22",
+      "label": "Representation census",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E22-REPORT"
+      ],
+      "id": "E22-classification",
+      "label": "B. REPRESENTATION COST DISTRIBUTED",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E22-REPORT"
+      ],
+      "id": "E22-focus",
+      "label": "Representation construction and locator",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E23-REPORT"
+      ],
+      "id": "E23",
+      "label": "Root seal-slot evidence",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E23-REPORT"
+      ],
+      "id": "E23-classification",
+      "label": "C. GENERIC CONSTRUCTION-EVIDENCE IMPROVEMENT",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E23-REPORT"
+      ],
+      "id": "E23-focus",
+      "label": "Root locator to construction-derived evidence",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E24-REPORT"
+      ],
+      "id": "E24",
+      "label": "Component-span evidence",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E24-REPORT"
+      ],
+      "id": "E24-classification",
+      "label": "F. PARTIAL-CALL-SITE LIMITED",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E24-REPORT"
+      ],
+      "id": "E24-focus",
+      "label": "Template scan removed while skeleton scan persists",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E25-REPORT"
+      ],
+      "id": "E25",
+      "label": "Residual validation census",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E25-REPORT"
+      ],
+      "id": "E25-classification",
+      "label": "B. RESIDUAL VALIDATION COST DISTRIBUTED",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E25-REPORT"
+      ],
+      "id": "E25-focus",
+      "label": "Residual provenance/index/extraction and temporal guards",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "id": "E26",
+      "label": "Internal-provenance census",
+      "type": "Experiment"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "id": "E26-classification",
+      "label": "H. MEASUREMENT DECOMPOSITION INCONCLUSIVE",
+      "type": "Classification"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "id": "E26-focus",
+      "label": "Mixed projection/construction/equality/append loop",
+      "type": "Bottleneck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E07-REPORT",
+        "EV-E12-REPORT"
+      ],
+      "id": "semantic-state",
+      "interpretation": "POST_HOC_CONCEPT",
+      "label": "Semantic state can differ from generation/history identity",
+      "type": "State"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT",
+        "EV-E26-REPORT"
+      ],
+      "id": "relation",
+      "interpretation": "POST_HOC_CONCEPT",
+      "label": "Association persistence does not require ordered vector equality",
+      "type": "Relation"
+    },
+    {
+      "evidenceIds": [
+        "EV-E19-REPORT",
+        "EV-E22-REPORT"
+      ],
+      "id": "representation",
+      "interpretation": "POST_HOC_CONCEPT",
+      "label": "Exact canonical component reuse is distinct from current admission",
+      "type": "Representation"
+    },
+    {
+      "evidenceIds": [
+        "EV-E23-REPORT",
+        "EV-E24-REPORT"
+      ],
+      "id": "construction",
+      "interpretation": "POST_HOC_CONCEPT",
+      "label": "Current construction can supply bounded one-shot exact evidence",
+      "type": "ConstructionEvidence"
+    },
+    {
+      "evidenceIds": [
+        "EV-E17-REPORT",
+        "EV-E21-REPORT",
+        "EV-E25-REPORT",
+        "EV-E26-REPORT"
+      ],
+      "id": "current-authority",
+      "interpretation": "POST_HOC_CONCEPT",
+      "label": "Current private/generation applicability must still be established",
+      "type": "Authority"
+    },
+    {
+      "evidenceIds": [
+        "EV-E26-REPORT"
+      ],
+      "id": "validation-result",
+      "interpretation": "POST_HOC_CONCEPT",
+      "label": "General cross-generation provenance validation-result reuse remains unestablished",
+      "type": "ValidationResult"
+    },
+    {
+      "evidenceIds": [
+        "EV-E17-REPORT",
+        "EV-E26-REPORT"
+      ],
+      "id": "integrity",
+      "interpretation": "POST_HOC_CONCEPT",
+      "label": "Output integrity remains a separate recurring-hit obligation",
+      "type": "IntegrityCheck"
+    },
+    {
+      "evidenceIds": [
+        "EV-E10-REPORT",
+        "EV-E11-REPORT",
+        "EV-E12-REPORT"
+      ],
+      "id": "read-plan",
+      "interpretation": "POST_HOC_CONCEPT",
+      "label": "Read-plan reconstruction can be maintained incrementally in bounded cases",
+      "type": "Plan"
+    },
+    {
+      "evidenceIds": [
+        "EV-E08-REPORT",
+        "EV-E09-REPORT"
+      ],
+      "id": "published-state",
+      "interpretation": "POST_HOC_CONCEPT",
+      "label": "Persistent publication and actual reads change the economic boundary",
+      "type": "Publication"
+    },
+    {
+      "evidenceIds": [
+        "EV-E21-REPORT",
+        "EV-E25-REPORT",
+        "EV-E26-REPORT"
+      ],
+      "id": "source-change",
+      "interpretation": "POST_HOC_CONCEPT",
+      "label": "Consequential source change can invalidate relational eligibility",
+      "type": "Transition"
+    }
+  ],
+  "primaryEvidence": false,
+  "schemaVersion": 1,
+  "scope": "Curated report-grounded claims; not a full runtime DAG, causal model, authority grant or new experiment",
+  "temporalPooling": false
+}

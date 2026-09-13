@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "evidence",
+  "description": "Knowledge/proposal transport only. Runtime validation required; confers no authority. Integer-preserving parsing required.",
+  "type": "object",
+  "properties": {
+    "stateCommitment": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "relationCommitment": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "required": [
+    "stateCommitment",
+    "relationCommitment"
+  ],
+  "additionalProperties": false
+}
