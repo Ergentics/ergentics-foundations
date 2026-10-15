@@ -1,6 +1,7 @@
 # Reader and Swift checks for the maintenance branch.
 # A green run matches the committed vectors. It is not an authority proof.
-# This repository only allows Actions owned by Ergentics, so checkout is a git fetch.
+# GitHub Actions here must be owned by Ergentics and pinned to a full SHA.
+# actions/checkout is not eligible, so checkout is a git fetch.
 name: check
 
 on:
