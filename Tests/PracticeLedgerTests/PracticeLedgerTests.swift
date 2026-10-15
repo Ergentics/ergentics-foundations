@@ -149,7 +149,12 @@ import XCTest
         let before = try await ledger.snapshot()
         let ticket = try await ledger.verifySamePayload(using: capability)
         XCTAssertTrue(ticket.change.isEmpty)
-        let after = try await ledger.commit(ticket, using: capability)
+        let recorded = try await ledger.commitRecording(ticket, using: capability)
+        let after = recorded.snapshot
+        XCTAssertEqual(recorded.previous, before.stateID)
+        XCTAssertEqual(recorded.successor, after.stateID)
+        XCTAssertEqual(recorded.previous.generation &+ 1, recorded.successor.generation)
+        XCTAssertTrue(recorded.change.isEmpty)
         XCTAssertEqual(after.generation, 1)
         XCTAssertEqual(after.events, before.events)
         XCTAssertEqual(after.relationCommitment, before.relationCommitment)

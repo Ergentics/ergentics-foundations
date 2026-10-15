@@ -57,6 +57,23 @@ import XCTest
         await expect(.invalidCapability) { _ = try await b.commit(ticket, using: other) }
     }
 
+    func testCommitRecordingNamesPredecessorAndSuccessor() async throws {
+        let s = try initial()
+        let owner = ReferenceAuthority(initial: s)
+        let cap = await owner.issueCapability()
+        let ticket = try await owner.verify(proposal(s), using: cap)
+        let recorded = try await owner.commitRecording(ticket, using: cap)
+        XCTAssertEqual(recorded.previous, s.stateID)
+        XCTAssertEqual(recorded.successor, recorded.committed.stateID)
+        XCTAssertEqual(recorded.previous.generation &+ 1, recorded.successor.generation)
+        XCTAssertTrue(recorded.change.isEmpty)
+        XCTAssertEqual(recorded.committed.relation.commitment, s.relation.commitment)
+        XCTAssertNotEqual(recorded.previous, recorded.successor)
+        await expect(.replay) { _ = try await owner.commitRecording(ticket, using: cap) }
+        let after = await owner.snapshot()
+        XCTAssertEqual(after, recorded.committed)
+    }
+
     func testVerifyDoesNotCommitAndEmptyTransitionAdvances() async throws {
         let s = try initial(); let owner = ReferenceAuthority(initial: s)
         let cap = await owner.issueCapability(); let ticket = try await owner.verify(proposal(s), using: cap)

@@ -62,7 +62,25 @@ public actor PracticeLedger {
     /// Recheck the ticket and, if it is current, advance the log. The returned snapshot is
     /// decoded from the committed state, not from the caller's copy of the event.
     public func commit(_ verified: VerifiedTransition, using capability: Capability) async throws -> PracticeSnapshot {
-        let next = try await authority.commit(verified, using: capability)
-        return try PracticeEncoding.snapshot(from: next)
+        try await commitRecording(verified, using: capability).snapshot
     }
+
+    /// The same mutation as `commit`, plus the predecessor id and the change flags.
+    /// The record is not kept on the ledger.
+    public func commitRecording(
+        _ verified: VerifiedTransition, using capability: Capability
+    ) async throws -> PracticeCommit {
+        let recorded = try await authority.commitRecording(verified, using: capability)
+        let snapshot = try PracticeEncoding.snapshot(from: recorded.committed)
+        return PracticeCommit(previous: recorded.previous, snapshot: snapshot, change: recorded.change)
+    }
+}
+
+/// A practice commit that already happened. Holding it does not authorize another append.
+public struct PracticeCommit: Equatable, Sendable {
+    public let previous: StateID
+    public let snapshot: PracticeSnapshot
+    public let change: ConsequentialChange
+
+    public var successor: StateID { snapshot.stateID }
 }

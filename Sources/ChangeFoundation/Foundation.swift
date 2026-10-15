@@ -109,6 +109,22 @@ public final class VerifiedTransition: Sendable {
     }
 }
 
+/// A description of a commit that already happened. It is not a ticket and it is not stored.
+/// Constructing one does not authorize another commit.
+public struct CommittedTransition: Equatable, Sendable {
+    public let previous: StateID
+    public let committed: State
+    public let change: ConsequentialChange
+
+    public var successor: StateID { committed.stateID }
+
+    public init(previous: StateID, committed: State, change: ConsequentialChange) {
+        self.previous = previous
+        self.committed = committed
+        self.change = change
+    }
+}
+
 /// A bounded, single-process software reference. The holder of this actor is the
 /// trusted bootstrap issuer. This is not authentication or hardware isolation.
 public actor ReferenceAuthority {
@@ -147,7 +163,16 @@ public actor ReferenceAuthority {
                                         orderChanged: next.order != current.order))
     }
     public func commit(_ verified: VerifiedTransition, using capability: Capability) throws -> State {
-        // No suspension occurs between authority/currentness checks and update.
+        try commitRecording(verified, using: capability).committed
+    }
+
+    /// The same mutation as `commit`, plus the predecessor and successor ids.
+    /// No suspension occurs between the checks and the update. The returned value is not retained.
+    public func commitRecording(
+        _ verified: VerifiedTransition, using capability: Capability
+    ) throws -> CommittedTransition {
+        let previous = current.stateID
+        let change = verified.change
         try check(capability)
         guard verified.issuer == issuer, verified.epoch == epoch,
               verified.capabilityID == capability.id else { throw Rejection.invalidCapability }
@@ -155,7 +180,7 @@ public actor ReferenceAuthority {
         let next = try resolve(verified.candidate)
         consumed.insert(verified.id)
         current = next
-        return next
+        return CommittedTransition(previous: previous, committed: next, change: change)
     }
 }
 

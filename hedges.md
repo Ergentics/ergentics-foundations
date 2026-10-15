@@ -14,6 +14,8 @@ A hash is a commitment to the stated bytes. It is not a proof of collision resis
 
 `OracleAdmission` can abstain or return a verified ticket. Abstaining does not call the ledger. The ticket still has to be committed. Verification does not append.
 
+`CommittedTransition` and `PracticeCommit` describe a commit that already happened in this process. They name the predecessor id, the successor id, and the change flags. They are not retained as a log, and holding one does not authorize another commit. `commit` is that same mutation and returns only the resulting state or snapshot.
+
 Witness agreement is a count of distinct family names and a check that a dependency id is not shared. It is not a proof that the witnesses used different mathematics. `safety_class` is not implemented here.
 
 ## A moment is not a position
