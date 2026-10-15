@@ -11,3 +11,5 @@ The JSON transport represents UInt64/Int64 numbers exactly in Swift and Python. 
 `make_practice_vectors.py` builds the separate `PL-LOG-v1` practice-log profile, chunks it into this same state carrier, and writes `Tests/PracticeLedgerTests/vectors.json`. It does not replace the six vectors above. The practice profile is specified in [the practice ledger note](../docs/practice-ledger.md).
 
 `make_oracle_vectors.py` writes the oracle-admission decision table used by `Tests/OracleAdmissionTests/vectors.json`. It decides verdicts only. It does not hash state.
+
+`rust/commitment-reader` 0.1.0 reads the state and practice vector files this directory's scripts produce and checks the hex exactly. Its WASM build hashes the same bytes off-process. It does not replace these scripts.

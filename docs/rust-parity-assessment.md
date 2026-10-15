@@ -2,7 +2,7 @@
 
 The earlier note treated `swift-ffi-demo/` in the Rust repository as MasteryKit's Swift–Rust bridge. That was the wrong artifact. MasteryKit does not call UniFFI. It calls for parity with a named Rust reference, and the oracle policy names WASM as an external checker. This note replaces that reading.
 
-Decision for this maintenance line: **Python stays the external oracle. Rust parity, when added, is a pinned vector file, exact on these bytes. WASM would host that checker outside the Swift process. Neither is a library linked into `PracticeLedger`.**
+Decision for this maintenance line: **`commitment-reader` 0.1.0 is that reader.** Python wrote the vectors. Rust recomputes them and must match exactly. The same crate builds to `wasm32-unknown-unknown` and hashes those bytes outside the Swift process. Swift still ships the ledger. The reader does not issue capabilities or commit.
 
 ## What MasteryKit actually checks
 
@@ -36,8 +36,18 @@ Do not add UniFFI so Swift can call a Rust encoder. That would make the producti
 
 Do not compile the ledger to WASM. Authority, capabilities, and tickets are process-local on purpose. A WASM port of `ReferenceAuthority` would look like a second issuer.
 
-## When Rust or WASM is the next piece
+## The reader that is now in the tree
 
-A Rust reader of `PL-LOG-v1` and `CF-STATE-v1` is the FSRS-shaped step: a named crate version, vectors committed in this repo, exact equality with the files Python already writes. Swift keeps shipping the ledger.
+`rust/commitment-reader` is version **0.1.0**. `Cargo.lock` pins `sha2` 0.10.8. The tests name the two vector files and require exact hex, including the signed `u64`/`i64` bounds and the UTF-8 skill id `café`.
 
-WASM is how that reader would run off-process if a browser or a sandbox has to check a commitment without the Swift toolchain. The bytes it hashes are the same bytes. The module it loads is not the authority.
+```sh
+cd rust/commitment-reader
+cargo test
+rustup target add wasm32-unknown-unknown
+cargo build --release --target wasm32-unknown-unknown
+node wasm-check.mjs
+```
+
+`cargo test` checks all six state vectors and all five practice vectors. `wasm-check.mjs` loads the wasm module and checks two of those hashes: the synthetic base state, and the empty practice log at generation 0. The call packing is big-endian fields at the boundary. The bytes under the hash are still `CF-STATE-v1` and `PL-LOG-v1`.
+
+The module exports `cf_state_commitment_hex` and `pl_state_commitment_hex`. It does not export an authority, a capability, or a commit.
