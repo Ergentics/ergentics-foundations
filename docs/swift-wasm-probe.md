@@ -20,6 +20,12 @@ swift build -c release --swift-sdk swift-6.4.1-RELEASE_wasm --product Commitment
 node reference/swift-wasm-check.mjs /tmp/foundation-wasm/out/Products/Release-webassembly-wasm32/CommitmentProbe.wasm
 ```
 
-Both the native binary and the WASI module print `d9a07b92d21590167b300c10be7410322ecb78ed1a56ee0e531803fe263ccc22`, the synthetic-base vector. The release module is about 60 MB because it links the Swift WASI runtime and the whole `ChangeFoundation` module. The Rust reader’s `wasm32-unknown-unknown` module is about 50 KB and does not contain the Swift ledger.
+The check host is Node 26.12.0. Importing `node:wasi` prints this on stderr and still exits 0 when the hash matches:
+
+```
+ExperimentalWarning: WASI is an experimental feature and might change at any time
+```
+
+Both the native binary and the WASI module print `d9a07b92d21590167b300c10be7410322ecb78ed1a56ee0e531803fe263ccc22`, the synthetic-base vector. The warning is not a second result. The release module is about 60 MB because it links the Swift WASI runtime and the whole `ChangeFoundation` module. The Rust reader’s `wasm32-unknown-unknown` module is about 50 KB and does not contain the Swift ledger.
 
 `ChangeFoundation` is one module, so the probe binary contains the actor’s code even though the probe never calls it. That is not a second issuer. A WASM port of `ReferenceAuthority` is still not the design. The external WASM checker remains `commitment-reader`.

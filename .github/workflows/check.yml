@@ -40,6 +40,14 @@ jobs:
       - name: Build wasm32 reader
         working-directory: rust/commitment-reader
         run: cargo build --locked --release --target wasm32-unknown-unknown
+      # Node 26.12.0 is the Current release. ubuntu-latest still defaults to Node 22.
+      - name: Install Node 26.12.0
+        run: |
+          curl -fsSL -o /tmp/node-v26.12.0-linux-x64.tar.xz https://nodejs.org/dist/v26.12.0/node-v26.12.0-linux-x64.tar.xz
+          echo "fd47865ecd6391ebb431fc815e01b9135bf83ded5cf373247e9331e196b7aded  /tmp/node-v26.12.0-linux-x64.tar.xz" | sha256sum -c -
+          tar -xJf /tmp/node-v26.12.0-linux-x64.tar.xz -C /tmp
+          echo "/tmp/node-v26.12.0-linux-x64/bin" >> "$GITHUB_PATH"
+          /tmp/node-v26.12.0-linux-x64/bin/node --version
       - name: Check two hashes from the wasm module
         working-directory: rust/commitment-reader
         run: node wasm-check.mjs
