@@ -40,6 +40,10 @@ The holder of `ReferenceAuthority` or `PracticeLedger` can issue capabilities. T
 
 CodeQL's default setup on `main`, including the Swift slot named `/language:swift`, is GitHub's scan. It is not a file in this repository and not a gate for the package. The summary can warn that the Swift configuration is missing while Autobuild is still running. That warning is not a failed `swift test`.
 
+## Agreement is not ordered reuse
+
+`TargetContinuity` keeps ordered vector equality, multiset equality, and common occurrence/backing agreement as separate counts from `EV-E26-CONTINUITY`. The twelve rows repeat across two sweeps and three observer levels. They are per-process transition and occurrence counts. They are not independent replicates, and the three predicates are not one equality. Multiset equality and a complete common-agreement ratio do not license reuse of the ordered validation product. This type records the retained table. It does not rerun E26 and it does not report a speedup.
+
 ## The index is not the store
 
 `traceability/` loads ResearchFinding, PostHocConclusion, SDKContract, reference vector and test, and SDKRelease from the committed JSON. SQLite is the local index. It is not R2, not an ObjectID, and not a canonical CBOR profile. A primary key is not a `StateID`. Nothing in that app commits. An empty vector or test list is zero links, and zero links are not proof. `PASS_FOR_DOCUMENTED_ORIGIN_AND_COVERAGE_NOT_FULL_IMPLEMENTATION` can hold while implementation is partial. `YES_WITH_LIMITATIONS` is the stored acceptance from `sdk-release-basis.json`, not a count of contracts. Deleting rows leaves the JSON unchanged.

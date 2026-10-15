@@ -12,4 +12,6 @@ The JSON transport represents UInt64/Int64 numbers exactly in Swift and Python. 
 
 `make_oracle_vectors.py` writes the oracle-admission decision table used by `Tests/OracleAdmissionTests/vectors.json`. It decides verdicts only. It does not hash state.
 
+`check_continuity.py` reads `docs/longitudinal-dataset.json` and checks the twelve `EV-E26-CONTINUITY` rows. It does not rerun E26 or pool the sweeps.
+
 `rust/commitment-reader` 0.1.0 reads the state and practice vector files this directory's scripts produce and checks the hex exactly. Its WASM build hashes the same bytes off-process. It does not replace these scripts.

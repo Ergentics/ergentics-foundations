@@ -89,3 +89,16 @@ jobs:
         run: |
           bundle install
           bin/rails test
+
+  continuity:
+    name: E26 continuity counts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        run: |
+          git init .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch --depth 1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+      - name: Check retained counts
+        run: python3 reference/check_continuity.py

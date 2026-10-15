@@ -1,0 +1,85 @@
+import XCTest
+@testable import ChangeFoundation
+
+@MainActor final class ContinuityTests: XCTestCase {
+    func count(_ matched: UInt64, _ denominator: UInt64) throws -> PredicateCount {
+        try PredicateCount(matched: matched, denominator: denominator)
+    }
+
+    func primary(sweep: Int = 1, level: ObserverLevel = .aggregate) throws -> TargetContinuity {
+        try TargetContinuity(
+            sweep: sweep, level: level, cell: .primary,
+            ordered: count(0, 63), multiset: count(63, 63), commonAgreement: count(65457, 65457))
+    }
+
+    func changedSource(sweep: Int = 1, level: ObserverLevel = .aggregate) throws -> TargetContinuity {
+        try TargetContinuity(
+            sweep: sweep, level: level, cell: .changedSource,
+            ordered: count(0, 63), multiset: count(0, 63), commonAgreement: count(64323, 65457))
+    }
+
+    func testCompleteUnorderedCountsDoNotLicenseOrderedReuse() async throws {
+        let row = try primary()
+        XCTAssertFalse(row.ordered.complete)
+        XCTAssertTrue(row.multiset.complete)
+        XCTAssertTrue(row.commonAgreement.complete)
+        XCTAssertFalse(row.unorderedAgreementLicensesOrderedReuse)
+        XCTAssertFalse(row.commonAssociationLicensesOrderedReuse)
+        XCTAssertNotEqual(row.ordered.denominator, row.commonAgreement.denominator)
+    }
+
+    func testChangedSourceAgreementDoesNotLicenseOrderedReuse() async throws {
+        let row = try changedSource()
+        XCTAssertFalse(row.ordered.complete)
+        XCTAssertFalse(row.multiset.complete)
+        XCTAssertFalse(row.commonAgreement.complete)
+        XCTAssertEqual(row.commonAgreement.matched, 64323)
+        XCTAssertEqual(row.commonAgreement.denominator, 65457)
+        XCTAssertFalse(row.unorderedAgreementLicensesOrderedReuse)
+        XCTAssertFalse(row.commonAssociationLicensesOrderedReuse)
+    }
+
+    func testRetainedTableRepeatsTheSameCountsAtEachSweepAndLevel() async throws {
+        let root = URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+        let url = root.appendingPathComponent("docs/longitudinal-dataset.json")
+        let before = try Data(contentsOf: url)
+        let table = try E26ContinuityTable(decoding: before)
+        XCTAssertEqual(try Data(contentsOf: url), before)
+        XCTAssertEqual(table.rows.count, 12)
+        XCTAssertFalse(TargetContinuity.countsAreIndependentReplicates)
+        XCTAssertFalse(TargetContinuity.predicatesAreTheSameEquality)
+
+        let levels: [ObserverLevel] = [.aggregate, .clean, .diagnostic]
+        for sweep in [1, 2] {
+            for level in levels {
+                let rows = table.rows.filter { $0.sweep == sweep && $0.level == level }
+                XCTAssertEqual(rows.count, 2)
+                let primaryRow = try XCTUnwrap(rows.first { $0.cell == .primary })
+                let changed = try XCTUnwrap(rows.first { $0.cell == .changedSource })
+                XCTAssertEqual(primaryRow, try primary(sweep: sweep, level: level))
+                XCTAssertEqual(changed, try changedSource(sweep: sweep, level: level))
+                XCTAssertFalse(primaryRow.unorderedAgreementLicensesOrderedReuse)
+                XCTAssertFalse(primaryRow.commonAssociationLicensesOrderedReuse)
+                XCTAssertFalse(changed.unorderedAgreementLicensesOrderedReuse)
+                XCTAssertFalse(changed.commonAssociationLicensesOrderedReuse)
+            }
+        }
+    }
+
+    func testSharedDenominatorAndOverflowAreRejected() async throws {
+        let ordered = try count(0, 63)
+        let multiset = try count(63, 63)
+        let sameUnit = try count(63, 63)
+        XCTAssertThrowsError(try TargetContinuity(
+            sweep: 1, level: .clean, cell: .primary,
+            ordered: ordered, multiset: multiset, commonAgreement: sameUnit)) { error in
+            XCTAssertEqual(error as? Rejection, .invalidDomain)
+        }
+        XCTAssertThrowsError(try PredicateCount(matched: 64, denominator: 63)) { error in
+            XCTAssertEqual(error as? Rejection, .invalidDomain)
+        }
+    }
+}
