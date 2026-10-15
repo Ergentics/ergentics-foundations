@@ -16,6 +16,16 @@ npx wrangler deploy --config demos/recital/wrangler.jsonc
 
 Routes and the DNS record stay a dashboard step. This file does not create them.
 
+## Move
+
+This is the move: serve `demos/recital/` from a Worker on the existing Cloudflare zone, then attach `ergentics.com` after a person who can see the current page approves the replacement. The move is recorded here. It is not deployed.
+
+R2 stays unused. The recital is a few HTML files and one small module. Workers static assets can serve those bytes. A bucket would be a second copy of the same files, and it would not be the object store.
+
+The store stays unimplemented. Section 9 left ObjectID, durable commit recovery, and backend adapters unimplemented. The Rails index is a local reading of the traceability JSON. An R2 object is not a `StateID` and not a commit. Starting a bucket for the recital would not start that store.
+
+When a store is designed, it needs its own contract: what is stored, who may write it, and how a reader checks current authority. That design is not this move.
+
 ## What this is not
 
-The roadmap item for Cloudflare/R2 storage is still unstarted. A static recital host is not that store. The Swift WASI probe is not what the browser loads. The page loads the Rust `wasm32-unknown-unknown` module.
+The Swift WASI probe is not what the browser loads. The page loads the Rust `wasm32-unknown-unknown` module.
