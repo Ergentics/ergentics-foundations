@@ -2,7 +2,7 @@
 
 `ergentics.com` already uses Cloudflare nameservers (`frida.ns.cloudflare.com` and `neil.ns.cloudflare.com`). The address answers from Cloudflare. This environment can resolve that name and reach the edge. It cannot change the site.
 
-A request from this machine to `https://ergentics.com` receives HTTP 403 with `cf-mitigated: challenge`. The existing page body is not visible from that request. The Cloudflare session can read the Ergentics account. It can list Workers. It cannot open an asset upload session: the API returns no access to that resource. `demos/recital` installs Wrangler 4.151.0. `npx wrangler whoami` in that directory still reports no login. Nothing has been deployed.
+A request from this machine to `https://ergentics.com` receives HTTP 403 with `cf-mitigated: challenge`. The existing page body is not visible from that request. The Cloudflare session can read the Ergentics account. It can list Workers. It cannot open an asset upload session: the API returns no access to that resource. `demos/recital` installs Wrangler 4.151.0. `npx wrangler whoami` in that directory still reports no login. `npx wrangler deploy --config demos/recital/wrangler.jsonc --temporary` created a temporary account and uploaded the Worker. The preview is `https://ergentics-recital.expensive-hedgehog.workers.dev`. The claim window is about 60 minutes. A fetch of the HTML from this machine receives HTTP 403 with `cf-mitigated: challenge`. One fetch of `commitment_guest.wasm` returned the same 237947 bytes as the file next to the page. The zone was not changed.
 
 ## Adapter
 
@@ -33,7 +33,7 @@ Two preview types, two paths, one Worker when a write-capable login exists:
 
 The routes to add, and no others, are `ergentics.com/products/music-theory`, `ergentics.com/products/music-theory/*`, `ergentics.com/research/recital`, and `ergentics.com/research/recital/*`. The more specific research routes stay off `propulsion.html`. The Worker `ergentics-recital` maps those prefixes onto its own files and sets `script-src 'self' 'wasm-unsafe-eval'` only on its own responses. `wrangler.jsonc` still has no route and no custom domain, so a deploy of that file does not attach the apex. The Music Theory card on `/products` can later link to its preview. That link is a change in the Pages project, which is not this repository.
 
-This session can read the account and cannot upload a Worker or add a route. The page is not deployed.
+The temporary preview is a `workers.dev` hostname on that temporary account. It is not a route on `ergentics.com`, and it is not the path beside `/research/propulsion.html`. That zone path is not attached. A logged-in account is still required to add one.
 
 R2 stays unused. The recital is a few HTML files and two small modules. Workers static assets can serve those bytes. A bucket would be a second copy of the same files, and it would not be the object store.
 
@@ -43,4 +43,4 @@ When a store is designed, it needs its own contract: what is stored, who may wri
 
 ## What this is not
 
-The 60 MB Swift WASI command is not what the browser loads. The page loads two small modules. The Rust `wasm32-unknown-unknown` reader and the embedded Swift guest each construct the synthetic-base state. The page compares those two hex strings. Neither module receives the other's output.
+The 60 MB Swift WASI command is not what the browser loads. The page loads two small modules. The Swift module is the embedded SDK guest of the same canonical construction, 237947 bytes, built as a reactor. It imports `wasi_snapshot_preview1.random_get`. The page fills that buffer with zeros. The digest still matches the Python vector, so that import is not the commitment. The Rust `wasm32-unknown-unknown` reader constructs the same state on its own. The page compares those two hex strings. Neither module receives the other's output. R2 stays unused.

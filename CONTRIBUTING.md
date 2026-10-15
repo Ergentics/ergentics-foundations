@@ -22,7 +22,7 @@ Do not import proprietary sibling trees. A public type may mirror a vocabulary. 
 |---|---|
 | `Sources/`, `Tests/`, `Package.swift` | `swift test --scratch-path /tmp/foundation-build`. If `FoundationBench` changed, also `swift run --scratch-path /tmp/foundation-build FoundationBench --iterations 2`. If continuity counts changed, `python3 reference/check_continuity.py`. If the E27 candidate list changed, `python3 reference/check_e27_candidates.py` |
 | `Sources/CommitmentProbe` | Swift 6.4.1 plus the WebAssembly SDK, checked with Node 26.12.0. Native `swift run --scratch-path /tmp/foundation-build CommitmentProbe`, then `swift build -c release --swift-sdk swift-6.4.1-RELEASE_wasm --product CommitmentProbe` and `node reference/swift-wasm-check.mjs` on that wasm. See `docs/swift-wasm-probe.md`. |
-| `Sources/CommitmentGuest` | Embedded SDK `swift-6.4.1-RELEASE_wasm-embedded`. `demos/recital/stage-guest.sh`, then compare `commitment_guest.wasm` with the Rust reader on the synthetic-base hash. |
+| `Sources/CommitmentGuest` | Embedded SDK `swift-6.4.1-RELEASE_wasm-embedded` and Node 26.12.0. `demos/recital/stage-guest.sh`, then `node reference/embedded-guest-check.mjs demos/recital/commitment_guest.wasm demos/recital/commitment_reader.wasm`. See `docs/swift-wasm-probe.md`. |
 | `rust/commitment-reader` | Rust 1.99.0 and Node 26.12.0. `cargo test --locked`, then the wasm32 release build, `node wasm-check.mjs`, and `cargo run --locked --release --bin commitment-bench -- --iterations 2` |
 | `traceability/` | Ruby 4.0.7 and Rails 8.1.4. `cd traceability && bin/rails test` |
 | Docs only | Do not describe a test run that did not happen |
