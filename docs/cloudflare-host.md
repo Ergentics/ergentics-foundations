@@ -20,11 +20,20 @@ Routes and the DNS record stay a dashboard step. This file does not create them.
 
 ## Move
 
-This is the move: add the recital as a page on the site that already publishes `https://ergentics.com/research/propulsion.html`. It is not a replacement of that site. The move is recorded here. It is not deployed.
+The apex `ergentics.com` is the Pages project `ergentics-site` (`ergentics-site.pages.dev`). `https://ergentics.com/products` is that site. Music Theory is already a product card there, marked in development. `https://ergentics.com/products/music-theory` is 404. `https://ergentics.com/research/propulsion.html` is a working paper served by the Worker `ergentics-research-path`, which owns `ergentics.com/research` and `ergentics.com/research/*`. A Worker route is more specific than the Pages site, which is why those research URLs are not Pages.
 
-`/research/propulsion.html` is the pattern for how another area handles material: one HTML document at a path under the zone. This environment cannot read that document. A request receives HTTP 403 with `cf-mitigated: challenge`, so the layout, scripts, and asset paths on that page are not known here. The adapter does not guess them.
+The recital gets its own working page. It does not replace `/products`, and it does not join the research Worker's script policy. That policy is `script-src 'self'` and does not allow `wasm-unsafe-eval`, so a module instantiated on that Worker would not run. This plan does not edit `ergentics-research-path`.
 
-The Worker `ergentics-recital` serves only the recital files. It does not become the origin for `ergentics.com`. A later route, after a person who can open the propulsion page confirms the fit, is a path such as `ergentics.com/recital` or `ergentics.com/research/<name>.html`. The existing research pages stay on the current origin. `wrangler.jsonc` has no route and no custom domain, so a deploy of this config does not attach the apex.
+Two preview types, two paths, one Worker when a write-capable login exists:
+
+| Path | Preview | What plays |
+|---|---|---|
+| `https://ergentics.com/products/music-theory/` | Music Theory, the product card that already exists | Public recital pages. The first is Hello, 440: play, then the in-page ratio check. The private lyre engine is not copied. |
+| `https://ergentics.com/research/recital/` | Foundations parity | The Rust reader and the embedded Swift guest. Each constructs the synthetic-base state. The page compares the hex strings. |
+
+The routes to add, and no others, are `ergentics.com/products/music-theory`, `ergentics.com/products/music-theory/*`, `ergentics.com/research/recital`, and `ergentics.com/research/recital/*`. The more specific research routes stay off `propulsion.html`. The Worker `ergentics-recital` maps those prefixes onto its own files and sets `script-src 'self' 'wasm-unsafe-eval'` only on its own responses. `wrangler.jsonc` still has no route and no custom domain, so a deploy of that file does not attach the apex. The Music Theory card on `/products` can later link to its preview. That link is a change in the Pages project, which is not this repository.
+
+This session can read the account and cannot upload a Worker or add a route. The page is not deployed.
 
 R2 stays unused. The recital is a few HTML files and two small modules. Workers static assets can serve those bytes. A bucket would be a second copy of the same files, and it would not be the object store.
 
