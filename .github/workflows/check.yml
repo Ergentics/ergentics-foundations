@@ -30,7 +30,7 @@ jobs:
           git checkout --detach FETCH_HEAD
       - name: Install Rust 1.83
         run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.83.0
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.99.0
           . "$HOME/.cargo/env"
           rustup target add wasm32-unknown-unknown
           echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
@@ -43,6 +43,9 @@ jobs:
       - name: Check two hashes from the wasm module
         working-directory: rust/commitment-reader
         run: node wasm-check.mjs
+      - name: Bench smoke
+        working-directory: rust/commitment-reader
+        run: cargo run --locked --release --bin commitment-bench -- --iterations 2
 
   swift:
     name: Swift package
@@ -62,3 +65,5 @@ jobs:
           git checkout --detach FETCH_HEAD
       - name: Test
         run: swift test --scratch-path /tmp/foundation-build
+      - name: Bench smoke
+        run: swift run --scratch-path /tmp/foundation-build FoundationBench --iterations 2

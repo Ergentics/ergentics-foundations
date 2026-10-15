@@ -38,7 +38,7 @@ Do not compile the ledger to WASM. Authority, capabilities, and tickets are proc
 
 ## The reader that is now in the tree
 
-`rust/commitment-reader` is version **0.1.0**. `Cargo.lock` pins `sha2` 0.10.8. The tests name the two vector files and require exact hex, including the signed `u64`/`i64` bounds and the UTF-8 skill id `café`.
+`rust/commitment-reader` is version **0.1.0** and builds with Rust **1.99.0**, the stable release. `Cargo.lock` pins `sha2` 0.10.8. The tests name the two vector files and require exact hex, including the signed `u64`/`i64` bounds and the UTF-8 skill id `café`. `commitment-bench` times that reader. Its numbers are not a comparison with Swift. See `docs/benchmarks.md`.
 
 ```sh
 cd rust/commitment-reader
