@@ -1,4 +1,5 @@
 import XCTest
+import CanonicalBytes
 @testable import ChangeFoundation
 
 @MainActor final class FoundationTests: XCTestCase {

@@ -2,11 +2,13 @@
 
 `ergentics.com` already uses Cloudflare nameservers (`frida.ns.cloudflare.com` and `neil.ns.cloudflare.com`). The address answers from Cloudflare. This environment can resolve that name and reach the edge. It cannot change the site.
 
-A request from this machine to `https://ergentics.com` receives HTTP 403 with `cf-mitigated: challenge`. The existing page body is not visible here. The Cloudflare tool in this session asked for a login and the login timed out. Wrangler is not installed and no API token is present. Nothing has been deployed.
+A request from this machine to `https://ergentics.com` receives HTTP 403 with `cf-mitigated: challenge`. The existing page body is not visible from that request. The Cloudflare session can read the Ergentics account. It can list Workers. It cannot open an asset upload session: the API returns no access to that resource. Wrangler on this machine is still not logged in. Nothing has been deployed.
 
 ## Adapter
 
-The first host is a Worker that serves static assets. The asset directory is `demos/recital/`. `wrangler.jsonc` in that directory names the Worker `ergentics-recital`. It serves `index.html`, `hello-440.html`, and `commitment_reader.wasm`. It does not run the Rails index, store rows, or issue a capability.
+The first host is a Worker that serves static assets. The asset directory is `demos/recital/`. `wrangler.jsonc` in that directory names the Worker `ergentics-recital`. It serves `index.html`, `hello-440.html`, `commitment_reader.wasm`, and `commitment_guest.wasm`. It does not run the Rails index, store rows, or issue a capability.
+
+`ergentics.com/research` and `ergentics.com/research/*` already run the Worker `ergentics-research-path`. That script sets `script-src 'self'` and does not allow `wasm-unsafe-eval`. The recital instantiates two modules, so it does not belong inside that policy. This file does not change that Worker.
 
 The custom domain is `ergentics.com`. Attaching it replaces whatever the apex serves today. That attachment waits for a person who can see the current page and who is logged into the zone. The command, after that login, is:
 
@@ -24,7 +26,7 @@ This is the move: add the recital as a page on the site that already publishes `
 
 The Worker `ergentics-recital` serves only the recital files. It does not become the origin for `ergentics.com`. A later route, after a person who can open the propulsion page confirms the fit, is a path such as `ergentics.com/recital` or `ergentics.com/research/<name>.html`. The existing research pages stay on the current origin. `wrangler.jsonc` has no route and no custom domain, so a deploy of this config does not attach the apex.
 
-R2 stays unused. The recital is a few HTML files and one small module. Workers static assets can serve those bytes. A bucket would be a second copy of the same files, and it would not be the object store.
+R2 stays unused. The recital is a few HTML files and two small modules. Workers static assets can serve those bytes. A bucket would be a second copy of the same files, and it would not be the object store.
 
 The store stays unimplemented. Section 9 left ObjectID, durable commit recovery, and backend adapters unimplemented. The Rails index is a local reading of the traceability JSON. An R2 object is not a `StateID` and not a commit. Starting a bucket for the recital would not start that store.
 
@@ -32,4 +34,4 @@ When a store is designed, it needs its own contract: what is stored, who may wri
 
 ## What this is not
 
-The Swift WASI probe is not what the browser loads. The page loads the Rust `wasm32-unknown-unknown` module.
+The 60 MB Swift WASI command is not what the browser loads. The page loads two small modules. The Rust `wasm32-unknown-unknown` reader and the embedded Swift guest each construct the synthetic-base state. The page compares those two hex strings. Neither module receives the other's output.

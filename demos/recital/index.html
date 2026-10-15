@@ -20,7 +20,7 @@
 </head>
 <body>
   <h1>Commitment recital</h1>
-  <p>One public piece, played by the Rust reader in this page. Python wrote the expected hashes. The Swift compiler can print the same state hash natively and as a WASI module. This page does not issue a capability or commit.</p>
+  <p>One public piece. Python wrote the expected hashes. This page runs two modules that construct the synthetic-base state themselves: the Rust reader, and a Swift guest built with the embedded WebAssembly SDK from the same canonical bytes. Neither module is given the other's hex. This page does not issue a capability or commit.</p>
 
   <h2>1. Synthetic base</h2>
   <p>Lineage 1, generation 0, entries (1, 10) and (2, 20), order 1 then 2.</p>
@@ -31,17 +31,17 @@
   <p class="hex" id="practice-expected">fffba27d62a7b2751cb6f6556a0863e5a48149c75c683d85a0295f3467a99025</p>
 
   <div class="row">
-    <button id="play" type="button">Play the reader</button>
-    <p id="result">The module is <code>commitment_reader.wasm</code> next to this page.</p>
+    <button id="play" type="button">Play both constructions</button>
+    <p id="result">The modules are <code>commitment_reader.wasm</code> and <code>commitment_guest.wasm</code> next to this page.</p>
   </div>
 
   <h2>Voices</h2>
   <ul>
     <li>Python, <code>reference/make_vectors.py</code> and <code>reference/make_practice_vectors.py</code>, writes the hashes.</li>
-    <li>Swift 6.4.1, the host compiler and the WebAssembly SDK, prints the state hash from <code>CommitmentProbe</code>. See <code>docs/swift-wasm-probe.md</code>.</li>
-    <li>Rust <code>commitment-reader</code> 0.1.0, <code>wasm32-unknown-unknown</code>, is the module this page calls.</li>
+    <li>Swift 6.4.1 embedded WebAssembly SDK, <code>CommitmentGuest</code>, constructs the state in this page and writes 64 hex bytes. The 60 MB WASI command is a separate probe and is not loaded here.</li>
+    <li>Rust <code>commitment-reader</code> 0.1.0, <code>wasm32-unknown-unknown</code>, constructs the same state and the empty practice log.</li>
   </ul>
-  <p>Serve this directory over HTTP. <code>commitment_reader.wasm</code> is already next to this page. <code>demos/recital/stage.sh</code> regenerates it. A <code>file://</code> open can show this text and still refuse to load the module. The other public page is <a href="hello-440.html">Hello, in 440</a>.</p>
+  <p>Serve this directory over HTTPS when the browser refuses plain HTTP. <code>commitment_reader.wasm</code> and <code>commitment_guest.wasm</code> sit next to this page. <code>demos/recital/stage.sh</code> regenerates the Rust module. <code>demos/recital/stage-guest.sh</code> regenerates the Swift guest. A <code>file://</code> open can show this text and still refuse to load the modules. The other public page is <a href="hello-440.html">Hello, in 440</a>.</p>
 
   <script>
     const stateExpected = document.querySelector("#state-expected").textContent.trim();
@@ -73,6 +73,29 @@
     document.querySelector("#play").addEventListener("click", play);
     play();
 
+    async function swiftState() {
+      const response = await fetch("commitment_guest.wasm");
+      if (!response.ok) throw new Error("commitment_guest.wasm is not next to this page");
+      let memory;
+      const imports = {
+        wasi_snapshot_preview1: {
+          random_get(ptr, len) {
+            const bytes = new Uint8Array(memory.buffer, ptr, len);
+            crypto.getRandomValues(bytes);
+            return 0;
+          },
+        },
+      };
+      const { instance } = await WebAssembly.instantiate(await response.arrayBuffer(), imports);
+      memory = instance.exports.memory;
+      if (instance.exports._initialize) instance.exports._initialize();
+      const ptr = instance.exports.cf_alloc(64);
+      const rc = instance.exports.cf_synthetic_base_hex(ptr);
+      const hex = new TextDecoder().decode(new Uint8Array(memory.buffer, ptr, 64));
+      if (rc !== 0 || hex.length !== 64) throw new Error(`swift guest status ${rc}`);
+      return hex;
+    }
+
     async function play() {
       result.textContent = "Loading the reader…";
       result.className = "";
@@ -99,10 +122,12 @@
         dealloc(out, 64);
         const stateOk = stateRc === 0 && stateHex === stateExpected;
         const practiceOk = practiceRc === 0 && practiceHex === practiceExpected;
-        result.textContent = stateOk && practiceOk
-          ? "Both hashes match."
-          : `state ${stateHex} (${stateRc}); practice ${practiceHex} (${practiceRc})`;
-        result.className = stateOk && practiceOk ? "ok" : "miss";
+        const swiftHex = await swiftState();
+        const parity = stateOk && swiftHex === stateHex;
+        result.textContent = parity && practiceOk
+          ? "Swift and Rust constructed the same state hash. The practice log matches."
+          : `swift ${swiftHex}; rust state ${stateHex} (${stateRc}); practice ${practiceHex} (${practiceRc})`;
+        result.className = parity && practiceOk ? "ok" : "miss";
       } catch (error) {
         result.textContent = error.message;
         result.className = "miss";

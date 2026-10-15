@@ -1,6 +1,8 @@
 // Copyright 2026 Ergentics, LLC
 // SPDX-License-Identifier: Apache-2.0
 
+import CanonicalBytes
+
 /// One public-reference pass of construction, projection, equality, and append.
 /// The sinks say whether those arms can be named apart. They are not a speedup,
 /// and they do not decompose the private E26 loop.
