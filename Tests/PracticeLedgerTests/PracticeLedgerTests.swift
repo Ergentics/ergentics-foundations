@@ -138,7 +138,8 @@ import XCTest
         XCTAssertEqual(committed.events, [event])
         XCTAssertEqual(committed.commitment, vector.expectedStateCommitment)
         XCTAssertEqual(committed.relationCommitment, vector.expectedRelationCommitment)
-        XCTAssertEqual(try await ledger.snapshot(), committed)
+        let reread = try await ledger.snapshot()
+        XCTAssertEqual(reread, committed)
     }
 
     func testSamePayloadAdvancesGenerationWithoutChangingRelation() async throws {
@@ -180,7 +181,8 @@ import XCTest
         await expectPractice(.duplicateEventID) {
             _ = try await ledger.verifyAppend(event, using: capability)
         }
-        XCTAssertEqual(try await ledger.snapshot(), committed)
+        let afterDuplicate = try await ledger.snapshot()
+        XCTAssertEqual(afterDuplicate, committed)
         let again = try PracticeEvent(
             id: "rect-area-2x4", skillID: "rect-area", surface: .problems,
             kind: .retrievalPractice, score: 0, timestampMs: 1_700_000_000_100)
@@ -207,7 +209,8 @@ import XCTest
         await expectAuthority(.replay) {
             _ = try await ledger.commit(older, using: capability)
         }
-        XCTAssertEqual(try await ledger.snapshot(), committed)
+        let afterRejection = try await ledger.snapshot()
+        XCTAssertEqual(afterRejection, committed)
         XCTAssertEqual(committed.events, [first])
     }
 
@@ -220,7 +223,9 @@ import XCTest
             id: "one", skillID: "rect-area", surface: .recall,
             kind: .retrievalPractice, score: 0, timestampMs: -1, confident: false)
         let ticket = try await left.verifyAppend(event, using: leftCapability)
-        XCTAssertEqual(try await left.snapshot().evidence, try await right.snapshot().evidence)
+        let leftEvidence = try await left.snapshot().evidence
+        let rightEvidence = try await right.snapshot().evidence
+        XCTAssertEqual(leftEvidence, rightEvidence)
         await expectAuthority(.invalidCapability) {
             _ = try await right.commit(ticket, using: rightCapability)
         }
