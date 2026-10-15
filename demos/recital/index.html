@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- SPDX-License-Identifier: Apache-2.0 -->
+  <!-- Copyright 2026 Ergentics, LLC -->
+  <title>Commitment recital</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font: 16px/1.5 system-ui, sans-serif; margin: 2rem auto; max-width: 42rem; padding: 0 1rem; }
+    h1 { font-size: 1.4rem; font-weight: 650; }
+    h2 { font-size: 1rem; margin-top: 2rem; }
+    code, .hex { font-family: ui-monospace, monospace; font-size: 0.85rem; word-break: break-all; }
+    button { font: inherit; padding: 0.4rem 0.8rem; }
+    .row { margin: 0.8rem 0 1.4rem; }
+    .ok { font-weight: 650; }
+    .miss { color: #9a3412; }
+  </style>
+</head>
+<body>
+  <h1>Commitment recital</h1>
+  <p>One public piece, played by the Rust reader in this page. Python wrote the expected hashes. The Swift compiler can print the same state hash natively and as a WASI module. This page does not issue a capability or commit.</p>
+
+  <h2>1. Synthetic base</h2>
+  <p>Lineage 1, generation 0, entries (1, 10) and (2, 20), order 1 then 2.</p>
+  <p class="hex" id="state-expected">d9a07b92d21590167b300c10be7410322ecb78ed1a56ee0e531803fe263ccc22</p>
+
+  <h2>2. Empty practice log</h2>
+  <p>Lineage 1, generation 0, no events. The log is wrapped in the same state carrier.</p>
+  <p class="hex" id="practice-expected">fffba27d62a7b2751cb6f6556a0863e5a48149c75c683d85a0295f3467a99025</p>
+
+  <div class="row">
+    <button id="play" type="button">Play the reader</button>
+    <p id="result">The module is <code>commitment_reader.wasm</code> next to this page.</p>
+  </div>
+
+  <h2>Voices</h2>
+  <ul>
+    <li>Python, <code>reference/make_vectors.py</code> and <code>reference/make_practice_vectors.py</code>, writes the hashes.</li>
+    <li>Swift 6.4.1, the host compiler and the WebAssembly SDK, prints the state hash from <code>CommitmentProbe</code>. See <code>docs/swift-wasm-probe.md</code>.</li>
+    <li>Rust <code>commitment-reader</code> 0.1.0, <code>wasm32-unknown-unknown</code>, is the module this page calls.</li>
+  </ul>
+  <p>Serve this directory over HTTP. <code>commitment_reader.wasm</code> is already next to this page. <code>demos/recital/stage.sh</code> regenerates it. A <code>file://</code> open can show this text and still refuse to load the module. The other public page is <a href="hello-440.html">Hello, in 440</a>.</p>
+
+  <script>
+    const stateExpected = document.querySelector("#state-expected").textContent.trim();
+    const practiceExpected = document.querySelector("#practice-expected").textContent.trim();
+    const result = document.querySelector("#result");
+
+    function packState() {
+      const entries = new Uint8Array(32);
+      const order = new Uint8Array(16);
+      const entryView = new DataView(entries.buffer);
+      const orderView = new DataView(order.buffer);
+      entryView.setBigUint64(0, 1n);
+      entryView.setBigInt64(8, 10n);
+      entryView.setBigUint64(16, 2n);
+      entryView.setBigInt64(24, 20n);
+      orderView.setBigUint64(0, 1n);
+      orderView.setBigUint64(8, 2n);
+      return { entries, order };
+    }
+
+    function writeBytes(memory, ptr, bytes) {
+      new Uint8Array(memory.buffer, ptr, bytes.length).set(bytes);
+    }
+
+    function readHex(memory, ptr) {
+      return new TextDecoder().decode(new Uint8Array(memory.buffer, ptr, 64));
+    }
+
+    document.querySelector("#play").addEventListener("click", play);
+    play();
+
+    async function play() {
+      result.textContent = "Loading the reader…";
+      result.className = "";
+      try {
+        const response = await fetch("commitment_reader.wasm");
+        if (!response.ok) throw new Error("commitment_reader.wasm is not next to this page");
+        const { instance } = await WebAssembly.instantiate(await response.arrayBuffer(), {});
+        const { alloc, dealloc, cf_state_commitment_hex, pl_state_commitment_hex, memory } = instance.exports;
+        const packed = packState();
+        const entries = alloc(packed.entries.length);
+        const order = alloc(packed.order.length);
+        const out = alloc(64);
+        writeBytes(memory, entries, packed.entries);
+        writeBytes(memory, order, packed.order);
+        const stateRc = cf_state_commitment_hex(1n, 0n, entries, packed.entries.length, order, packed.order.length, out);
+        const stateHex = readHex(memory, out);
+        dealloc(entries, packed.entries.length);
+        dealloc(order, packed.order.length);
+        const empty = alloc(8);
+        writeBytes(memory, empty, new Uint8Array(8));
+        const practiceRc = pl_state_commitment_hex(1n, 0n, empty, 8, out);
+        const practiceHex = readHex(memory, out);
+        dealloc(empty, 8);
+        dealloc(out, 64);
+        const stateOk = stateRc === 0 && stateHex === stateExpected;
+        const practiceOk = practiceRc === 0 && practiceHex === practiceExpected;
+        result.textContent = stateOk && practiceOk
+          ? "Both hashes match."
+          : `state ${stateHex} (${stateRc}); practice ${practiceHex} (${practiceRc})`;
+        result.className = stateOk && practiceOk ? "ok" : "miss";
+      } catch (error) {
+        result.textContent = error.message;
+        result.className = "miss";
+      }
+    }
+  </script>
+</body>
+</html>
