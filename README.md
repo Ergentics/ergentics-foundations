@@ -42,7 +42,24 @@ let committed = try await authority.commit(checked, using: capability)
 
 This synthetic empty-content transition still advances the generation. Possession of the actor is trusted issuer access; the example provides no external authentication.
 
-No external package dependencies are fetched. The Swift standard library, Foundation and CryptoKit are execution dependencies. The synthetic vector generator uses Python's standard library solely as an independent byte-encoding/hash reference; it is not a runtime dependency.
+`PracticeLedger` is the first SDK piece taken from MasteryKit's practice loop. It commits the fields `TutorSession.submit` consumes — event id, skill id, surface, lesson kind, score, timestamp, optional confidence — and does not implement readiness, selection, or the vendored engine. See the [practice ledger](docs/practice-ledger.md).
+
+```swift
+import ChangeFoundation
+import PracticeLedger
+let ledger = try PracticeLedger(lineage: 1)
+let capability = await ledger.issueCapability()
+let event = try PracticeEvent(
+    id: "rect-area-2x3", skillID: "rect-area", surface: .problems,
+    kind: .workedExample, score: 1, timestampMs: 1_700_000_000_000)
+let checked = try await ledger.verifyAppend(event, using: capability)
+let committed = try await ledger.commit(checked, using: capability)
+// committed.generation == 1; committed.events.count == 1
+```
+
+`verifyAppend` does not append. A duplicate event id is a `PracticeRejection`, not an authority `Rejection`. Equal evidence across two ledgers still grants no commit rights.
+
+No external package dependencies are fetched. The Swift standard library, Foundation and, on Apple platforms, CryptoKit are execution dependencies. The Linux Swift toolchain does not ship CryptoKit, so that build hashes with an in-tree SHA-256; the canonical vectors are the check that the digest matches. The synthetic vector generator uses Python's standard library solely as an independent byte-encoding/hash reference; it is not a runtime dependency.
 
 For application integration, see the [consumer integration guide](docs/consumer-integration.md), informed by the bounded CIT-01 study. It separates consumer semantic validation from reference admission, scope and commit behavior.
 
@@ -58,7 +75,7 @@ Start with [architecture](docs/architecture-principles.md), [authority](docs/aut
 
 The [SDK v0.1 scope](SDK-v0.1-SCOPE.md) separates immutable evidence, versioned interpretation, evolvable contracts and editable implementation. Significant contracts trace through research findings, post-hoc conclusions and synthetic reference coverage into a proposed release basis. Future accepted research can change contracts through an impact review and a new version; it cannot rewrite the provenance of an earlier release.
 
-The retained `ChangeFoundation` module is a tested synthetic prototype, not the final SDK module layout. No new production implementation or later backend work began for this scope amendment.
+The retained `ChangeFoundation` module is a tested synthetic prototype, not the final SDK module layout. `PracticeLedger` is later editable implementation on that reference; it does not revise this scope checkpoint or add a backend.
 
 ## License
 

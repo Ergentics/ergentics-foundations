@@ -1,0 +1,81 @@
+[
+  {
+    "events": [],
+    "expectedRelationCommitment": "4ac10c70d000ab5df3b7dbe234781bfcbf1c398620a481738d19d10aec913c26",
+    "expectedStateCommitment": "fffba27d62a7b2751cb6f6556a0863e5a48149c75c683d85a0295f3467a99025",
+    "generation": 0,
+    "lineage": 1,
+    "name": "empty-generation-0"
+  },
+  {
+    "events": [],
+    "expectedRelationCommitment": "4ac10c70d000ab5df3b7dbe234781bfcbf1c398620a481738d19d10aec913c26",
+    "expectedStateCommitment": "a4ad72a00cf944fa25a22511a541c7d6d30e15165ba0e22ed8397ef6d23e6713",
+    "generation": 1,
+    "lineage": 1,
+    "name": "empty-generation-1"
+  },
+  {
+    "events": [
+      {
+        "confident": null,
+        "id": "rect-area-2x3",
+        "kind": "WE",
+        "score": 1.0,
+        "skillID": "rect-area",
+        "surface": "problems",
+        "timestampMs": 1700000000000
+      }
+    ],
+    "expectedRelationCommitment": "54c7df5560599d09dee2849263e673c81a277f9f17294bf15d9938ea37c6cac0",
+    "expectedStateCommitment": "4d6d6ae2cf0f16e0329e6b7d952646b240fe71df1f44bbd931c7c47510928f33",
+    "generation": 1,
+    "lineage": 1,
+    "name": "one-worked-example"
+  },
+  {
+    "events": [
+      {
+        "confident": null,
+        "id": "b",
+        "kind": "WE",
+        "score": 1.0,
+        "skillID": "rect-area",
+        "surface": "problems",
+        "timestampMs": 1700000000000
+      },
+      {
+        "confident": true,
+        "id": "a",
+        "kind": "PF",
+        "score": 0.5,
+        "skillID": "tri-area",
+        "surface": "quiz",
+        "timestampMs": 1700000000100
+      }
+    ],
+    "expectedRelationCommitment": "1ae80dac40d5a62704cfdc86469a32869c7a54a482c5ce0b13790318fc412298",
+    "expectedStateCommitment": "dff36a333f417735c2173e6a4ea77ed5023bb4671a8efec149ff92d3fea89111",
+    "generation": 2,
+    "lineage": 4,
+    "name": "two-events-submission-order"
+  },
+  {
+    "events": [
+      {
+        "confident": false,
+        "id": "recall-1",
+        "kind": "RP",
+        "score": 0.0,
+        "skillID": "caf\u00e9",
+        "surface": "recall",
+        "timestampMs": -1
+      }
+    ],
+    "expectedRelationCommitment": "8b231c9d680c2e62deebb2c8c6f053097b94d6b7bc13511e1db85fde4915451f",
+    "expectedStateCommitment": "aa04a8dada71db2646364390eb2cfc61333addfd5cd224ac9da67efa6ee1126c",
+    "generation": 0,
+    "lineage": 1,
+    "name": "signed-timestamp-zero-score"
+  }
+]

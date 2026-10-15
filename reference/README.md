@@ -7,3 +7,5 @@ Canonical relation bytes are ASCII `CF-RELATION-v1` followed by a zero byte, an 
 The cases cover base state, order-only change, value change, an empty consequential transition, signed/unsigned bounds and an empty domain. XCTest additionally checks stale/replay rejection, revocation between verification and commit, sibling authority, two pending receipts, a different current capability, malformed domains and generation overflow.
 
 The JSON transport represents UInt64/Int64 numbers exactly in Swift and Python. Consumers with IEEE-754-only JSON numbers must use an integer-preserving parser; rounding a value is invalid. JSON schema shape validity never grants authority or replaces runtime domain validation.
+
+`make_practice_vectors.py` builds the separate `PL-LOG-v1` practice-log profile, chunks it into this same state carrier, and writes `Tests/PracticeLedgerTests/vectors.json`. It does not replace the six vectors above. The practice profile is specified in [the practice ledger note](../docs/practice-ledger.md).

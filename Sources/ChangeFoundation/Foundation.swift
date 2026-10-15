@@ -1,5 +1,7 @@
 import Foundation
+#if canImport(CryptoKit)
 import CryptoKit
+#endif
 
 public enum Rejection: Error, Equatable, Sendable {
     case invalidDomain, wrongLineage, staleGeneration, wrongCommitment
@@ -164,6 +166,12 @@ private enum Canonical {
         return bytes
     }
     static func digest(_ bytes: [UInt8]) -> String {
+        #if canImport(CryptoKit)
         SHA256.hash(data: Data(bytes)).map { String(format: "%02x", $0) }.joined()
+        #else
+        // The Linux Swift toolchain does not ship CryptoKit. This is the same SHA-256
+        // the canonical vectors already pin; it is not a second commitment profile.
+        InTreeSHA256.hex(bytes)
+        #endif
     }
 }
