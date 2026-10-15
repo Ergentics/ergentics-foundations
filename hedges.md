@@ -26,7 +26,7 @@ Witness agreement is a count of distinct family names and a check that a depende
 
 ## The reader is not the ledger
 
-`commitment-reader` 0.1.0 recomputes `CF-STATE-v1` and `PL-LOG-v1` and must match the Python vectors exactly. The WASM build hashes those same bytes outside the Swift process. It does not issue a capability and it does not commit. Swift still ships the ledger. The reader is not a Swift package dependency.
+`commitment-reader` 0.1.0 recomputes `CF-STATE-v1` and `PL-LOG-v1` and must match the Python vectors exactly. The WASM build hashes those same bytes outside the Swift process. It does not issue a capability and it does not commit. Swift still ships the ledger. The reader is not a Swift package dependency. `CommitmentProbe` can be built by the same Swift 6.4.1 compiler for `wasm32-unknown-wasip1`. That probe prints one commitment and does not call the actor. It is not a second issuer, and it does not replace the Rust reader.
 
 UniFFI is not the parity method. FSRS and `fsrs-rs` are not this package's memory model.
 

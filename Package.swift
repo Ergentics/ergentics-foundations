@@ -17,6 +17,7 @@ let package = Package(
         .executableTarget(
             name: "FoundationBench",
             dependencies: ["ChangeFoundation", "PracticeLedger", "OracleAdmission"]),
+        .executableTarget(name: "CommitmentProbe", dependencies: ["ChangeFoundation"]),
         .testTarget(name: "ChangeFoundationTests", dependencies: ["ChangeFoundation"], resources: [.copy("vectors.json")]),
         .testTarget(name: "PracticeLedgerTests", dependencies: ["PracticeLedger"], resources: [.copy("vectors.json")]),
         .testTarget(name: "OracleAdmissionTests", dependencies: ["OracleAdmission"], resources: [.copy("vectors.json")]),

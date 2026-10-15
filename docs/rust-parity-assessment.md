@@ -34,7 +34,9 @@ Do not vendor `fsrs-rs` into foundations. The memory model is not this package's
 
 Do not add UniFFI so Swift can call a Rust encoder. That would make the production path and the "external" path the same code. The FSRS tests avoid that: they store the Rust output and recompute it in Swift.
 
-Do not compile the ledger to WASM. Authority, capabilities, and tickets are process-local on purpose. A WASM port of `ReferenceAuthority` would look like a second issuer.
+Do not run the ledger as an issuer inside WASM. Authority, capabilities, and tickets are process-local on purpose. A WASM port of `ReferenceAuthority` would look like a second issuer.
+
+The Swift 6.4.1 compiler can cross-compile with its WebAssembly SDK. `CommitmentProbe` prints one commitment from that module and does not call the actor. `wasm32-unknown-unknown` is not a target of this compiler; the SDK triple is `wasm32-unknown-wasip1`. See [the compiler probe](swift-wasm-probe.md).
 
 ## The reader that is now in the tree
 
