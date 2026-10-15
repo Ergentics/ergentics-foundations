@@ -1,0 +1,4 @@
+{
+  "name": "Ergentics Foundations",
+  "install": "set -euo pipefail\nfound=\nfor d in /agent/repos/ergentics-foundations /workspace/repos/ergentics-foundations /workspace/ergentics-foundations; do\n  if [ -f \"$d/.cursor/cloud-agent-install.sh\" ]; then\n    found=\"$d/.cursor/cloud-agent-install.sh\"\n    break\n  fi\ndone\nif [ -z \"$found\" ]; then\n  echo \"cloud-agent-install.sh not found\" >&2\n  exit 1\nfi\nbash \"$found\"\n"
+}
