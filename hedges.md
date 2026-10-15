@@ -36,7 +36,7 @@ The holder of `ReferenceAuthority` or `PracticeLedger` can issue capabilities. T
 
 ## Checks are not the scan
 
-`.github/workflows/check.yml` runs the Swift package and the Rust reader. A green run is the merge check for those paths. It is not performance evidence. The benches print timings under a declared control. CI runs them for 2 iterations only to prove the binary starts. Those numbers are not a gate. See `docs/benchmarks.md`.
+`.github/workflows/check.yml` runs the Swift package and the Rust reader. A green run is the merge check for those paths. It is not performance evidence. The benches print timings under a declared control. CI runs them for 2 iterations only to prove the binary starts. Those numbers are not a gate. A data run records one frozen local pass and does not start a roadmap phase. See `docs/benchmarks.md` and `docs/data-run.md`.
 
 CodeQL's default setup on `main`, including the Swift slot named `/language:swift`, is GitHub's scan. It is not a file in this repository and not a gate for the package. The summary can warn that the Swift configuration is missing while Autobuild is still running. That warning is not a failed `swift test`.
 

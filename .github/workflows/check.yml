@@ -50,9 +50,9 @@ jobs:
   swift:
     name: Swift package
     runs-on: ubuntu-latest
-    # Swift 6.2's discovered-test list cannot mix sync and async methods on an
-    # @MainActor suite. The suites are async throughout so this image can run them.
-    container: swift:6.2
+    # Swift 6.4.1 is the latest 6.4 stable. The suites stay async so the
+    # discovered-test list has one element type.
+    container: swift:6.4.1
     steps:
       - name: Checkout
         run: |

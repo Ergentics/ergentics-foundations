@@ -24,4 +24,6 @@ Do not import proprietary sibling trees. A public type may mirror a vocabulary. 
 | `rust/commitment-reader` | Rust 1.99.0. `cargo test --locked`, then the wasm32 release build, `node wasm-check.mjs`, and `cargo run --locked --release --bin commitment-bench -- --iterations 2` |
 | Docs only | Do not describe a test run that did not happen |
 
+The Swift job uses the `swift:6.4.1` image, the latest 6.4 stable. A data run is `ruby reference/data_run.rb` and is not the merge check. Ruby 4.0.7 records it. Rails 8.1.4 is a present toolchain and is not loaded. See `docs/data-run.md`.
+
 `.github/workflows/check.yml` runs those checks on pull requests and on pushes to `main`. GitHub Actions in this repository follow the org rule: an action must be owned by Ergentics and pinned to a full commit SHA. `actions/checkout` is not eligible, so the workflow fetches the commit with git. A green run of that workflow is the merge check for the paths it covers. It is not performance evidence and not an authority proof. CodeQL's default Swift configuration on `main` is a separate setup; a pull request that does not carry it shows a recycled warning, not a failure of this workflow.
