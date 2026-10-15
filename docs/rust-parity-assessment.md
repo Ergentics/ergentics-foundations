@@ -1,44 +1,43 @@
-# Rust parity assessment
+# Rust parity and WASM
 
-Decision for this maintenance line: **do not put the ledger or the authority behind UniFFI.** Byte parity already has a second implementation in Python. A Rust encoder of those same bytes would be a third implementation. UniFFI would make Swift call that Rust, so the Swift tests would stop being independent.
+The earlier note treated `swift-ffi-demo/` in the Rust repository as MasteryKit's Swift–Rust bridge. That was the wrong artifact. MasteryKit does not call UniFFI. It calls for parity with a named Rust reference, and the oracle policy names WASM as an external checker. This note replaces that reading.
 
-## Where the UniFFI demo actually is
+Decision for this maintenance line: **Python stays the external oracle. Rust parity, when added, is a pinned vector file, exact on these bytes. WASM would host that checker outside the Swift process. Neither is a library linked into `PracticeLedger`.**
 
-There is no UniFFI crate in MasteryKit. `git log -S uniffi` on that repository, including `memory-layer`, is empty. The demo is `swift-ffi-demo/` in the Rust repository: crate `greeter`, UniFFI 0.32.2, Rust 1.91, Swift 6.2 or newer. `build.sh` compiles the crate, generates `greeter.swift`, and stages `libgreeter_rs.a`. The generated Swift is not committed.
+## What MasteryKit actually checks
 
-What it crosses:
+On `memory-layer`, not on current `main`, `Tests/MasteryKitTests/FSRSTests.swift` has a section titled parity with fsrs-rs. The expected numbers are fsrs-rs v6.6.2's own tests in `src/inference.rs` (`test_memory_state`, `test_next_interval`). That Rust code computes in `f32`. The Swift port uses `Double` and states the slack: stability within `1e-3`, difficulty within `1e-4`, and the 3.1-million-day interval within a relative `1e-5`. The shorter intervals match after rounding.
 
-| Rust | Swift |
-|---|---|
-| `greet(name) -> String` | a function |
-| `Stats` (`uniffi::Record`) | an equatable struct of `UInt64` and `Double` |
-| `StatsError` (`uniffi::Error`) | a thrown enum |
-| `Counter` (`uniffi::Object`, `Mutex<u64>`) | a class Swift holds and Rust owns |
+`Sources/MasteryKit/Memory/FSRS.swift` on that branch says the formulas follow published FSRS-6 and py-fsrs v6.3.2. The test file is the Rust pin. There is no WASM build, no `fsrs-rs` crate in the tree, and no UniFFI. `git log -S uniffi` on MasteryKit is empty.
 
-That is a binding demo. It does not encode `CF-STATE-v1` or `PL-LOG-v1`, and it does not admit a practice event.
+The shape of the call is: name the reference version, commit the vectors it produced, and write down where the numeric types differ. The Swift tests do not link the Rust library.
 
-MasteryKit's `memory-layer` branch does have an FSRS test file. Its commit message says fsrs-rs reference vectors. The test itself says the numbers are hand-computed from the published formulas. That is formula parity inside Swift. It is not this UniFFI demo, and it is not a commitment profile.
+## What the oracle policy adds
 
-## What parity means here
+`agentcraft-app/docs/ORACLE-POLICY.md`, under "Improving this policy," lists external oracle languages still to record as apps are added: Python, Rust, WASM. That line is a checklist item. It is not a built pipeline. The one-sentence law above it is unchanged: at least two paths must agree, and at least one path must not be the production scorer.
 
-The public contracts are bytes and verdicts, not struct layout.
+WASM belongs on that list because it runs the checker somewhere other than the shipping Swift process: a browser, or a CI sandbox. It is not a way to give Swift a Rust object.
 
-- `reference/make_vectors.py` and `reference/make_practice_vectors.py` build the canonical bytes with Python `struct` and hash them with `hashlib`. Swift must match.
-- `reference/make_oracle_vectors.py` decides the thirteen admission verdicts. Swift must match.
-- `InTreeSHA256` matches the published answers for the empty message and for `abc`, and the six original state vectors.
+## What this repository already has
 
-A Rust port has parity when it prints those same hashes and verdicts. Sharing a process with Swift is a later packaging choice.
+Python is the external path that the policy asks for first.
 
-## What UniFFI would get wrong if it were the next piece
+- `reference/make_vectors.py` and `reference/make_practice_vectors.py` build `CF-STATE-v1` and `PL-LOG-v1` with `struct` and hash them with `hashlib`.
+- `reference/make_oracle_vectors.py` decides the thirteen admission verdicts.
+- The SHA-256 answers for the empty message and for `abc` are the published digests, not a Swift-only result.
 
-`Stats.mean` is an `f64` computed in Rust. The practice score's identity is the canonical IEEE bits after `-0` has been rewritten to `+0`. The demo rejects NaN and does not canonicalize signed zero. Passing a `Double` through UniFFI and hashing the Swift value would be a second score profile.
+Those matches are exact. There is no `f32` slack, and there should not be. The fields are integers, length-prefixed UTF-8, and IEEE-754 bits that the encoder has already canonicalized (`-0` stored as `+0`). The oracle table uses only scores `0`, `0.5`, and `1`. Copying the FSRS tolerance here would hide a byte that had changed.
 
-`Counter` is a mutable heap object. `PracticeLedger` does not keep a cached event list across an `await`, because the authority's state is the only source of truth. A UniFFI object holding that state would be a Rust heap Swift merely references. `Capability` and `VerifiedTransition` are not serializable on purpose. An object Swift can reconstruct from the Rust side is the reconstruction path the authority model refuses.
+## What not to build from this
 
-UniFFI's own serialization is not `PL-LOG-v1`. Generating Swift from the crate would make the public types a build artifact. This repository commits the vectors and the byte recipe. The generated bindings in the demo are deliberately uncommitted.
+Do not vendor `fsrs-rs` into foundations. The memory model is not this package's contract, and it is not on MasteryKit `main`.
 
-## When a Rust crate is worth adding
+Do not add UniFFI so Swift can call a Rust encoder. That would make the production path and the "external" path the same code. The FSRS tests avoid that: they store the Rust output and recompute it in Swift.
 
-Add a small Rust library that only encodes and decodes `PL-LOG-v1` and the fixed-binary state carrier, and checks the existing JSON vectors. No UniFFI, no actor, no capability. Swift remains the implementation the package ships. Rust and Python are then two non-production readers of the same bytes.
+Do not compile the ledger to WASM. Authority, capabilities, and tickets are process-local on purpose. A WASM port of `ReferenceAuthority` would look like a second issuer.
 
-Add UniFFI only when a Swift program must call that crate and cannot do the work in Swift. Foundations can already do the work in Swift. Binding it to Rust would collapse the independent check the vectors exist to provide.
+## When Rust or WASM is the next piece
+
+A Rust reader of `PL-LOG-v1` and `CF-STATE-v1` is the FSRS-shaped step: a named crate version, vectors committed in this repo, exact equality with the files Python already writes. Swift keeps shipping the ledger.
+
+WASM is how that reader would run off-process if a browser or a sandbox has to check a commitment without the Swift toolchain. The bytes it hashes are the same bytes. The module it loads is not the authority.
