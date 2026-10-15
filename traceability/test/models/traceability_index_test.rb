@@ -24,10 +24,10 @@ class TraceabilityIndexTest < ActiveSupport::TestCase
       assert_equal chain.fetch("canonicalVectors"), contract.reference_vector_ids
       assert_equal chain.fetch("referenceTests"), contract.reference_test_ids
       assert_equal [ chain.fetch("release") ], contract.release_ids
-      assert_equal chain["evaluatedCandidateName"], contract.evaluated_candidate_name
-      assert_equal chain["implementationName"], contract.implementation_name
-      assert_equal chain["proposedPublicName"], contract.proposed_public_name
-      assert_equal chain["publicNameOrigin"], contract.public_name_origin
+      assert_optional_field chain, "evaluatedCandidateName", contract.evaluated_candidate_name
+      assert_optional_field chain, "implementationName", contract.implementation_name
+      assert_optional_field chain, "proposedPublicName", contract.proposed_public_name
+      assert_optional_field chain, "publicNameOrigin", contract.public_name_origin
       assert contract.research_finding_ids.any?, "#{contract.external_id} omitted evidence ids"
     end
 
@@ -221,4 +221,13 @@ class TraceabilityIndexTest < ActiveSupport::TestCase
     assert_equal 1, TraceabilityRecord.count
     assert_equal 1, SdkRelease.count
   end
+
+  private
+    def assert_optional_field(chain, key, actual)
+      if chain.key?(key)
+        assert_equal chain[key], actual
+      else
+        assert_nil actual
+      end
+    end
 end
