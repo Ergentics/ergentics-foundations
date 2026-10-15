@@ -6,6 +6,14 @@ That paragraph describes the evidence in hand at closeout. The evidence in hand 
 
 This note lists open questions. It does not start E27, add a graph edge, or authorize an optimization. `E27Started` stays false. Every question below is `NOT_NOMINATED`. A later experiment does not inherit a ranking from E26's timers. The written synthesis is [e01-e26-public-synthesis.md](e01-e26-public-synthesis.md).
 
+## Design
+
+The untested speedup is not the next measurement. E26 left projection, construction, equality, and append inside one mixed loop. A timer of that loop would add a duration and would leave the classification inconclusive.
+
+The higher-yield order, if a later project measures at all, is `CANDIDATE-CLEAN-ATTRIBUTION` first: four named arms, with the mixed total only as a check that the arms add up. That run asks whether the arms separate. A speedup comparison waits until an arm is separable, and then AvoidedWork and ReuseManagementCost share that same boundary. Ordered-product reuse stays off the table while ordered equality fails and only multiset equality or common agreement holds.
+
+This repository records that order. It does not run the study. `FoundationBench` and `commitment-bench` time the public SDK paths under their own controls. They are not an E26 speedup test.
+
 The continuity paragraph already constrains the list. Ordered equality 0/63 beside multiset equality 63/63, or beside common agreement 65,457/65,457, does not license reuse of the whole current ordered validation product. Changed-source multiset equality 0/63 and agreement 64,323/65,457 do not define a revocation rule. The twelve rows are per-process counts, not replicates.
 
 ## Open questions

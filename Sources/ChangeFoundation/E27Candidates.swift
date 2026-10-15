@@ -37,9 +37,18 @@ public struct E27Closeout: Equatable, Sendable {
     public let universalNoNewEvidence: Bool
 }
 
+/// Where a later measurement would start. A speedup trial is not that start.
+public struct E27Design: Equatable, Sendable {
+    public let firstQuestionIfMeasured: String
+    public let openSourceSpeedupTrial: Bool
+    public let publicBenchesAreE26: Bool
+    public let speedupTestFirst: Bool
+}
+
 /// Questions the closed series does not nominate. `e27Started` stays false.
 public struct E27CandidateList: Equatable, Sendable {
     public let closeout: E27Closeout
+    public let design: E27Design
     public let seriesStatus: String
     public let nomination: String
     public let e27Started: Bool
@@ -60,6 +69,14 @@ public struct E27CandidateList: Equatable, Sendable {
         guard closeout.successorProjectsBlocked == false else { throw Rejection.invalidDomain }
         guard closeout.evidenceScope == "AT_CLOSEOUT" else { throw Rejection.invalidDomain }
         guard closeout.universalNoNewEvidence == false else { throw Rejection.invalidDomain }
+        let design = decoded.design
+        guard design.speedupTestFirst == false, design.openSourceSpeedupTrial == false else {
+            throw Rejection.invalidDomain
+        }
+        guard design.publicBenchesAreE26 == false else { throw Rejection.invalidDomain }
+        guard design.firstQuestionIfMeasured == "CANDIDATE-CLEAN-ATTRIBUTION" else {
+            throw Rejection.invalidDomain
+        }
         guard decoded.seriesStatus == "CLOSED_AFTER_E26" else { throw Rejection.invalidDomain }
         guard decoded.nomination == "NONE" else { throw Rejection.invalidDomain }
         guard decoded.e27Started == false else { throw Rejection.invalidDomain }
@@ -74,12 +91,20 @@ public struct E27CandidateList: Equatable, Sendable {
             guard seen.insert(row.id).inserted else { throw Rejection.invalidDomain }
             return E27Candidate(id: row.id, question: row.question, evidenceIds: row.evidenceIds, status: row.status)
         }
+        guard candidates.contains(where: { $0.id == design.firstQuestionIfMeasured }) else {
+            throw Rejection.invalidDomain
+        }
         let excluded = try decoded.excluded.map { row -> E27Exclusion in
             guard row.status == E27Exclusion.notACandidate else { throw Rejection.invalidDomain }
             guard row.id.hasPrefix("EXCLUDED-"), !row.reason.isEmpty else { throw Rejection.invalidDomain }
             guard seen.insert(row.id).inserted else { throw Rejection.invalidDomain }
             return E27Exclusion(id: row.id, reason: row.reason, status: row.status)
         }
+        self.design = E27Design(
+            firstQuestionIfMeasured: design.firstQuestionIfMeasured,
+            openSourceSpeedupTrial: design.openSourceSpeedupTrial,
+            publicBenchesAreE26: design.publicBenchesAreE26,
+            speedupTestFirst: design.speedupTestFirst)
         self.closeout = E27Closeout(
             classification: closeout.classification,
             speedupTested: closeout.speedupTested,
@@ -99,12 +124,20 @@ public struct E27CandidateList: Equatable, Sendable {
 
 private struct FileShape: Decodable {
     let closeout: CloseoutRow
+    let design: DesignRow
     let seriesStatus: String
     let nomination: String
     let e27Started: Bool
     let source: String
     let candidates: [CandidateRow]
     let excluded: [ExcludedRow]
+}
+
+private struct DesignRow: Decodable {
+    let firstQuestionIfMeasured: String
+    let openSourceSpeedupTrial: Bool
+    let publicBenchesAreE26: Bool
+    let speedupTestFirst: Bool
 }
 
 private struct CloseoutRow: Decodable {

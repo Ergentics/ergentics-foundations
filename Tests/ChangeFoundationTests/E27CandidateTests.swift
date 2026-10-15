@@ -29,6 +29,10 @@ import XCTest
         XCTAssertFalse(list.closeout.successorProjectsBlocked)
         XCTAssertEqual(list.closeout.evidenceScope, "AT_CLOSEOUT")
         XCTAssertFalse(list.closeout.universalNoNewEvidence)
+        XCTAssertFalse(list.design.speedupTestFirst)
+        XCTAssertFalse(list.design.openSourceSpeedupTrial)
+        XCTAssertFalse(list.design.publicBenchesAreE26)
+        XCTAssertEqual(list.design.firstQuestionIfMeasured, "CANDIDATE-CLEAN-ATTRIBUTION")
         XCTAssertEqual(list.candidates.count, 8)
         XCTAssertEqual(list.excluded.count, 3)
         for candidate in list.candidates {
@@ -45,6 +49,7 @@ import XCTest
         XCTAssertTrue(note.contains("successor projects are not blocked."))
         XCTAssertTrue(note.contains(
             "The evidence in hand at closeout is not a universal rule that no new evidence can be gathered."))
+        XCTAssertTrue(note.contains("The untested speedup is not the next measurement."))
 
         struct BasisFile: Decodable {
             let E27Started: Bool

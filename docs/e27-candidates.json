@@ -8,6 +8,12 @@
     "successorProjectsBlocked": false,
     "universalNoNewEvidence": false
   },
+  "design": {
+    "firstQuestionIfMeasured": "CANDIDATE-CLEAN-ATTRIBUTION",
+    "openSourceSpeedupTrial": false,
+    "publicBenchesAreE26": false,
+    "speedupTestFirst": false
+  },
   "e27Started": false,
   "nomination": "NONE",
   "seriesStatus": "CLOSED_AFTER_E26",

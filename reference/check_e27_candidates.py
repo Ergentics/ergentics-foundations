@@ -61,6 +61,15 @@ def main():
     ):
         if sentence not in note:
             fail(f"note omitted: {sentence}")
+    if listed["design"] != {
+        "firstQuestionIfMeasured": "CANDIDATE-CLEAN-ATTRIBUTION",
+        "openSourceSpeedupTrial": False,
+        "publicBenchesAreE26": False,
+        "speedupTestFirst": False,
+    }:
+        fail("design record changed")
+    if "The untested speedup is not the next measurement." not in note:
+        fail("note lost the yield order")
     if listed["e27Started"] is not False or listed["nomination"] != "NONE":
         fail("candidate file nominates E27")
     if listed["seriesStatus"] != "CLOSED_AFTER_E26":

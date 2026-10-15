@@ -1,6 +1,6 @@
 # Benchmarks
 
-These commands time the public paths. A printed `ns_per_op` is not a result that can be compared across languages, machines, or commits unless a later note declares the pair, the control, and the accounting boundary again. The test suite does not read these numbers. CI runs each bench for 2 iterations only to prove the binary starts.
+These commands time the public paths. A printed `ns_per_op` is not a result that can be compared across languages, machines, or commits unless a later note declares the pair, the control, and the accounting boundary again. The test suite does not read these numbers. CI runs each bench for 2 iterations only to prove the binary starts. These timings are not an E26 speedup test. E26 left the mixed loop unsplit, so a duration here does not isolate removable work.
 
 ## What is timed
 
