@@ -90,7 +90,7 @@ fn practice_vectors_match_python() {
     let file = repo_file("Tests/PracticeLedgerTests/vectors.json");
     let vectors: Vec<PracticeVector> =
         serde_json::from_reader(std::fs::File::open(&file).expect("practice vectors")).unwrap();
-    assert_eq!(vectors.len(), 5);
+    assert_eq!(vectors.len(), 6);
     for vector in vectors {
         let events: Vec<_> = vector
             .events

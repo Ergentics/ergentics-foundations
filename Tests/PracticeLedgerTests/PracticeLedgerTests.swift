@@ -37,6 +37,7 @@ import XCTest
         case "problems": surface = .problems
         case "quiz": surface = .quiz
         case "recall": surface = .recall
+        case "moment": surface = .moment
         default:
             XCTFail("Unknown surface \(raw.surface)")
             throw PracticeRejection.payloadCorrupt
@@ -87,7 +88,7 @@ import XCTest
 
     func testCanonicalVectorsMatchIndependentBytes() async throws {
         let fixtures = try loadFixtures()
-        XCTAssertEqual(fixtures.count, 5)
+        XCTAssertEqual(fixtures.count, 6)
         for fixture in fixtures {
             let events = try fixture.events.map(practiceEvent)
             let state = try PracticeEncoding.state(

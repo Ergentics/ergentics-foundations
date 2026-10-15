@@ -43,7 +43,7 @@ The record is Swift, because that is the language of the reference and of Master
 `reference/make_practice_vectors.py` builds the bytes with Python `struct` and hashes them with `hashlib`. Swift tests compare those hashes through the public state commitment. The profile is:
 
 1. ASCII `PL-LOG-v1`, a zero byte, then a big-endian unsigned event count.
-2. Each event, in submission order: length-prefixed UTF-8 id, length-prefixed UTF-8 skill id, one surface byte (`problems=1`, `quiz=2`, `recall=3`), one kind byte (`WE=1`, `PF=2`, `RP=3`), IEEE-754 binary64 score in big-endian bits, big-endian signed timestamp milliseconds, one confidence byte (`absent=0`, `false=1`, `true=2`).
+2. Each event, in submission order: length-prefixed UTF-8 id, length-prefixed UTF-8 skill id, one surface byte (`problems=1`, `quiz=2`, `recall=3`, `moment=4`), one kind byte (`WE=1`, `PF=2`, `RP=3`), IEEE-754 binary64 score in big-endian bits, big-endian signed timestamp milliseconds, one confidence byte (`absent=0`, `false=1`, `true=2`). Bytes 1–3 are unchanged. Byte 4 means the score came from a stage commit. The log still does not contain the position, the move, or a regret in the game's own units.
 3. UTF-8 identifiers are 1...256 bytes, contain no `U+0000`, and are not Unicode-normalized. `-0` is not a canonical score; the constructor stores it as `+0`, and the decoder rejects the negative-zero bit pattern.
 4. The log is zero-padded to a multiple of 8 bytes. Chunk `i` (1-based) is a signed 64-bit entry id. Those entries are then wrapped in fixed-binary state v1. Lineage and generation are not inside `PL-LOG-v1`.
 

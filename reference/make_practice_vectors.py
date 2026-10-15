@@ -15,7 +15,7 @@ def rel(entries):
 def state_bytes(s):
     return b'CF-STATE-v1\0' + u(s['lineage']) + u(s['generation']) + rel(s['entries']) + u(len(s['order'])) + b''.join(map(u, s['order']))
 
-SURFACES = {'problems': 1, 'quiz': 2, 'recall': 3}
+SURFACES = {'problems': 1, 'quiz': 2, 'recall': 3, 'moment': 4}
 KINDS = {'WE': 1, 'PF': 2, 'RP': 3}
 
 def lp(text):
@@ -70,6 +70,10 @@ cases = [
     dict(name='signed-timestamp-zero-score', lineage=1, generation=0, events=[
         dict(id='recall-1', skillID='caf\u00e9', surface='recall', kind='RP',
              score=0.0, timestampMs=-1, confident=False),
+    ]),
+    dict(name='moment-stage-commit', lineage=1, generation=1, events=[
+        dict(id='moment-1', skillID='capturing', surface='moment', kind='RP',
+             score=1.0, timestampMs=1_700_000_000_000, confident=None),
     ]),
 ]
 

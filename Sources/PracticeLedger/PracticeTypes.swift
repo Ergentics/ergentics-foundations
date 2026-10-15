@@ -49,11 +49,12 @@ public struct SkillID: Hashable, Sendable {
     }
 }
 
-/// The three surfaces MasteryKit's practice loop already distinguishes. An unknown surface is not a stringly-typed escape hatch.
+/// Where a practice score came from. `moment` is a stage commit. The ledger does not store the position, the move, or the evaluator.
 public enum PracticeSurface: UInt8, Hashable, Sendable {
     case problems = 1
     case quiz = 2
     case recall = 3
+    case moment = 4
 }
 
 /// Closed lesson kind. The wire byte is `rawValue`; `code` is the MasteryKit label (`WE` / `PF` / `RP`).

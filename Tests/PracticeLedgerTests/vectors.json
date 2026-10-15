@@ -77,5 +77,23 @@
     "generation": 0,
     "lineage": 1,
     "name": "signed-timestamp-zero-score"
+  },
+  {
+    "events": [
+      {
+        "confident": null,
+        "id": "moment-1",
+        "kind": "RP",
+        "score": 1.0,
+        "skillID": "capturing",
+        "surface": "moment",
+        "timestampMs": 1700000000000
+      }
+    ],
+    "expectedRelationCommitment": "a30baf6c4e1e044b6844ce1e02150cc9284882dfeea69fbc34c6a4592c2751b5",
+    "expectedStateCommitment": "01921ef1f4bf0fa708d90d7d8612bc1f320c52152a0a010868026d2eccc18e32",
+    "generation": 1,
+    "lineage": 1,
+    "name": "moment-stage-commit"
   }
 ]

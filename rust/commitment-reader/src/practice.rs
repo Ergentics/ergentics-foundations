@@ -23,6 +23,7 @@ pub fn surface_byte(name: &str) -> Option<u8> {
         "problems" => Some(1),
         "quiz" => Some(2),
         "recall" => Some(3),
+        "moment" => Some(4),
         _ => None,
     }
 }

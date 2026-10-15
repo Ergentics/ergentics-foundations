@@ -1,6 +1,6 @@
 # Game evidence assessment
 
-Decision for the next public piece: **a moment surface on the practice record. Do not port either game.** Ur and backgammon keep their boards, dice, search, and thresholds. This change does not add that surface yet. It records which lesson is worth adding, and which copies would be the wrong next step.
+Decision: **`PracticeSurface.moment` is the public piece. The games stay in their own repositories.** Ur and backgammon keep their boards, dice, search, and thresholds. A stage commit is recorded as surface byte 4 after the game has already reduced its grade to a unit score.
 
 ## What the two games already share
 
@@ -10,7 +10,7 @@ Both titles are dice-race tutors on MasteryKit. The shared thesis is outside thi
 2. That rating is collapsed to a unit score before `TutorSession.submit`. A clean play is `0.85`. A mistake is `0.2`. Ur's puzzle path also gives `1.0` for optimal, because the `0.85` cap was found to stall positional skills. Match folding in both games stays binary: clean or mistake.
 3. The submitted item is labeled `surface: "quiz"` with the stem "In-game decision", even when the player moved on the board. `UrLearningBridge.evidenceItem` and `BackgammonTutor.LearningBridge.evidenceItem` are the same shape. Ur's file says it mirrors the backgammon bridge.
 
-`PracticeLedger` can store that item today only by calling it a quiz. `PracticeSurface` is `problems`, `quiz`, or `recall`. A board commit has no case.
+`PracticeSurface.moment` is that board-commit case. A game that still labels the item `quiz` is using the old seam. The ledger accepts either byte. It does not infer which game produced the score.
 
 ## What must stay in the games
 
@@ -24,13 +24,9 @@ Both titles are dice-race tutors on MasteryKit. The shared thesis is outside thi
 
 Raw regret is also the wrong thing to seal. Backgammon's cross-grader checks show two evaluators can agree that a move was a mistake and still disagree on the size of the regret. `OracleAdmission` compares canonical score bits. Those bits are only meaningful after the game has binned the grade. The bin stays in the game.
 
-## What the next piece is
+## What landed
 
-Add a moment as evidence, not as a game.
-
-When this is built, `PracticeSurface` gains a moment case: the score came from a stage commit, and the ledger still does not know the position, the move, or the evaluator. The game maps its rating to a `UnitScore` and submits that event. `OracleAdmission` can then seal the unit score. It still cannot seal a regret in equity units.
-
-That is the MasteryKit connection these two repos are asking for. `PracticeLedger` was the submit record from cert-style practice. The games show that record's surface list is incomplete. The fix is one more surface and a written rule that regret is reduced to a unit score before it crosses the boundary.
+`PracticeSurface.moment` (byte 4) records that the score came from a stage commit. The game maps its own rating to a `UnitScore` and submits that event. `OracleAdmission` can seal that unit score. It still cannot seal a regret in equity units. Existing `problems`, `quiz`, and `recall` bytes are unchanged.
 
 ## What not to build next
 
