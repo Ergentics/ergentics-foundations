@@ -2,7 +2,7 @@
 
 `ergentics.com` already uses Cloudflare nameservers (`frida.ns.cloudflare.com` and `neil.ns.cloudflare.com`). The address answers from Cloudflare. This environment can resolve that name and reach the edge. It cannot change the site.
 
-A request from this machine to `https://ergentics.com` receives HTTP 403 with `cf-mitigated: challenge`. The existing page body is not visible from that request. The Cloudflare session can read the Ergentics account. It can list Workers. It cannot open an asset upload session: the API returns no access to that resource. Wrangler on this machine is still not logged in. Nothing has been deployed.
+A request from this machine to `https://ergentics.com` receives HTTP 403 with `cf-mitigated: challenge`. The existing page body is not visible from that request. The Cloudflare session can read the Ergentics account. It can list Workers. It cannot open an asset upload session: the API returns no access to that resource. `demos/recital` installs Wrangler 4.151.0. `npx wrangler whoami` in that directory still reports no login. Nothing has been deployed.
 
 ## Adapter
 
@@ -13,7 +13,7 @@ The first host is a Worker that serves static assets. The asset directory is `de
 The custom domain is `ergentics.com`. Attaching it replaces whatever the apex serves today. That attachment waits for a person who can see the current page and who is logged into the zone. The command, after that login, is:
 
 ```sh
-npx wrangler deploy --config demos/recital/wrangler.jsonc
+cd demos/recital && npx wrangler deploy
 ```
 
 Routes and the DNS record stay a dashboard step. This file does not create them.
