@@ -141,4 +141,9 @@ extension PracticeSnapshot {
     public var evidence: Evidence {
         Evidence(stateCommitment: commitment, relationCommitment: relationCommitment)
     }
+
+    /// The carrier's identity. A matching id on another ledger is not a ticket.
+    public var stateID: StateID {
+        StateID(lineage: lineage, generation: generation, commitment: commitment)
+    }
 }

@@ -14,6 +14,20 @@ public struct Entry: Codable, Equatable, Sendable {
     public init(id: UInt64, value: Int64) { self.id = id; self.value = value }
 }
 
+/// Lineage, generation, and the canonical state commitment. Equality is identity of those bytes.
+/// It is not currentness and it is not permission to commit.
+public struct StateID: Hashable, Sendable {
+    public let lineage: UInt64
+    public let generation: UInt64
+    public let commitment: String
+
+    public init(lineage: UInt64, generation: UInt64, commitment: String) {
+        self.lineage = lineage
+        self.generation = generation
+        self.commitment = commitment
+    }
+}
+
 /// Public knowledge. Constructing a snapshot never grants commit authority.
 public struct State: Equatable, Sendable {
     public let lineage: UInt64
@@ -29,6 +43,9 @@ public struct State: Equatable, Sendable {
         self.entries = entries.sorted { $0.id < $1.id }; self.order = order
     }
     public var commitment: String { Canonical.digest(Canonical.state(self)) }
+    public var stateID: StateID {
+        StateID(lineage: lineage, generation: generation, commitment: commitment)
+    }
     public var relation: Relation { Relation(entries: entries) }
 }
 

@@ -71,7 +71,7 @@ This is software reference behavior, not formal verification, hardware isolation
 
 Primary research evidence remains privately retained and awaits verified archival; this public dataset is a derivative, not a replacement. Private paths, Git history, model data and raw payloads are excluded. Research integrity and runtime authority are separate boundaries.
 
-Start with [architecture](docs/architecture-principles.md), [authority](docs/authority-model.md), [canonical reference](reference/README.md), and the [roadmap](docs/roadmap.md). No later roadmap phase is implemented by this release preparation.
+Start with [architecture](docs/architecture-principles.md), [authority](docs/authority-model.md), [canonical reference](reference/README.md), [hedges](hedges.md), and the [roadmap](docs/roadmap.md). No later roadmap phase is implemented by this release preparation.
 
 ## SDK scope and evolution
 

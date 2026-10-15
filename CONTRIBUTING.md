@@ -12,7 +12,7 @@ Keep generated build files and local diagnostics outside the tree (`target/`, `.
 
 Fetch `origin/main` before the next commit. If `git log HEAD..origin/main` is not empty, merge or rebase onto `main` first.
 
-A commit is one concern. The subject says what landed. The body says the contract consequence, including what the change does not claim: not authority, not a harvested corpus record, not a performance result. A correction of a decision rewrites the lead of that note in the same commit.
+A commit is one concern. The subject says what landed. The body says the contract consequence, including what the change does not claim: not authority, not a harvested corpus record, not a performance result. A correction of a decision rewrites the lead of that note in the same commit. New public surface stays inside [hedges.md](hedges.md). Crossing a hedge is a contract change and has to be named in the commit.
 
 A behavior change carries an independent vector or extends one. The expected hash comes from the Python recipe or a published digest, not from rerunning the implementation under test and pasting its output. Rust and WASM readers must match those bytes exactly. Numeric slack from another project, such as an `f32` memory model, does not apply to `CF-STATE-v1` or `PL-LOG-v1`.
 

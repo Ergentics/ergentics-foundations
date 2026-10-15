@@ -154,6 +154,8 @@ import XCTest
         XCTAssertEqual(after.events, before.events)
         XCTAssertEqual(after.relationCommitment, before.relationCommitment)
         XCTAssertNotEqual(after.commitment, before.commitment)
+        XCTAssertNotEqual(before.stateID, after.stateID)
+        XCTAssertEqual(after.stateID.commitment, after.commitment)
     }
 
     func testSubmissionOrderIsPreservedWhenIdentifiersAreNotSorted() async throws {
