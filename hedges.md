@@ -42,7 +42,7 @@ CodeQL's default setup on `main`, including the Swift slot named `/language:swif
 
 ## Agreement is not ordered reuse
 
-`TargetContinuity` keeps ordered vector equality, multiset equality, and common occurrence/backing agreement as separate counts from `EV-E26-CONTINUITY`. The twelve rows repeat across two sweeps and three observer levels. They are per-process transition and occurrence counts. They are not independent replicates, and the three predicates are not one equality. Multiset equality and a complete common-agreement ratio do not license reuse of the ordered validation product. This type records the retained table. It does not rerun E26 and it does not report a speedup.
+`TargetContinuity` keeps ordered vector equality, multiset equality, and common occurrence/backing agreement as separate counts from `EV-E26-CONTINUITY`. The written statement is already in `docs/e01-e26-public-synthesis.md`. The twelve dataset rows repeat across two sweeps and three observer levels. They are per-process transition and occurrence counts. They are not independent replicates, and the three predicates are not one equality. Multiset equality and a complete common-agreement ratio do not license reuse of the ordered validation product. This type loads the retained rows. It does not replace the synthesis, rerun E26, or report a speedup.
 
 ## The index is not the store
 

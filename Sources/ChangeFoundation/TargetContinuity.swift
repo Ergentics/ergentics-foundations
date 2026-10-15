@@ -26,7 +26,7 @@ public enum ObserverLevel: String, Equatable, Sendable, Decodable {
 }
 
 /// `cell` in `docs/longitudinal-dataset.json`.
-/// Cell 0 is the primary target. Cell 1 is the changed-source counterpart.
+/// The public synthesis already names cell 0 as the primary target and cell 1 as the changed-source counterpart.
 public enum ContinuityCell: Int, Equatable, Sendable, Decodable {
     case primary = 0
     case changedSource = 1
@@ -73,7 +73,7 @@ public struct TargetContinuity: Equatable, Sendable {
     public var commonAssociationLicensesOrderedReuse: Bool { false }
 }
 
-/// The twelve retained rows. Loading them does not rerun E26.
+/// The twelve dataset rows named by the public synthesis. Loading them does not replace that document or rerun E26.
 public struct E26ContinuityTable: Equatable, Sendable {
     public let rows: [TargetContinuity]
 

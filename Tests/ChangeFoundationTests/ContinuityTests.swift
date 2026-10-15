@@ -39,12 +39,50 @@ import XCTest
         XCTAssertFalse(row.commonAssociationLicensesOrderedReuse)
     }
 
+    func repoRoot() -> URL {
+        URL(fileURLWithPath: #filePath)
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+            .deletingLastPathComponent()
+    }
+
+    func testPublicSynthesisIsAlreadyTheRecord() async throws {
+        let root = repoRoot()
+        let synthesisURL = root.appendingPathComponent("docs/e01-e26-public-synthesis.md")
+        let basisURL = root.appendingPathComponent("sdk-release-basis.json")
+        let synthesisBefore = try Data(contentsOf: synthesisURL)
+        let basisBefore = try Data(contentsOf: basisURL)
+        let synthesis = try XCTUnwrap(String(data: synthesisBefore, encoding: .utf8))
+        XCTAssertTrue(synthesis.contains("E26's target continuity is especially discriminating."))
+        XCTAssertTrue(synthesis.contains("[EV-E26-CONTINUITY]"))
+        XCTAssertTrue(synthesis.contains("ordered vector equality 0/63"))
+        XCTAssertTrue(synthesis.contains("multiset equality 63/63"))
+        XCTAssertTrue(synthesis.contains("65,457/65,457"))
+        XCTAssertTrue(synthesis.contains("ordered equality 0/63"))
+        XCTAssertTrue(synthesis.contains("multiset equality 0/63"))
+        XCTAssertTrue(synthesis.contains("64,323/65,457"))
+        XCTAssertTrue(synthesis.contains(
+            "per-process transition/occurrence counts, not independent statistical replicates or identical equality predicates"))
+        XCTAssertTrue(synthesis.contains(
+            "Neither unordered agreement nor a high common-association ratio licenses reuse of the whole current ordered validation product."))
+        XCTAssertTrue(synthesis.contains("The derived dataset simply retains their exact counts."))
+
+        struct BasisFile: Decodable {
+            struct Synthesis: Decodable {
+                let publicEvidenceId: String
+                let sha256: String
+            }
+            let PostHocSynthesis: Synthesis
+        }
+        let basis = try JSONDecoder().decode(BasisFile.self, from: basisBefore)
+        XCTAssertEqual(basis.PostHocSynthesis.publicEvidenceId, "POSTHOC-E01-E26-CLOSEOUT")
+        XCTAssertEqual(basis.PostHocSynthesis.sha256.count, 64)
+        XCTAssertEqual(try Data(contentsOf: synthesisURL), synthesisBefore)
+        XCTAssertEqual(try Data(contentsOf: basisURL), basisBefore)
+    }
+
     func testRetainedTableRepeatsTheSameCountsAtEachSweepAndLevel() async throws {
-        let root = URL(fileURLWithPath: #filePath)
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-            .deletingLastPathComponent()
-        let url = root.appendingPathComponent("docs/longitudinal-dataset.json")
+        let url = repoRoot().appendingPathComponent("docs/longitudinal-dataset.json")
         let before = try Data(contentsOf: url)
         let table = try E26ContinuityTable(decoding: before)
         XCTAssertEqual(try Data(contentsOf: url), before)

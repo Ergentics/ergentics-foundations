@@ -1,6 +1,6 @@
 # E26 target continuity
 
-`TargetContinuity` records one retained row from `docs/longitudinal-dataset.json`. The evidence id is `EV-E26-CONTINUITY`. Loading the twelve rows does not rerun E26 and does not start E27.
+The written record is already [the public synthesis](e01-e26-public-synthesis.md). Its SHA-256 is the `PostHocSynthesis` digest in `sdk-release-basis.json`, evidence id `POSTHOC-E01-E26-CLOSEOUT`. [The longitudinal dataset](longitudinal-dataset.json) retains those same adjacent-transition counts under `EV-E26-CONTINUITY`. `TargetContinuity` loads the twelve dataset rows. It does not replace the synthesis, rerun E26, or start E27.
 
 Each row keeps three predicates:
 
