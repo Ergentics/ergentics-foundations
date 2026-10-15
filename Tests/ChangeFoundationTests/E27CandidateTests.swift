@@ -22,6 +22,13 @@ import XCTest
         XCTAssertFalse(list.e27Started)
         XCTAssertEqual(list.nomination, "NONE")
         XCTAssertEqual(list.seriesStatus, "CLOSED_AFTER_E26")
+        XCTAssertEqual(list.closeout.classification, "H. MEASUREMENT DECOMPOSITION INCONCLUSIVE")
+        XCTAssertFalse(list.closeout.speedupTested)
+        XCTAssertFalse(list.closeout.e27InThisSeries)
+        XCTAssertEqual(list.closeout.economicExhaustion, "UNKNOWN")
+        XCTAssertFalse(list.closeout.successorProjectsBlocked)
+        XCTAssertEqual(list.closeout.evidenceScope, "AT_CLOSEOUT")
+        XCTAssertFalse(list.closeout.universalNoNewEvidence)
         XCTAssertEqual(list.candidates.count, 8)
         XCTAssertEqual(list.excluded.count, 3)
         for candidate in list.candidates {
@@ -34,6 +41,10 @@ import XCTest
             XCTAssertTrue(note.contains(exclusion.id))
         }
         XCTAssertTrue(note.contains("It does not start E27"))
+        XCTAssertTrue(note.contains("There is no E27 in this series."))
+        XCTAssertTrue(note.contains("successor projects are not blocked."))
+        XCTAssertTrue(note.contains(
+            "The evidence in hand at closeout is not a universal rule that no new evidence can be gathered."))
 
         struct BasisFile: Decodable {
             let E27Started: Bool

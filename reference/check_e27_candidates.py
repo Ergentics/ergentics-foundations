@@ -37,8 +37,30 @@ def main():
         fail("synthesis digest drifted from the release basis")
     if basis["E27Started"] is not False or basis["E26SpeedupTested"] is not False:
         fail("basis no longer records E26 as closed without a speedup")
-    if CLOSEOUT not in synthesis.decode():
+    synthesis_text = synthesis.decode()
+    if CLOSEOUT not in synthesis_text or "Future work is not blocked." not in synthesis_text:
         fail("synthesis closeout sentence missing")
+    closeout = listed["closeout"]
+    if closeout != {
+        "classification": "H. MEASUREMENT DECOMPOSITION INCONCLUSIVE",
+        "e27InThisSeries": False,
+        "economicExhaustion": "UNKNOWN",
+        "evidenceScope": "AT_CLOSEOUT",
+        "speedupTested": False,
+        "successorProjectsBlocked": False,
+        "universalNoNewEvidence": False,
+    }:
+        fail("closeout record changed")
+    for sentence in (
+        "H. MEASUREMENT DECOMPOSITION INCONCLUSIVE; no speedup was tested.",
+        "without isolating removable work or establishing reusable validation authority or net benefit.",
+        "the evidence no longer uniquely nominates another intervention.",
+        "There is no E27 in this series.",
+        "Economic exhaustion remains UNKNOWN; successor projects are not blocked.",
+        "The evidence in hand at closeout is not a universal rule that no new evidence can be gathered.",
+    ):
+        if sentence not in note:
+            fail(f"note omitted: {sentence}")
     if listed["e27Started"] is not False or listed["nomination"] != "NONE":
         fail("candidate file nominates E27")
     if listed["seriesStatus"] != "CLOSED_AFTER_E26":

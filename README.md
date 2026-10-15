@@ -10,7 +10,7 @@ Consequential-change research asks which consequences must be recomputed when st
 
 The 26 experiments progressed from first-party optimizer/autodiff boundaries through selective execution, persistent representations, request maintenance, commitments and current validation. Selected sparse, warm and request-only regions produced differential wins against their contemporaneous FULL controls. Arithmetic reduction alone often lost once management and materialization were included. Later representation improvements frequently helped both FULL and differential paths. Source changes reversed some reuse benefits. See the [public synthesis](docs/e01-e26-public-synthesis.md) and [experiment-local dataset](docs/longitudinal-dataset.json) for comparison boundaries and negative results.
 
-E26 is **H. MEASUREMENT DECOMPOSITION INCONCLUSIVE**; no speedup was tested. It concentrates a mixed provenance loop without isolating removable work or establishing reusable validation authority or net benefit. E01–E26 closes here because the evidence no longer uniquely nominates another intervention. There is no E27 in this series. **Economic exhaustion remains UNKNOWN; successor projects are not blocked.**
+E26 is **H. MEASUREMENT DECOMPOSITION INCONCLUSIVE**; no speedup was tested. It concentrates a mixed provenance loop without isolating removable work or establishing reusable validation authority or net benefit. E01–E26 closes here because the evidence no longer uniquely nominates another intervention. There is no E27 in this series. **Economic exhaustion remains UNKNOWN; successor projects are not blocked.** That closeout describes the evidence then in hand. It is not a universal rule against new evidence.
 
 ## What this code does
 

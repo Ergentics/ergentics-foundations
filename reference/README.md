@@ -14,6 +14,6 @@ The JSON transport represents UInt64/Int64 numbers exactly in Swift and Python. 
 
 `check_continuity.py` reads `docs/e01-e26-public-synthesis.md` and `docs/longitudinal-dataset.json`. The synthesis is already the written record; its digest is `PostHocSynthesis.sha256` in `sdk-release-basis.json`. The script checks that the dataset rows repeat the fractions named in that continuity paragraph. It does not rerun E26 or pool the sweeps.
 
-`check_e27_candidates.py` reads `docs/e27-candidates.json` against that same closeout. Every candidate stays `NOT_NOMINATED`, and `E27Started` stays false.
+`check_e27_candidates.py` reads `docs/e27-candidates.json` against that same closeout. Every candidate stays `NOT_NOMINATED`, and `E27Started` stays false. The closeout stays a statement about the evidence then in hand, not a universal ban on later evidence.
 
 `rust/commitment-reader` 0.1.0 reads the state and practice vector files this directory's scripts produce and checks the hex exactly. Its WASM build hashes the same bytes off-process. It does not replace these scripts.

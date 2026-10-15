@@ -1,8 +1,10 @@
 # E27 candidates
 
-E01–E26 is closed. E26 remains **H. MEASUREMENT DECOMPOSITION INCONCLUSIVE**. No speedup was tested. The [public synthesis](e01-e26-public-synthesis.md) says the accepted evidence does not uniquely nominate a next intervention. Economic exhaustion stays **UNKNOWN**. This note lists open questions. It does not start E27, add a graph edge, or authorize an optimization.
+E26 is H. MEASUREMENT DECOMPOSITION INCONCLUSIVE; no speedup was tested. It concentrates a mixed provenance loop without isolating removable work or establishing reusable validation authority or net benefit. E01–E26 closes here because the evidence no longer uniquely nominates another intervention. There is no E27 in this series. Economic exhaustion remains UNKNOWN; successor projects are not blocked.
 
-`E27Started` stays false. Every question below is `NOT_NOMINATED`. A later experiment needs its own hypothesis and new frozen controls. It does not inherit a ranking from E26's timers.
+That paragraph describes the evidence in hand at closeout. The evidence in hand at closeout is not a universal rule that no new evidence can be gathered. A later project can bring new evidence under its own hypothesis and frozen controls. That evidence would not rewrite this series into an E27, and the lack of a unique nomination in the closed record would not supply it.
+
+This note lists open questions. It does not start E27, add a graph edge, or authorize an optimization. `E27Started` stays false. Every question below is `NOT_NOMINATED`. A later experiment does not inherit a ranking from E26's timers. The written synthesis is [e01-e26-public-synthesis.md](e01-e26-public-synthesis.md).
 
 The continuity paragraph already constrains the list. Ordered equality 0/63 beside multiset equality 63/63, or beside common agreement 65,457/65,457, does not license reuse of the whole current ordered validation product. Changed-source multiset equality 0/63 and agreement 64,323/65,457 do not define a revocation rule. The twelve rows are per-process counts, not replicates.
 
@@ -24,7 +26,7 @@ The continuity paragraph already constrains the list. Ordered equality 0/63 besi
 | Id | Reason |
 |---|---|
 | `EXCLUDED-LARGEST-TIMER` | Choosing the mixed loop because it concentrates instrumented time is the motive the closeout rejects. |
-| `EXCLUDED-ECONOMIC-EXHAUSTION` | UNKNOWN is the decision status of the closed series, not an intervention. |
+| `EXCLUDED-ECONOMIC-EXHAUSTION` | UNKNOWN is the decision status of the closed series, not an intervention, and it does not forbid later evidence. |
 | `EXCLUDED-HARDWARE-OR-MODEL` | E26 does not establish a hardware delta unit, a physical saving, or a model-quality result. |
 
 The machine-readable list is [e27-candidates.json](e27-candidates.json). Loading it cannot set `E27Started`.

@@ -46,7 +46,7 @@ CodeQL's default setup on `main`, including the Swift slot named `/language:swif
 
 ## A candidate is not E27
 
-`docs/e27-candidates.md` lists open questions after the closed E01–E26 series. Each one is `NOT_NOMINATED`. `E27Started` stays false. The list does not add a graph edge, choose the largest timer, or report a speedup.
+`docs/e27-candidates.md` lists open questions after the closed E01–E26 series. Each one is `NOT_NOMINATED`. `E27Started` stays false. The closeout describes the evidence in hand at that time. It is not a universal rule against new evidence. The list does not add a graph edge, choose the largest timer, or report a speedup.
 
 ## The index is not the store
 

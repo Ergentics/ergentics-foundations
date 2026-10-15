@@ -1,4 +1,13 @@
 {
+  "closeout": {
+    "classification": "H. MEASUREMENT DECOMPOSITION INCONCLUSIVE",
+    "e27InThisSeries": false,
+    "economicExhaustion": "UNKNOWN",
+    "evidenceScope": "AT_CLOSEOUT",
+    "speedupTested": false,
+    "successorProjectsBlocked": false,
+    "universalNoNewEvidence": false
+  },
   "e27Started": false,
   "nomination": "NONE",
   "seriesStatus": "CLOSED_AFTER_E26",
@@ -61,7 +70,7 @@
     },
     {
       "id": "EXCLUDED-ECONOMIC-EXHAUSTION",
-      "reason": "UNKNOWN is the decision status of the closed series, not an intervention.",
+      "reason": "UNKNOWN is the decision status of the closed series, not an intervention, and it does not forbid later evidence.",
       "status": "NOT_A_CANDIDATE"
     },
     {
