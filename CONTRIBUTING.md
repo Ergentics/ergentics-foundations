@@ -24,4 +24,4 @@ Do not import proprietary sibling trees. A public type may mirror a vocabulary. 
 | `rust/commitment-reader` | `cargo test --locked`, then `cargo build --locked --release --target wasm32-unknown-unknown`, then `node wasm-check.mjs` |
 | Docs only | Do not describe a test run that did not happen |
 
-`.github/workflows/check.yml` runs those checks on pull requests and on pushes to `main`. A green run is the merge check for the paths it covers. It is not performance evidence and not an authority proof.
+`.github/workflows/check.yml` runs those checks on pull requests and on pushes to `main`. This repository only allows Actions owned by Ergentics and pinned to a full commit SHA, so the workflow fetches the commit with git instead of using `actions/checkout`. A green run is the merge check for the paths it covers. It is not performance evidence and not an authority proof.

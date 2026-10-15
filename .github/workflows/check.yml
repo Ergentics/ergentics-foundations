@@ -1,5 +1,6 @@
 # Reader and Swift checks for the maintenance branch.
 # A green run matches the committed vectors. It is not an authority proof.
+# This repository only allows Actions owned by Ergentics, so checkout is a git fetch.
 name: check
 
 on:
@@ -12,18 +13,20 @@ permissions:
   contents: read
 
 concurrency:
-  group: check-${{ github.ref }}
+  group: "check-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
   reader:
     name: Rust reader and WASM
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: rust/commitment-reader
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Checkout
+        run: |
+          git init .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch --depth 1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
       - name: Install Rust 1.83
         run: |
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.83.0
@@ -31,10 +34,13 @@ jobs:
           rustup target add wasm32-unknown-unknown
           echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
       - name: Test locked vectors
+        working-directory: rust/commitment-reader
         run: cargo test --locked
       - name: Build wasm32 reader
+        working-directory: rust/commitment-reader
         run: cargo build --locked --release --target wasm32-unknown-unknown
       - name: Check two hashes from the wasm module
+        working-directory: rust/commitment-reader
         run: node wasm-check.mjs
 
   swift:
@@ -42,6 +48,13 @@ jobs:
     runs-on: ubuntu-latest
     container: swift:6.2
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Checkout
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends git ca-certificates
+          git init .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch --depth 1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
       - name: Test
         run: swift test --scratch-path /tmp/foundation-build
