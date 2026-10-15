@@ -1,43 +1,8 @@
+// Copyright 2026 Ergentics, LLC
+// SPDX-License-Identifier: Apache-2.0
+
 import Foundation
-#if canImport(CryptoKit)
-import CryptoKit
-#endif
-
-public enum Rejection: Error, Equatable, Sendable {
-    case invalidDomain, wrongLineage, staleGeneration, wrongCommitment
-    case invalidCapability, replay, generationExhausted, authorityExhausted
-}
-
-public struct Entry: Codable, Equatable, Sendable {
-    public let id: UInt64
-    public let value: Int64
-    public init(id: UInt64, value: Int64) { self.id = id; self.value = value }
-}
-
-/// Public knowledge. Constructing a snapshot never grants commit authority.
-public struct State: Equatable, Sendable {
-    public let lineage: UInt64
-    public let generation: UInt64
-    public let entries: [Entry]
-    public let order: [UInt64]
-
-    public init(lineage: UInt64, generation: UInt64, entries: [Entry], order: [UInt64]) throws {
-        let ids = Set(entries.map(\.id))
-        guard ids.count == entries.count, Set(order).count == order.count,
-              ids == Set(order) else { throw Rejection.invalidDomain }
-        self.lineage = lineage; self.generation = generation
-        self.entries = entries.sorted { $0.id < $1.id }; self.order = order
-    }
-    public var commitment: String { Canonical.digest(Canonical.state(self)) }
-    public var relation: Relation { Relation(entries: entries) }
-}
-
-/// Order-independent ID/value relation; persistence of this value is not authority.
-public struct Relation: Equatable, Sendable {
-    public let entries: [Entry]
-    fileprivate init(entries: [Entry]) { self.entries = entries }
-    public var commitment: String { Canonical.digest(Canonical.relation(entries)) }
-}
+@_exported import CanonicalBytes
 
 public struct CandidateTransition: Codable, Equatable, Sendable {
     public let lineage: UInt64
@@ -92,6 +57,22 @@ public final class VerifiedTransition: Sendable {
     }
 }
 
+/// A description of a commit that already happened. It is not a ticket and it is not stored.
+/// Constructing one does not authorize another commit.
+public struct CommittedTransition: Equatable, Sendable {
+    public let previous: StateID
+    public let committed: State
+    public let change: ConsequentialChange
+
+    public var successor: StateID { committed.stateID }
+
+    public init(previous: StateID, committed: State, change: ConsequentialChange) {
+        self.previous = previous
+        self.committed = committed
+        self.change = change
+    }
+}
+
 /// A bounded, single-process software reference. The holder of this actor is the
 /// trusted bootstrap issuer. This is not authentication or hardware isolation.
 public actor ReferenceAuthority {
@@ -130,7 +111,16 @@ public actor ReferenceAuthority {
                                         orderChanged: next.order != current.order))
     }
     public func commit(_ verified: VerifiedTransition, using capability: Capability) throws -> State {
-        // No suspension occurs between authority/currentness checks and update.
+        try commitRecording(verified, using: capability).committed
+    }
+
+    /// The same mutation as `commit`, plus the predecessor and successor ids.
+    /// No suspension occurs between the checks and the update. The returned value is not retained.
+    public func commitRecording(
+        _ verified: VerifiedTransition, using capability: Capability
+    ) throws -> CommittedTransition {
+        let previous = current.stateID
+        let change = verified.change
         try check(capability)
         guard verified.issuer == issuer, verified.epoch == epoch,
               verified.capabilityID == capability.id else { throw Rejection.invalidCapability }
@@ -138,40 +128,7 @@ public actor ReferenceAuthority {
         let next = try resolve(verified.candidate)
         consumed.insert(verified.id)
         current = next
-        return next
+        return CommittedTransition(previous: previous, committed: next, change: change)
     }
 }
 
-/// Canonical v1: ASCII domain tag, big-endian UInt64 fields/counts, signed values
-/// encoded as UInt64 two's-complement bits. Entries sorted by ID; order preserved.
-/// SHA-256 is a commitment to these bytes, not authority or collision-free proof.
-private enum Canonical {
-    static func append(_ value: UInt64, to bytes: inout [UInt8]) {
-        for shift in stride(from: 56, through: 0, by: -8) {
-            bytes.append(UInt8(truncatingIfNeeded: value >> UInt64(shift)))
-        }
-    }
-    static func relation(_ entries: [Entry]) -> [UInt8] {
-        var bytes = Array("CF-RELATION-v1\u{0}".utf8)
-        append(UInt64(entries.count), to: &bytes)
-        for e in entries { append(e.id, to: &bytes); append(UInt64(bitPattern: e.value), to: &bytes) }
-        return bytes
-    }
-    static func state(_ state: State) -> [UInt8] {
-        var bytes = Array("CF-STATE-v1\u{0}".utf8)
-        append(state.lineage, to: &bytes); append(state.generation, to: &bytes)
-        bytes += relation(state.entries)
-        append(UInt64(state.order.count), to: &bytes)
-        for id in state.order { append(id, to: &bytes) }
-        return bytes
-    }
-    static func digest(_ bytes: [UInt8]) -> String {
-        #if canImport(CryptoKit)
-        SHA256.hash(data: Data(bytes)).map { String(format: "%02x", $0) }.joined()
-        #else
-        // The Linux Swift toolchain does not ship CryptoKit. This is the same SHA-256
-        // the canonical vectors already pin; it is not a second commitment profile.
-        InTreeSHA256.hex(bytes)
-        #endif
-    }
-}

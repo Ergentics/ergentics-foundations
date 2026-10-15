@@ -2,7 +2,7 @@
 name = "commitment-reader"
 version = "0.1.0"
 edition = "2021"
-rust-version = "1.83"
+rust-version = "1.99"
 publish = false
 description = "Off-process reader for CF-STATE-v1 and PL-LOG-v1. Not the ledger and not an authority."
 

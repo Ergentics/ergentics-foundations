@@ -12,7 +12,7 @@ Keep generated build files and local diagnostics outside the tree (`target/`, `.
 
 Fetch `origin/main` before the next commit. If `git log HEAD..origin/main` is not empty, merge or rebase onto `main` first.
 
-A commit is one concern. The subject says what landed. The body says the contract consequence, including what the change does not claim: not authority, not a harvested corpus record, not a performance result. A correction of a decision rewrites the lead of that note in the same commit.
+A commit is one concern. The subject says what landed. The body says the contract consequence, including what the change does not claim: not authority, not a harvested corpus record, not a performance result. A correction of a decision rewrites the lead of that note in the same commit. New public surface stays inside [hedges.md](hedges.md). Crossing a hedge is a contract change and has to be named in the commit.
 
 A behavior change carries an independent vector or extends one. The expected hash comes from the Python recipe or a published digest, not from rerunning the implementation under test and pasting its output. Rust and WASM readers must match those bytes exactly. Numeric slack from another project, such as an `f32` memory model, does not apply to `CF-STATE-v1` or `PL-LOG-v1`.
 
@@ -20,8 +20,13 @@ Do not import proprietary sibling trees. A public type may mirror a vocabulary. 
 
 | Change | Run before pushing |
 |---|---|
-| `Sources/`, `Tests/`, `Package.swift` | `swift test --scratch-path /tmp/foundation-build` |
-| `rust/commitment-reader` | `cargo test --locked`, then `cargo build --locked --release --target wasm32-unknown-unknown`, then `node wasm-check.mjs` |
+| `Sources/`, `Tests/`, `Package.swift` | `swift test --scratch-path /tmp/foundation-build`. If `FoundationBench` changed, also `swift run --scratch-path /tmp/foundation-build FoundationBench --iterations 2`. If continuity counts changed, `python3 reference/check_continuity.py`. If the E27 candidate list changed, `python3 reference/check_e27_candidates.py` |
+| `Sources/CommitmentProbe` | Swift 6.4.1 plus the WebAssembly SDK, checked with Node 26.12.0. Native `swift run --scratch-path /tmp/foundation-build CommitmentProbe`, then `swift build -c release --swift-sdk swift-6.4.1-RELEASE_wasm --product CommitmentProbe` and `node reference/swift-wasm-check.mjs` on that wasm. See `docs/swift-wasm-probe.md`. |
+| `Sources/CommitmentGuest` | Embedded SDK `swift-6.4.1-RELEASE_wasm-embedded` and Node 26.12.0. `demos/recital/stage-guest.sh`, then `node reference/embedded-guest-check.mjs demos/recital/commitment_guest.wasm demos/recital/commitment_reader.wasm`. See `docs/swift-wasm-probe.md`. |
+| `rust/commitment-reader` | Rust 1.99.0 and Node 26.12.0. `cargo test --locked`, then the wasm32 release build, `node wasm-check.mjs`, and `cargo run --locked --release --bin commitment-bench -- --iterations 2` |
+| `traceability/` | Ruby 4.0.7 and Rails 8.1.4. `cd traceability && bin/rails test` |
 | Docs only | Do not describe a test run that did not happen |
+
+The Swift job uses the `swift:6.4.1` image, the latest 6.4 stable. The reader job installs Node 26.12.0, the Current release, and checks the tarball checksum. `node:wasi` on that release still prints `ExperimentalWarning: WASI is an experimental feature and might change at any time`. That warning is not a failed hash. A data run is `ruby reference/data_run.rb` and is not the merge check. Ruby 4.0.7 records it. Rails 8.1.4 loads the traceability index under `traceability/`. That app is not the data-run recorder and not a production store. See `docs/data-run.md` and `docs/traceability-index.md`.
 
 `.github/workflows/check.yml` runs those checks on pull requests and on pushes to `main`. GitHub Actions in this repository follow the org rule: an action must be owned by Ergentics and pinned to a full commit SHA. `actions/checkout` is not eligible, so the workflow fetches the commit with git. A green run of that workflow is the merge check for the paths it covers. It is not performance evidence and not an authority proof. CodeQL's default Swift configuration on `main` is a separate setup; a pull request that does not carry it shows a recycled warning, not a failure of this workflow.

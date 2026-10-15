@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hello, in 440</title>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!-- Copyright 2026 Ergentics, LLC -->
+<style>
+  :root{--bg:#0a0e15;--panel:#0f1622;--ink:#e9eff3;--muted:#8aa0ab;--teal:#3fb8a0;--teal-dim:#1f5f57;--teal-deep:#13302d;--gold:#d9b25a;--line:#1b2733;--node:#0e1c26;}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:radial-gradient(1100px 700px at 50% -10%, #11203033, #0a0e15 60%);color:var(--ink);font-family:Georgia,serif;display:flex;align-items:center;justify-content:center;}
+  .mono{font-family:ui-monospace,monospace;}
+  .card{max-width:560px;margin:40px 24px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:30px 30px 26px;}
+  h1{font-weight:400;font-size:30px;margin:0 0 2px;}
+  .nabla{color:var(--teal);}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 16px;}
+  p{color:var(--muted);font-size:14px;line-height:1.65;}
+  p b{color:var(--ink);font-weight:500;}
+  .btns{display:flex;gap:12px;margin:20px 0 6px;flex-wrap:wrap;}
+  button{font-family:ui-monospace,monospace;font-size:14px;background:var(--teal);color:#06140f;border:1px solid var(--teal);border-radius:10px;padding:13px 20px;cursor:pointer;}
+  .scorerow{font-family:ui-monospace,monospace;font-size:12px;color:var(--muted);line-height:1.9;margin-top:14px;border-top:1px solid var(--line);padding-top:14px;}
+  .scorerow b{color:var(--gold);font-weight:500;}
+  svg{display:block;width:100%;height:auto;margin:6px 0 2px;}
+  .foot{color:#5d6f79;font-size:11px;font-family:ui-monospace,monospace;margin-top:14px;}
+  .foot a{color:var(--teal);}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1><span class="nabla">&#8711;</span> Hello, in 440</h1>
+  <p class="sub mono">a public just-intonation greeting</p>
+  <p>The call lands on <b>concert A = 440 Hz</b> by a descending just minor third, the pure <b>6/5</b> ratio. The answer is a just <b>A-major</b> chord: A 440, C♯ 550 (5/4), E 660 (3/2), and the octave 880. Every frequency is that ratio, not a tempered approximation.</p>
+  <svg id="score" viewBox="0 0 500 90" role="img" aria-label="The hello motif"></svg>
+  <div class="btns">
+    <button id="bPlay" type="button">Play hello</button>
+  </div>
+  <div class="scorerow" id="score2"></div>
+  <div class="foot" id="foot">checking the ratios…</div>
+</div>
+<script>
+(function(){
+  var A = 440;
+  var HEL = A * 6/5;
+  var LO = A;
+  var notes = [
+    {f:HEL, t:0.00, d:0.42, pk:0.20, at:0.025, lab:"hel"},
+    {f:LO, t:0.50, d:0.52, pk:0.22, at:0.025, lab:"LO"},
+    {f:A, t:1.58, d:2.22, pk:0.15, at:0.05, lab:"A 440"},
+    {f:A*5/4, t:1.71, d:2.09, pk:0.13, at:0.05, lab:"C♯ 5/4"},
+    {f:A*3/2, t:1.84, d:1.96, pk:0.12, at:0.05, lab:"E 3/2"},
+    {f:A*2, t:1.97, d:1.83, pk:0.11, at:0.05, lab:"A 2/1"}
+  ];
+  var TOTAL = 4.1;
+
+  function voice(ctx, dest, f, t0, dur, peak, attack){
+    attack = attack || 0.025;
+    [1,2,3].forEach(function(h,i){
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = "sine";
+      o.frequency.value = f * h;
+      var amp = peak * Math.pow(0.5, i);
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.linearRampToValueAtTime(amp, t0 + attack);
+      g.gain.exponentialRampToValueAtTime(Math.max(amp * 0.35, 0.0002), t0 + dur * 0.45);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      o.connect(g); g.connect(dest); o.start(t0); o.stop(t0 + dur + 0.05);
+    });
+  }
+  function schedule(ctx, dest, t0){
+    notes.forEach(function(n){ voice(ctx, dest, n.f, t0 + n.t, n.d, n.pk, n.at); });
+  }
+
+  var actx, liveMaster;
+  document.getElementById("bPlay").onclick = async function(){
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC){ document.getElementById("foot").textContent = "this browser has no audio context"; return; }
+    if(!actx){
+      actx = new AC();
+      liveMaster = actx.createGain();
+      liveMaster.gain.value = 0.9;
+      liveMaster.connect(actx.destination);
+    }
+    if(actx.state === "suspended") await actx.resume();
+    schedule(actx, liveMaster, actx.currentTime + 0.08);
+  };
+
+  window.__claudeProposesHello = function(){
+    var results = [
+      {layer:"tuning", note:"hel", measured:HEL, expected:528, ok:HEL === 528},
+      {layer:"tuning", note:"LO", measured:LO, expected:440, ok:LO === 440},
+      {layer:"harmony", note:"minor third", measured:HEL/LO, expected:6/5, ok:HEL/LO === 6/5},
+      {layer:"harmony", note:"C♯", measured:A*5/4, expected:550, ok:A*5/4 === 550},
+      {layer:"harmony", note:"E", measured:A*3/2, expected:660, ok:A*3/2 === 660},
+      {layer:"harmony", note:"octave", measured:A*2, expected:880, ok:A*2 === 880}
+    ];
+    return {ok: results.every(function(r){ return r.ok; }), results: results};
+  };
+
+  (function(){
+    var W = 500;
+    function fy(f){ return 78 - (f - 380) / (900 - 380) * 64; }
+    function fx(t){ return 30 + t / TOTAL * (W - 60); }
+    var s = '<line x1="20" y1="80" x2="480" y2="80" stroke="#1b2733"/>';
+    s += '<line x1="20" y1="' + fy(440).toFixed(1) + '" x2="480" y2="' + fy(440).toFixed(1) + '" stroke="#2a3a45" stroke-dasharray="3 3"/>';
+    var cols = ["#d9b25a","#d9b25a","#3fb8a0","#3fb8a0","#3fb8a0","#9b7bd1"];
+    notes.forEach(function(n,i){
+      var y = fy(n.f);
+      s += '<rect x="' + fx(n.t).toFixed(1) + '" y="' + (y - 4).toFixed(1) + '" width="' + (n.d / TOTAL * (W - 60)).toFixed(1) + '" height="8" rx="3" fill="' + cols[i] + '" opacity="0.85"/>';
+      s += '<text x="' + fx(n.t + n.d / 2).toFixed(1) + '" y="' + (y - 8).toFixed(1) + '" text-anchor="middle" font-size="8" fill="' + cols[i] + '">' + n.lab + "</text>";
+    });
+    document.getElementById("score").innerHTML = s;
+  })();
+
+  document.getElementById("score2").innerHTML =
+    "<b>hel</b> 528 Hz (A·6/5) → <b>LO</b> 440 Hz<br>then <b>A major, just</b>: 440 · 550 (5/4) · 660 (3/2) · 880";
+  var report = window.__claudeProposesHello();
+  document.getElementById("foot").innerHTML = (report.ok ? "ratios ok" : "ratios failed") +
+    " · <a href='index.html'>commitment recital</a>";
+})();
+</script>
+</body>
+</html>

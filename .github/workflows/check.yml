@@ -1,5 +1,5 @@
-# Reader and Swift checks for the maintenance branch.
-# A green run matches the committed vectors. It is not an authority proof.
+# Reader, Swift, and traceability-index checks for the maintenance branch.
+# A green run matches the committed vectors and the section 9 index. It is not an authority proof.
 # GitHub Actions here must be owned by Ergentics and pinned to a full SHA.
 # actions/checkout is not eligible, so checkout is a git fetch.
 name: check
@@ -28,9 +28,9 @@ jobs:
           git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git fetch --depth 1 origin "${GITHUB_SHA}"
           git checkout --detach FETCH_HEAD
-      - name: Install Rust 1.83
+      - name: Install Rust 1.99
         run: |
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.83.0
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.99.0
           . "$HOME/.cargo/env"
           rustup target add wasm32-unknown-unknown
           echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
@@ -40,25 +40,104 @@ jobs:
       - name: Build wasm32 reader
         working-directory: rust/commitment-reader
         run: cargo build --locked --release --target wasm32-unknown-unknown
+      # Node 26.12.0 is the Current release. ubuntu-latest still defaults to Node 22.
+      - name: Install Node 26.12.0
+        run: |
+          curl -fsSL -o /tmp/node-v26.12.0-linux-x64.tar.xz https://nodejs.org/dist/v26.12.0/node-v26.12.0-linux-x64.tar.xz
+          echo "fd47865ecd6391ebb431fc815e01b9135bf83ded5cf373247e9331e196b7aded  /tmp/node-v26.12.0-linux-x64.tar.xz" | sha256sum -c -
+          tar -xJf /tmp/node-v26.12.0-linux-x64.tar.xz -C /tmp
+          echo "/tmp/node-v26.12.0-linux-x64/bin" >> "$GITHUB_PATH"
+          /tmp/node-v26.12.0-linux-x64/bin/node --version
       - name: Check two hashes from the wasm module
         working-directory: rust/commitment-reader
         run: node wasm-check.mjs
+      - name: Bench smoke
+        working-directory: rust/commitment-reader
+        run: cargo run --locked --release --bin commitment-bench -- --iterations 2
 
   swift:
     name: Swift package
     runs-on: ubuntu-latest
-    # Swift 6.2's discovered-test list cannot mix sync and async methods on an
-    # @MainActor suite. The suites are async throughout so this image can run them.
-    container: swift:6.2
+    # Swift 6.4.1 is the latest 6.4 stable. The suites stay async so the
+    # discovered-test list has one element type.
+    container: swift:6.4.1
     steps:
       - name: Checkout
         run: |
           apt-get update -qq
           apt-get install -y -qq --no-install-recommends git ca-certificates
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          # The image resolver sometimes cannot see github.com after apt.
+          if ! getent hosts github.com >/dev/null 2>&1; then
+            printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\n' | cat - /etc/resolv.conf > /tmp/resolv.conf
+            cp /tmp/resolv.conf /etc/resolv.conf
+          fi
+          git init .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          n=0
+          until git fetch --depth 1 origin "${GITHUB_SHA}"; do
+            n=$((n + 1))
+            if [ "$n" -ge 4 ]; then
+              exit 128
+            fi
+            printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\n' | cat - /etc/resolv.conf > /tmp/resolv.conf
+            cp /tmp/resolv.conf /etc/resolv.conf
+            sleep $((n * 2))
+          done
+          git checkout --detach FETCH_HEAD
+      - name: Test
+        run: swift test --scratch-path /tmp/foundation-build
+      - name: Bench smoke
+        run: swift run --scratch-path /tmp/foundation-build FoundationBench --iterations 2
+
+  rails-index:
+    name: Rails traceability index
+    runs-on: ubuntu-latest
+    # Ruby 4.0.7 matches the local recorder. Rails 8.1.4 indexes section 9.
+    # The image is a container, not a GitHub Action.
+    container: ruby:4.0.7
+    steps:
+      - name: Checkout
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends git ca-certificates
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          # ruby:4.0.7 has failed this fetch with "Could not resolve host: github.com"
+          # after apt succeeded. Retry, and add public resolvers if the name is missing.
+          if ! getent hosts github.com >/dev/null 2>&1; then
+            printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\n' | cat - /etc/resolv.conf > /tmp/resolv.conf
+            cp /tmp/resolv.conf /etc/resolv.conf
+          fi
+          git init .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          n=0
+          until git fetch --depth 1 origin "${GITHUB_SHA}"; do
+            n=$((n + 1))
+            if [ "$n" -ge 4 ]; then
+              exit 128
+            fi
+            printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\n' | cat - /etc/resolv.conf > /tmp/resolv.conf
+            cp /tmp/resolv.conf /etc/resolv.conf
+            sleep $((n * 2))
+          done
+          git checkout --detach FETCH_HEAD
+      - name: Test
+        working-directory: traceability
+        run: |
+          bundle install
+          bin/rails test
+
+  continuity:
+    name: E26 continuity counts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        run: |
           git init .
           git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git fetch --depth 1 origin "${GITHUB_SHA}"
           git checkout --detach FETCH_HEAD
-      - name: Test
-        run: swift test --scratch-path /tmp/foundation-build
+      - name: Check retained counts
+        run: |
+          python3 reference/check_continuity.py
+          python3 reference/check_e27_candidates.py

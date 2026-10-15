@@ -34,11 +34,13 @@ Do not vendor `fsrs-rs` into foundations. The memory model is not this package's
 
 Do not add UniFFI so Swift can call a Rust encoder. That would make the production path and the "external" path the same code. The FSRS tests avoid that: they store the Rust output and recompute it in Swift.
 
-Do not compile the ledger to WASM. Authority, capabilities, and tickets are process-local on purpose. A WASM port of `ReferenceAuthority` would look like a second issuer.
+Do not run the ledger as an issuer inside WASM. Authority, capabilities, and tickets are process-local on purpose. A WASM port of `ReferenceAuthority` would look like a second issuer.
+
+The Swift 6.4.1 compiler can cross-compile with its WebAssembly SDK. `CommitmentProbe` prints one commitment from that module and does not call the actor. `wasm32-unknown-unknown` is not a target of this compiler; the SDK triple is `wasm32-unknown-wasip1`. See [the compiler probe](swift-wasm-probe.md).
 
 ## The reader that is now in the tree
 
-`rust/commitment-reader` is version **0.1.0**. `Cargo.lock` pins `sha2` 0.10.8. The tests name the two vector files and require exact hex, including the signed `u64`/`i64` bounds and the UTF-8 skill id `café`.
+`rust/commitment-reader` is version **0.1.0** and builds with Rust **1.99.0**, the stable release. `wasm-check.mjs` runs on Node **26.12.0**, the Current release. That script loads WebAssembly directly and does not import `node:wasi`. `Cargo.lock` pins `sha2` 0.10.8. The tests name the two vector files and require exact hex, including the signed `u64`/`i64` bounds and the UTF-8 skill id `café`. `commitment-bench` times that reader. Its numbers are not a comparison with Swift. See `docs/benchmarks.md`.
 
 ```sh
 cd rust/commitment-reader

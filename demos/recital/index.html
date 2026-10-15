@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- SPDX-License-Identifier: Apache-2.0 -->
+  <!-- Copyright 2026 Ergentics, LLC -->
+  <title>Commitment recital</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font: 16px/1.5 system-ui, sans-serif; margin: 2rem auto; max-width: 42rem; padding: 0 1rem; }
+    h1 { font-size: 1.4rem; font-weight: 650; }
+    h2 { font-size: 1rem; margin-top: 2rem; }
+    code, .hex { font-family: ui-monospace, monospace; font-size: 0.85rem; word-break: break-all; }
+    button { font: inherit; padding: 0.4rem 0.8rem; }
+    .row { margin: 0.8rem 0 1.4rem; }
+    .ok { font-weight: 650; }
+    .miss { color: #9a3412; }
+  </style>
+</head>
+<body>
+  <h1>Commitment recital</h1>
+  <p>One public piece. The Swift guest and the Rust reader each construct the synthetic-base state. Python wrote the expected hash. This page compares the two computed hex strings to each other and to that vector. It does not issue a capability or commit.</p>
+
+  <h2>1. Synthetic base</h2>
+  <p>Lineage 1, generation 0, entries (1, 10) and (2, 20), order 1 then 2. The Swift module builds that <code>State</code> and returns <code>commitment</code>. The Rust module builds the same state from the fields below. Neither result is copied into the other.</p>
+  <p>Python <span class="hex" id="state-expected">d9a07b92d21590167b300c10be7410322ecb78ed1a56ee0e531803fe263ccc22</span></p>
+  <p>Swift <span class="hex" id="swift-hex">not played</span></p>
+  <p>Rust <span class="hex" id="rust-hex">not played</span></p>
+
+  <h2>2. Empty practice log</h2>
+  <p>Lineage 1, generation 0, no events. The log is wrapped in the same state carrier. The Rust reader plays this. The Swift guest does not.</p>
+  <p class="hex" id="practice-expected">fffba27d62a7b2751cb6f6556a0863e5a48149c75c683d85a0295f3467a99025</p>
+
+  <div class="row">
+    <button id="play" type="button">Play both constructions</button>
+    <p id="result">The modules are <code>commitment_guest.wasm</code> and <code>commitment_reader.wasm</code> next to this page.</p>
+  </div>
+
+  <h2>Voices</h2>
+  <ul>
+    <li>Python, <code>reference/make_vectors.py</code>, writes the state hash.</li>
+    <li>Swift 6.4.1 embedded WebAssembly SDK builds <code>CommitmentGuest</code>. The guest calls <code>State.commitment</code> from <code>CanonicalBytes</code>. The 60 MB WASI command is not this file.</li>
+    <li>Rust <code>commitment-reader</code> 0.1.0, <code>wasm32-unknown-unknown</code>, hashes the same profile outside the Swift process.</li>
+  </ul>
+  <p>Serve this directory over HTTP. Both modules are already next to this page. <code>demos/recital/stage-guest.sh</code> regenerates the Swift module. <code>demos/recital/stage.sh</code> regenerates the Rust module. A <code>file://</code> open can show this text and still refuse to load a module. The other public page is <a href="hello-440.html">Hello, in 440</a>.</p>
+
+  <script>
+    const stateExpected = document.querySelector("#state-expected").textContent.trim();
+    const practiceExpected = document.querySelector("#practice-expected").textContent.trim();
+    const result = document.querySelector("#result");
+    const swiftNode = document.querySelector("#swift-hex");
+    const rustNode = document.querySelector("#rust-hex");
+
+    function packState() {
+      const entries = new Uint8Array(32);
+      const order = new Uint8Array(16);
+      const entryView = new DataView(entries.buffer);
+      const orderView = new DataView(order.buffer);
+      entryView.setBigUint64(0, 1n);
+      entryView.setBigInt64(8, 10n);
+      entryView.setBigUint64(16, 2n);
+      entryView.setBigInt64(24, 20n);
+      orderView.setBigUint64(0, 1n);
+      orderView.setBigUint64(8, 2n);
+      return { entries, order };
+    }
+
+    function writeBytes(memory, ptr, bytes) {
+      new Uint8Array(memory.buffer, ptr, bytes.length).set(bytes);
+    }
+
+    function readHex(memory, ptr) {
+      return new TextDecoder().decode(new Uint8Array(memory.buffer, ptr, 64));
+    }
+
+    document.querySelector("#play").addEventListener("click", play);
+    play();
+
+    async function play() {
+      result.textContent = "Loading both modules…";
+      result.className = "";
+      swiftNode.textContent = "…";
+      rustNode.textContent = "…";
+      try {
+        const guestResponse = await fetch("commitment_guest.wasm");
+        if (!guestResponse.ok) throw new Error("commitment_guest.wasm is not next to this page");
+        let guestMemory = null;
+        const guest = await WebAssembly.instantiate(await guestResponse.arrayBuffer(), {
+          wasi_snapshot_preview1: {
+            random_get(ptr, len) {
+              new Uint8Array(guestMemory.buffer, ptr, len).fill(0);
+              return 0;
+            },
+          },
+        });
+        guestMemory = guest.instance.exports.memory;
+        if (guest.instance.exports._initialize) guest.instance.exports._initialize();
+        const swiftRc = guest.instance.exports.cf_synthetic_base_hex();
+        const swiftPtr = guest.instance.exports.cf_synthetic_base_ptr();
+        const swiftHex = readHex(guest.instance.exports.memory, swiftPtr);
+        swiftNode.textContent = swiftHex;
+
+        const readerResponse = await fetch("commitment_reader.wasm");
+        if (!readerResponse.ok) throw new Error("commitment_reader.wasm is not next to this page");
+        const reader = await WebAssembly.instantiate(await readerResponse.arrayBuffer(), {});
+        const { alloc, dealloc, cf_state_commitment_hex, pl_state_commitment_hex, memory } = reader.instance.exports;
+        const packed = packState();
+        const entries = alloc(packed.entries.length);
+        const order = alloc(packed.order.length);
+        const out = alloc(64);
+        writeBytes(memory, entries, packed.entries);
+        writeBytes(memory, order, packed.order);
+        const stateRc = cf_state_commitment_hex(1n, 0n, entries, packed.entries.length, order, packed.order.length, out);
+        const rustHex = readHex(memory, out);
+        rustNode.textContent = rustHex;
+        dealloc(entries, packed.entries.length);
+        dealloc(order, packed.order.length);
+        const empty = alloc(8);
+        writeBytes(memory, empty, new Uint8Array(8));
+        const practiceRc = pl_state_commitment_hex(1n, 0n, empty, 8, out);
+        const practiceHex = readHex(memory, out);
+        dealloc(empty, 8);
+        dealloc(out, 64);
+
+        const swiftOk = swiftRc === 0 && swiftHex.length === 64;
+        const rustOk = stateRc === 0 && rustHex.length === 64;
+        const agree = swiftOk && rustOk && swiftHex === rustHex && swiftHex === stateExpected;
+        const practiceOk = practiceRc === 0 && practiceHex === practiceExpected;
+        result.textContent = agree && practiceOk
+          ? "Swift and Rust computed the same state hash. It matches the Python vector. The empty practice log matches."
+          : `swift ${swiftHex} (${swiftRc}); rust ${rustHex} (${stateRc}); practice ${practiceHex} (${practiceRc})`;
+        result.className = agree && practiceOk ? "ok" : "miss";
+      } catch (error) {
+        result.textContent = error.message;
+        result.className = "miss";
+      }
+    }
+  </script>
+</body>
+</html>

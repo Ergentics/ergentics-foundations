@@ -1,0 +1,8 @@
+stage.sh
+stage-guest.sh
+README.md
+wrangler.jsonc
+.assetsignore
+package.json
+package-lock.json
+node_modules

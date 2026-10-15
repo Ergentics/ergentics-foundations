@@ -21,7 +21,7 @@ let ticket = try await ledger.verifyAppend(event, using: capability)
 let committed = try await ledger.commit(ticket, using: capability)
 ```
 
-`verifyAppend` does not append. `commit` rechecks the ticket and returns a snapshot decoded from the committed carrier. `verifySamePayload` admits the current events again: generation and the state commitment advance, and the relation commitment does not. That is the reference's empty consequential change, applied to a practice log.
+`verifyAppend` does not append. `commit` rechecks the ticket and returns a snapshot decoded from the committed carrier. `commitRecording` performs that same mutation and also returns the predecessor `StateID`, the successor id, and the change flags. The record is not kept. `verifySamePayload` admits the current events again: generation and the state commitment advance, and the relation commitment does not. That is the reference's empty consequential change, applied to a practice log.
 
 `PracticeRejection` is the record's own failure (empty id, score out of range, duplicate event id, corrupt carrier). `Rejection` is still the authority's failure (stale generation, replay, revoked capability, wrong issuer). A duplicate id is thrown before verify, and the snapshot is unchanged.
 

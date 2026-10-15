@@ -1,4 +1,5 @@
 import XCTest
+import CanonicalBytes
 @testable import ChangeFoundation
 
 @MainActor final class FoundationTests: XCTestCase {
@@ -31,6 +32,49 @@ import XCTest
             XCTAssertEqual(s.relation.commitment, v.expectedRelationCommitment, v.name)
         }
     }
+    func testStateIDChangesWhenOnlyGenerationAdvances() async throws {
+        let s = try initial()
+        let owner = ReferenceAuthority(initial: s)
+        let cap = await owner.issueCapability()
+        let ticket = try await owner.verify(proposal(s), using: cap)
+        let next = try await owner.commit(ticket, using: cap)
+        XCTAssertNotEqual(s.stateID.commitment, next.stateID.commitment)
+        XCTAssertNotEqual(s.stateID, next.stateID)
+        XCTAssertEqual(s.relation.commitment, next.relation.commitment)
+        XCTAssertEqual(next.stateID, StateID(lineage: next.lineage, generation: next.generation, commitment: next.commitment))
+    }
+
+    func testEqualStateIDsDoNotCrossAuthorities() async throws {
+        let s = try initial()
+        let a = ReferenceAuthority(initial: s)
+        let b = ReferenceAuthority(initial: s)
+        let snapA = await a.snapshot()
+        let snapB = await b.snapshot()
+        XCTAssertEqual(s.stateID, snapA.stateID)
+        XCTAssertEqual(snapA.stateID, snapB.stateID)
+        let cap = await a.issueCapability()
+        let ticket = try await a.verify(proposal(s), using: cap)
+        let other = await b.issueCapability()
+        await expect(.invalidCapability) { _ = try await b.commit(ticket, using: other) }
+    }
+
+    func testCommitRecordingNamesPredecessorAndSuccessor() async throws {
+        let s = try initial()
+        let owner = ReferenceAuthority(initial: s)
+        let cap = await owner.issueCapability()
+        let ticket = try await owner.verify(proposal(s), using: cap)
+        let recorded = try await owner.commitRecording(ticket, using: cap)
+        XCTAssertEqual(recorded.previous, s.stateID)
+        XCTAssertEqual(recorded.successor, recorded.committed.stateID)
+        XCTAssertEqual(recorded.previous.generation &+ 1, recorded.successor.generation)
+        XCTAssertTrue(recorded.change.isEmpty)
+        XCTAssertEqual(recorded.committed.relation.commitment, s.relation.commitment)
+        XCTAssertNotEqual(recorded.previous, recorded.successor)
+        await expect(.replay) { _ = try await owner.commitRecording(ticket, using: cap) }
+        let after = await owner.snapshot()
+        XCTAssertEqual(after, recorded.committed)
+    }
+
     func testVerifyDoesNotCommitAndEmptyTransitionAdvances() async throws {
         let s = try initial(); let owner = ReferenceAuthority(initial: s)
         let cap = await owner.issueCapability(); let ticket = try await owner.verify(proposal(s), using: cap)
