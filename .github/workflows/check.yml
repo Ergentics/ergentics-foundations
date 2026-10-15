@@ -28,7 +28,7 @@ jobs:
           git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git fetch --depth 1 origin "${GITHUB_SHA}"
           git checkout --detach FETCH_HEAD
-      - name: Install Rust 1.83
+      - name: Install Rust 1.99
         run: |
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.99.0
           . "$HOME/.cargo/env"
