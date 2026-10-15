@@ -12,4 +12,6 @@ python3 -m http.server 8765 --directory demos/recital
 
 Then open `http://127.0.0.1:8765/`. The Rust module is the voice the browser can play. The Swift voice is the compiler probe in `docs/swift-wasm-probe.md`.
 
+A later host is the Worker described in `docs/cloudflare-host.md`, aimed at `ergentics.com`. That Worker is not deployed.
+
 Copyright 2026 Ergentics, LLC. SPDX-License-Identifier: Apache-2.0.
