@@ -20,7 +20,7 @@ Do not import proprietary sibling trees. A public type may mirror a vocabulary. 
 
 | Change | Run before pushing |
 |---|---|
-| `Sources/`, `Tests/`, `Package.swift` | `swift test --scratch-path /tmp/foundation-build`. If `FoundationBench` changed, also `swift run --scratch-path /tmp/foundation-build FoundationBench --iterations 2`. If continuity counts changed, `python3 reference/check_continuity.py` |
+| `Sources/`, `Tests/`, `Package.swift` | `swift test --scratch-path /tmp/foundation-build`. If `FoundationBench` changed, also `swift run --scratch-path /tmp/foundation-build FoundationBench --iterations 2`. If continuity counts changed, `python3 reference/check_continuity.py`. If the E27 candidate list changed, `python3 reference/check_e27_candidates.py` |
 | `rust/commitment-reader` | Rust 1.99.0. `cargo test --locked`, then the wasm32 release build, `node wasm-check.mjs`, and `cargo run --locked --release --bin commitment-bench -- --iterations 2` |
 | `traceability/` | Ruby 4.0.7 and Rails 8.1.4. `cd traceability && bin/rails test` |
 | Docs only | Do not describe a test run that did not happen |

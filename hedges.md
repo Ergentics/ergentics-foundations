@@ -44,6 +44,10 @@ CodeQL's default setup on `main`, including the Swift slot named `/language:swif
 
 `TargetContinuity` keeps ordered vector equality, multiset equality, and common occurrence/backing agreement as separate counts from `EV-E26-CONTINUITY`. The written statement is already in `docs/e01-e26-public-synthesis.md`. The twelve dataset rows repeat across two sweeps and three observer levels. They are per-process transition and occurrence counts. They are not independent replicates, and the three predicates are not one equality. Multiset equality and a complete common-agreement ratio do not license reuse of the ordered validation product. This type loads the retained rows. It does not replace the synthesis, rerun E26, or report a speedup.
 
+## A candidate is not E27
+
+`docs/e27-candidates.md` lists open questions after the closed E01–E26 series. Each one is `NOT_NOMINATED`. `E27Started` stays false. The list does not add a graph edge, choose the largest timer, or report a speedup.
+
 ## The index is not the store
 
 `traceability/` loads ResearchFinding, PostHocConclusion, SDKContract, reference vector and test, and SDKRelease from the committed JSON. SQLite is the local index. It is not R2, not an ObjectID, and not a canonical CBOR profile. A primary key is not a `StateID`. Nothing in that app commits. An empty vector or test list is zero links, and zero links are not proof. `PASS_FOR_DOCUMENTED_ORIGIN_AND_COVERAGE_NOT_FULL_IMPLEMENTATION` can hold while implementation is partial. `YES_WITH_LIMITATIONS` is the stored acceptance from `sdk-release-basis.json`, not a count of contracts. Deleting rows leaves the JSON unchanged.

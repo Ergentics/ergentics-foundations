@@ -1,0 +1,73 @@
+{
+  "e27Started": false,
+  "nomination": "NONE",
+  "seriesStatus": "CLOSED_AFTER_E26",
+  "source": "docs/e01-e26-public-synthesis.md",
+  "candidates": [
+    {
+      "evidenceIds": ["EV-E26-REPORT", "EV-S26P"],
+      "id": "CANDIDATE-CLEAN-ATTRIBUTION",
+      "question": "Can projection, construction, equality, and append be attributed as separate pure CLEAN costs under a new frozen accounting boundary?",
+      "status": "NOT_NOMINATED"
+    },
+    {
+      "evidenceIds": ["EV-E26-CONTINUITY", "EV-E26-REPORT"],
+      "id": "CANDIDATE-ORDERED-PRODUCT",
+      "question": "Which smaller product, if any, remains eligible when ordered vector equality fails while multiset equality or common agreement holds?",
+      "status": "NOT_NOMINATED"
+    },
+    {
+      "evidenceIds": ["EV-E26-REPORT", "EV-S26P", "EV-E17-REPORT"],
+      "id": "CANDIDATE-VALIDATION-REUSE",
+      "question": "Does any named cross-generation internal-provenance decision stay applicable on a later generation?",
+      "status": "NOT_NOMINATED"
+    },
+    {
+      "evidenceIds": ["EV-E25-REPORT", "EV-S26P", "EV-E21-REPORT"],
+      "id": "CANDIDATE-AUTHORITY-DISTANCE",
+      "question": "What fraction of pairs at a stated distance still satisfy an explicit authority-applicability predicate?",
+      "status": "NOT_NOMINATED"
+    },
+    {
+      "evidenceIds": ["EV-E26-CONTINUITY"],
+      "id": "CANDIDATE-DISTANT-PAIRS",
+      "question": "What fraction of newly sampled pairs at k greater than 1 satisfy one named structural predicate?",
+      "status": "NOT_NOMINATED"
+    },
+    {
+      "evidenceIds": ["EV-E21-REPORT", "EV-E25-REPORT", "EV-S26E", "EV-S26P"],
+      "id": "CANDIDATE-CACHE-REVOCATION",
+      "question": "What invalidation rule, if a provenance-result cache existed, would consequential source change require?",
+      "status": "NOT_NOMINATED"
+    },
+    {
+      "evidenceIds": ["EV-S17", "EV-S26P", "EV-E26-REPORT"],
+      "id": "CANDIDATE-NET-BENEFIT",
+      "question": "For a stated cache, what are AvoidedWork and ReuseManagementCost on one frozen boundary?",
+      "status": "NOT_NOMINATED"
+    },
+    {
+      "evidenceIds": ["EV-E17-REPORT", "EV-E26-REPORT"],
+      "id": "CANDIDATE-OUTPUT-INTEGRITY",
+      "question": "What does the recurring output-integrity obligation cost on hits once it is measured apart from the mixed provenance loop?",
+      "status": "NOT_NOMINATED"
+    }
+  ],
+  "excluded": [
+    {
+      "id": "EXCLUDED-LARGEST-TIMER",
+      "reason": "Choosing the mixed loop because it concentrates instrumented time is the motive the E26 closeout rejects.",
+      "status": "NOT_A_CANDIDATE"
+    },
+    {
+      "id": "EXCLUDED-ECONOMIC-EXHAUSTION",
+      "reason": "UNKNOWN is the decision status of the closed series, not an intervention.",
+      "status": "NOT_A_CANDIDATE"
+    },
+    {
+      "id": "EXCLUDED-HARDWARE-OR-MODEL",
+      "reason": "E26 does not establish a hardware delta unit, a physical saving, or a model-quality result.",
+      "status": "NOT_A_CANDIDATE"
+    }
+  ]
+}
