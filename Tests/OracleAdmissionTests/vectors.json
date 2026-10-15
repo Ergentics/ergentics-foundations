@@ -1,0 +1,262 @@
+[
+  {
+    "asserted": "prediction",
+    "claimScore": 1,
+    "expected": "notDerivable",
+    "falsifierSettled": true,
+    "minimumFamilies": 2,
+    "name": "prediction-unbacked",
+    "witnesses": []
+  },
+  {
+    "asserted": "recorded",
+    "claimScore": 1,
+    "expected": "notDerivable",
+    "falsifierSettled": true,
+    "minimumFamilies": 2,
+    "name": "recorded-with-witnesses",
+    "witnesses": [
+      {
+        "dependencies": [],
+        "family": "a",
+        "score": 1
+      },
+      {
+        "dependencies": [],
+        "family": "b",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "asserted": "derived",
+    "claimScore": 1,
+    "expected": "notDerivable",
+    "falsifierSettled": true,
+    "minimumFamilies": 2,
+    "name": "derived-without-witnesses",
+    "witnesses": []
+  },
+  {
+    "asserted": "derived",
+    "claimScore": 1,
+    "expected": "tooFewFamilies",
+    "falsifierSettled": true,
+    "minimumFamilies": 2,
+    "name": "one-family",
+    "witnesses": [
+      {
+        "dependencies": [],
+        "family": "a",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "asserted": "derived",
+    "claimScore": 1,
+    "expected": "tooFewFamilies",
+    "falsifierSettled": true,
+    "minimumFamilies": 2,
+    "name": "repeated-family",
+    "witnesses": [
+      {
+        "dependencies": [],
+        "family": "a",
+        "score": 1
+      },
+      {
+        "dependencies": [
+          "left"
+        ],
+        "family": "a",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "asserted": "derived",
+    "claimScore": 1,
+    "expected": "sharedDependency",
+    "falsifierSettled": true,
+    "minimumFamilies": 2,
+    "name": "shared-dependency",
+    "witnesses": [
+      {
+        "dependencies": [
+          "prior"
+        ],
+        "family": "a",
+        "score": 1
+      },
+      {
+        "dependencies": [
+          "prior"
+        ],
+        "family": "b",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "asserted": "derived",
+    "claimScore": 1,
+    "expected": "sharedDependency",
+    "falsifierSettled": true,
+    "minimumFamilies": 2,
+    "name": "shared-before-family-count",
+    "witnesses": [
+      {
+        "dependencies": [
+          "prior"
+        ],
+        "family": "a",
+        "score": 1
+      },
+      {
+        "dependencies": [
+          "prior"
+        ],
+        "family": "a",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "asserted": "derived",
+    "claimScore": 1,
+    "expected": "discordant",
+    "falsifierSettled": true,
+    "minimumFamilies": 2,
+    "name": "discordant",
+    "witnesses": [
+      {
+        "dependencies": [],
+        "family": "a",
+        "score": 1
+      },
+      {
+        "dependencies": [],
+        "family": "b",
+        "score": 0.5
+      }
+    ]
+  },
+  {
+    "asserted": "derived",
+    "claimScore": 1,
+    "expected": "sharedDependency",
+    "falsifierSettled": true,
+    "minimumFamilies": 2,
+    "name": "shared-before-discord",
+    "witnesses": [
+      {
+        "dependencies": [
+          "prior"
+        ],
+        "family": "a",
+        "score": 1
+      },
+      {
+        "dependencies": [
+          "prior"
+        ],
+        "family": "b",
+        "score": 0
+      }
+    ]
+  },
+  {
+    "asserted": "derived",
+    "claimScore": 1,
+    "expected": "falsifierOpen",
+    "falsifierSettled": false,
+    "minimumFamilies": 2,
+    "name": "falsifier-open",
+    "witnesses": [
+      {
+        "dependencies": [],
+        "family": "a",
+        "score": 1
+      },
+      {
+        "dependencies": [],
+        "family": "b",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "asserted": "derived",
+    "claimScore": 1,
+    "expected": "seal",
+    "falsifierSettled": true,
+    "minimumFamilies": 2,
+    "name": "two-families-seal",
+    "witnesses": [
+      {
+        "dependencies": [
+          "left"
+        ],
+        "family": "a",
+        "score": 1
+      },
+      {
+        "dependencies": [
+          "right"
+        ],
+        "family": "b",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "asserted": "derived",
+    "claimScore": 1,
+    "expected": "tooFewFamilies",
+    "falsifierSettled": true,
+    "minimumFamilies": 3,
+    "name": "three-family-floor",
+    "witnesses": [
+      {
+        "dependencies": [],
+        "family": "a",
+        "score": 1
+      },
+      {
+        "dependencies": [],
+        "family": "b",
+        "score": 1
+      }
+    ]
+  },
+  {
+    "asserted": "derived",
+    "claimScore": 0.5,
+    "expected": "seal",
+    "falsifierSettled": true,
+    "minimumFamilies": 3,
+    "name": "three-families-seal",
+    "witnesses": [
+      {
+        "dependencies": [],
+        "family": "a",
+        "score": 0.5
+      },
+      {
+        "dependencies": [
+          "p"
+        ],
+        "family": "b",
+        "score": 0.5
+      },
+      {
+        "dependencies": [
+          "q"
+        ],
+        "family": "c",
+        "score": 0.5
+      }
+    ]
+  }
+]

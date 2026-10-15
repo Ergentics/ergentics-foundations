@@ -1,5 +1,5 @@
 import XCTest
-import ChangeFoundation
+@testable import ChangeFoundation
 
 @MainActor final class FoundationTests: XCTestCase {
     func initial(generation: UInt64 = 0) throws -> State {
@@ -101,6 +101,17 @@ import ChangeFoundation
         await expect(.invalidDomain) { _ = try await owner.verify(self.proposal(s,entries:[Entry(id:1,value:10),Entry(id:1,value:20)]),using:cap) }
         let unchanged = await owner.snapshot(); XCTAssertEqual(unchanged,s)
     }
+    func testInTreeSHA256MatchesPublishedAnswers() {
+        #if !canImport(CryptoKit)
+        XCTAssertEqual(
+            InTreeSHA256.hex([]),
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
+        XCTAssertEqual(
+            InTreeSHA256.hex(Array("abc".utf8)),
+            "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
+        #endif
+    }
+
     func testGenerationOverflowRejected() async throws {
         let s = try initial(generation: .max); let owner = ReferenceAuthority(initial:s); let cap = await owner.issueCapability()
         await expect(.generationExhausted) { _ = try await owner.verify(self.proposal(s),using:cap) }

@@ -8,11 +8,14 @@ let package = Package(
     products: [
         .library(name: "ChangeFoundation", targets: ["ChangeFoundation"]),
         .library(name: "PracticeLedger", targets: ["PracticeLedger"]),
+        .library(name: "OracleAdmission", targets: ["OracleAdmission"]),
     ],
     targets: [
         .target(name: "ChangeFoundation"),
         .target(name: "PracticeLedger", dependencies: ["ChangeFoundation"]),
+        .target(name: "OracleAdmission", dependencies: ["PracticeLedger"]),
         .testTarget(name: "ChangeFoundationTests", dependencies: ["ChangeFoundation"], resources: [.copy("vectors.json")]),
         .testTarget(name: "PracticeLedgerTests", dependencies: ["PracticeLedger"], resources: [.copy("vectors.json")]),
+        .testTarget(name: "OracleAdmissionTests", dependencies: ["OracleAdmission"], resources: [.copy("vectors.json")]),
     ]
 )

@@ -9,3 +9,5 @@ The cases cover base state, order-only change, value change, an empty consequent
 The JSON transport represents UInt64/Int64 numbers exactly in Swift and Python. Consumers with IEEE-754-only JSON numbers must use an integer-preserving parser; rounding a value is invalid. JSON schema shape validity never grants authority or replaces runtime domain validation.
 
 `make_practice_vectors.py` builds the separate `PL-LOG-v1` practice-log profile, chunks it into this same state carrier, and writes `Tests/PracticeLedgerTests/vectors.json`. It does not replace the six vectors above. The practice profile is specified in [the practice ledger note](../docs/practice-ledger.md).
+
+`make_oracle_vectors.py` writes the oracle-admission decision table used by `Tests/OracleAdmissionTests/vectors.json`. It decides verdicts only. It does not hash state.

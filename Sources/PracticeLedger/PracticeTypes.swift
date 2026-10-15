@@ -84,7 +84,10 @@ public enum LessonKind: UInt8, Hashable, Sendable {
 public struct UnitScore: Hashable, Sendable {
     public let value: Double
 
-    var bits: UInt64 { value.bitPattern }
+    /// IEEE-754 bits of the stored value. `-0` has already been rewritten to `+0`.
+    public var canonicalBits: UInt64 { value.bitPattern }
+
+    var bits: UInt64 { canonicalBits }
 
     public init(_ value: Double) throws {
         guard value.isFinite else { throw PracticeRejection.nonFiniteScore }

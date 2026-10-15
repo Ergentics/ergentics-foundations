@@ -3,7 +3,7 @@
 
 #if !canImport(CryptoKit)
 /// SHA-256 for toolchains without CryptoKit. Big-endian length padding, the FIPS 180-4
-/// schedule. Used only so the fixed-binary commitments can be checked on Linux.
+/// schedule. Kept instead of a fetched package; see docs/cryptokit-assessment.md.
 enum InTreeSHA256 {
     static func hex(_ message: [UInt8]) -> String {
         hash(message).map { String(format: "%02x", $0) }.joined()

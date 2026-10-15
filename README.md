@@ -59,6 +59,8 @@ let committed = try await ledger.commit(checked, using: capability)
 
 `verifyAppend` does not append. A duplicate event id is a `PracticeRejection`, not an authority `Rejection`. Equal evidence across two ledgers still grants no commit rights.
 
+`OracleAdmission` is the agentcraft connection: a practice score is sealed only when distinct witness families agree and do not share a dependency. Abstaining does not touch the ledger, and a seal is not a commit. Agentcraft-app is not imported. See [oracle admission](docs/oracle-admission.md). The Linux hash choice is recorded in [the CryptoKit assessment](docs/cryptokit-assessment.md).
+
 No external package dependencies are fetched. The Swift standard library, Foundation and, on Apple platforms, CryptoKit are execution dependencies. The Linux Swift toolchain does not ship CryptoKit, so that build hashes with an in-tree SHA-256; the canonical vectors are the check that the digest matches. The synthetic vector generator uses Python's standard library solely as an independent byte-encoding/hash reference; it is not a runtime dependency.
 
 For application integration, see the [consumer integration guide](docs/consumer-integration.md), informed by the bounded CIT-01 study. It separates consumer semantic validation from reference admission, scope and commit behavior.
