@@ -22,11 +22,11 @@ That is a question about the local reference runtime that already exists: `Found
 | Swift | 6.4.1 | Latest 6.4 stable. Runs the package and `FoundationBench`. |
 | Rust | 1.99.0 | Current stable. Runs `commitment-bench`. |
 | Ruby | 4.0.7 | Latest stable. The recorder. Standard library only. |
-| Rails | 8.1.4 | Installed so the toolchain is present. Not loaded by the recorder. |
+| Rails | 8.1.4 | The section 9 index in `traceability/`. The recorder does not load it. |
 
 ## What this run does not start
 
-Storage, Cloudflare/R2, Apple Core AI, a microkernel, and cognitive or differential execution research stay unstarted. A Rails process is not the store. An Active Record row is not authority and is not a commitment. Cloud infrastructure remains execution infrastructure. A model result remains not semantic authority.
+Storage, Cloudflare/R2, Apple Core AI, a microkernel, and cognitive or differential execution research stay unstarted. A Rails process is not the store. An Active Record row is not authority and is not a commitment. The section 9 index is a separate app and is not this cost question. Cloud infrastructure remains execution infrastructure. A model result remains not semantic authority.
 
 ## Record
 

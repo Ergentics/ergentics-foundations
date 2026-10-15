@@ -1,5 +1,5 @@
-# Reader and Swift checks for the maintenance branch.
-# A green run matches the committed vectors. It is not an authority proof.
+# Reader, Swift, and traceability-index checks for the maintenance branch.
+# A green run matches the committed vectors and the section 9 index. It is not an authority proof.
 # GitHub Actions here must be owned by Ergentics and pinned to a full SHA.
 # actions/checkout is not eligible, so checkout is a git fetch.
 name: check
@@ -67,3 +67,25 @@ jobs:
         run: swift test --scratch-path /tmp/foundation-build
       - name: Bench smoke
         run: swift run --scratch-path /tmp/foundation-build FoundationBench --iterations 2
+
+  rails-index:
+    name: Rails traceability index
+    runs-on: ubuntu-latest
+    # Ruby 4.0.7 matches the local recorder. Rails 8.1.4 indexes section 9.
+    # The image is a container, not a GitHub Action.
+    container: ruby:4.0.7
+    steps:
+      - name: Checkout
+        run: |
+          apt-get update -qq
+          apt-get install -y -qq --no-install-recommends git ca-certificates
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git init .
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch --depth 1 origin "${GITHUB_SHA}"
+          git checkout --detach FETCH_HEAD
+      - name: Test
+        working-directory: traceability
+        run: |
+          bundle install
+          bin/rails test
