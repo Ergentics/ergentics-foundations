@@ -4,6 +4,7 @@ name: check
 
 on:
   pull_request:
+    branches: [main]
   push:
     branches: [main]
 
@@ -22,7 +23,7 @@ jobs:
       run:
         working-directory: rust/commitment-reader
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install Rust 1.83
         run: |
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.83.0
@@ -41,6 +42,6 @@ jobs:
     runs-on: ubuntu-latest
     container: swift:6.2
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Test
         run: swift test --scratch-path /tmp/foundation-build
