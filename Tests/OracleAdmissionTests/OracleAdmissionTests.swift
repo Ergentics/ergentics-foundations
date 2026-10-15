@@ -47,7 +47,7 @@ import XCTest
         return ScoreClaim(event: event, asserted: asserted, witnesses: witnesses)
     }
 
-    func testDecisionTableMatchesPython() throws {
+    func testDecisionTableMatchesPython() async throws {
         let fixtures = try load()
         XCTAssertEqual(fixtures.count, 13)
         for fixture in fixtures {
@@ -69,7 +69,7 @@ import XCTest
         }
     }
 
-    func testIllFormedInputDoesNotAbstain() {
+    func testIllFormedInputDoesNotAbstain() async {
         XCTAssertThrowsError(try WitnessFamily("")) { error in
             XCTAssertEqual(error as? OracleInputError, .emptyName)
         }

@@ -16,7 +16,7 @@ import XCTest
         catch let actual as Rejection { XCTAssertEqual(actual, error) }
         catch { XCTFail("Unexpected error type") }
     }
-    func testIndependentCanonicalVectors() throws {
+    func testIndependentCanonicalVectors() async throws {
         struct Vector: Decodable {
             let name: String; let lineage: UInt64; let generation: UInt64
             let entries: [Entry]; let order: [UInt64]
@@ -101,7 +101,7 @@ import XCTest
         await expect(.invalidDomain) { _ = try await owner.verify(self.proposal(s,entries:[Entry(id:1,value:10),Entry(id:1,value:20)]),using:cap) }
         let unchanged = await owner.snapshot(); XCTAssertEqual(unchanged,s)
     }
-    func testInTreeSHA256MatchesPublishedAnswers() {
+    func testInTreeSHA256MatchesPublishedAnswers() async {
         #if !canImport(CryptoKit)
         XCTAssertEqual(
             InTreeSHA256.hex([]),

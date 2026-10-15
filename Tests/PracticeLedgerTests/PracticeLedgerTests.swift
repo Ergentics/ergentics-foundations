@@ -85,7 +85,7 @@ import XCTest
         }
     }
 
-    func testCanonicalVectorsMatchIndependentBytes() throws {
+    func testCanonicalVectorsMatchIndependentBytes() async throws {
         let fixtures = try loadFixtures()
         XCTAssertEqual(fixtures.count, 5)
         for fixture in fixtures {
@@ -102,7 +102,7 @@ import XCTest
         XCTAssertNotEqual(empty0.expectedStateCommitment, empty1.expectedStateCommitment)
     }
 
-    func testScoreBitsRejectNonCanonicalValues() throws {
+    func testScoreBitsRejectNonCanonicalValues() async throws {
         XCTAssertEqual(try UnitScore(1).bits, 0x3ff0_0000_0000_0000)
         XCTAssertEqual(try UnitScore(0.5).bits, 0x3fe0_0000_0000_0000)
         XCTAssertEqual(try UnitScore(0).bits, 0)
@@ -249,7 +249,7 @@ import XCTest
         XCTAssertTrue(snap.events.isEmpty)
     }
 
-    func testCarrierGarbageIsNotAPracticeLog() throws {
+    func testCarrierGarbageIsNotAPracticeLog() async throws {
         let junk = try State(lineage: 1, generation: 0, entries: [Entry(id: 1, value: 0)], order: [1])
         expectSync(.payloadCorrupt) { _ = try PracticeEncoding.decodedEvents(in: junk) }
     }
