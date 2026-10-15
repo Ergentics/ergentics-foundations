@@ -59,9 +59,23 @@ jobs:
           apt-get update -qq
           apt-get install -y -qq --no-install-recommends git ca-certificates
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          # The image resolver sometimes cannot see github.com after apt.
+          if ! getent hosts github.com >/dev/null 2>&1; then
+            printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\n' | cat - /etc/resolv.conf > /tmp/resolv.conf
+            cp /tmp/resolv.conf /etc/resolv.conf
+          fi
           git init .
           git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git fetch --depth 1 origin "${GITHUB_SHA}"
+          n=0
+          until git fetch --depth 1 origin "${GITHUB_SHA}"; do
+            n=$((n + 1))
+            if [ "$n" -ge 4 ]; then
+              exit 128
+            fi
+            printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\n' | cat - /etc/resolv.conf > /tmp/resolv.conf
+            cp /tmp/resolv.conf /etc/resolv.conf
+            sleep $((n * 2))
+          done
           git checkout --detach FETCH_HEAD
       - name: Test
         run: swift test --scratch-path /tmp/foundation-build
@@ -80,9 +94,24 @@ jobs:
           apt-get update -qq
           apt-get install -y -qq --no-install-recommends git ca-certificates
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          # ruby:4.0.7 has failed this fetch with "Could not resolve host: github.com"
+          # after apt succeeded. Retry, and add public resolvers if the name is missing.
+          if ! getent hosts github.com >/dev/null 2>&1; then
+            printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\n' | cat - /etc/resolv.conf > /tmp/resolv.conf
+            cp /tmp/resolv.conf /etc/resolv.conf
+          fi
           git init .
           git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git fetch --depth 1 origin "${GITHUB_SHA}"
+          n=0
+          until git fetch --depth 1 origin "${GITHUB_SHA}"; do
+            n=$((n + 1))
+            if [ "$n" -ge 4 ]; then
+              exit 128
+            fi
+            printf 'nameserver 1.1.1.1\nnameserver 8.8.8.8\n' | cat - /etc/resolv.conf > /tmp/resolv.conf
+            cp /tmp/resolv.conf /etc/resolv.conf
+            sleep $((n * 2))
+          done
           git checkout --detach FETCH_HEAD
       - name: Test
         working-directory: traceability
