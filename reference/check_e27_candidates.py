@@ -61,6 +61,16 @@ def main():
     ):
         if sentence not in note:
             fail(f"note omitted: {sentence}")
+    if listed["attribution"] != {
+        "armsSeparateOnSinks": True,
+        "boundary": "public-change-foundation",
+        "e26PrivateLoopDecomposed": False,
+        "projectionDigest": "58b8db0ebace624abdd96712379cbf5dfb7ce9b9bbfc0c17d1c00482b6c73c02",
+        "speedupTested": False,
+    }:
+        fail("attribution record changed")
+    if "The public reference has now run that attribution once." not in note:
+        fail("note lost the attribution run")
     if listed["design"] != {
         "firstQuestionIfMeasured": "CANDIDATE-CLEAN-ATTRIBUTION",
         "openSourceSpeedupTrial": False,

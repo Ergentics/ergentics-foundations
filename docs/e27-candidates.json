@@ -8,6 +8,13 @@
     "successorProjectsBlocked": false,
     "universalNoNewEvidence": false
   },
+  "attribution": {
+    "armsSeparateOnSinks": true,
+    "boundary": "public-change-foundation",
+    "e26PrivateLoopDecomposed": false,
+    "projectionDigest": "58b8db0ebace624abdd96712379cbf5dfb7ce9b9bbfc0c17d1c00482b6c73c02",
+    "speedupTested": false
+  },
   "design": {
     "firstQuestionIfMeasured": "CANDIDATE-CLEAN-ATTRIBUTION",
     "openSourceSpeedupTrial": false,

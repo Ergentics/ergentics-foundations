@@ -187,7 +187,7 @@ public actor ReferenceAuthority {
 /// Canonical v1: ASCII domain tag, big-endian UInt64 fields/counts, signed values
 /// encoded as UInt64 two's-complement bits. Entries sorted by ID; order preserved.
 /// SHA-256 is a commitment to these bytes, not authority or collision-free proof.
-private enum Canonical {
+enum Canonical {
     static func append(_ value: UInt64, to bytes: inout [UInt8]) {
         for shift in stride(from: 56, through: 0, by: -8) {
             bytes.append(UInt8(truncatingIfNeeded: value >> UInt64(shift)))

@@ -12,7 +12,7 @@ The untested speedup is not the next measurement. E26 left projection, construct
 
 The higher-yield order, if a later project measures at all, is `CANDIDATE-CLEAN-ATTRIBUTION` first: four named arms, with the mixed total only as a check that the arms add up. That run asks whether the arms separate. A speedup comparison waits until an arm is separable, and then AvoidedWork and ReuseManagementCost share that same boundary. Ordered-product reuse stays off the table while ordered equality fails and only multiset equality or common agreement holds.
 
-This repository records that order. It does not run the study. `FoundationBench` and `commitment-bench` time the public SDK paths under their own controls. They are not an E26 speedup test.
+The public reference has now run that attribution once. Construction, projection, equality, and append each have their own sink, and one mixed pass reproduces those four sinks. Relation equality holds for an order change while ordered equality fails, and the ordered product is not reused. No speedup was tested. The private E26 loop is not decomposed. `CANDIDATE-CLEAN-ATTRIBUTION` stays `NOT_NOMINATED`. `FoundationBench` and `commitment-bench` remain timings of the public SDK paths, not this study. See [clean attribution](clean-attribution.md).
 
 The continuity paragraph already constrains the list. Ordered equality 0/63 beside multiset equality 63/63, or beside common agreement 65,457/65,457, does not license reuse of the whole current ordered validation product. Changed-source multiset equality 0/63 and agreement 64,323/65,457 do not define a revocation rule. The twelve rows are per-process counts, not replicates.
 
