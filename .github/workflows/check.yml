@@ -1,0 +1,46 @@
+# Reader and Swift checks for the maintenance branch.
+# A green run matches the committed vectors. It is not an authority proof.
+name: check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  reader:
+    name: Rust reader and WASM
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: rust/commitment-reader
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust 1.83
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain 1.83.0
+          . "$HOME/.cargo/env"
+          rustup target add wasm32-unknown-unknown
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+      - name: Test locked vectors
+        run: cargo test --locked
+      - name: Build wasm32 reader
+        run: cargo build --locked --release --target wasm32-unknown-unknown
+      - name: Check two hashes from the wasm module
+        run: node wasm-check.mjs
+
+  swift:
+    name: Swift package
+    runs-on: ubuntu-latest
+    container: swift:6.2
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test
+        run: swift test --scratch-path /tmp/foundation-build

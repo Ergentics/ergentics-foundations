@@ -6,4 +6,22 @@ Proposed changes should state the semantic contract, add a small synthetic count
 
 Never contribute private primary evidence, model inputs, patient information, credentials, signing material, private history or internal operational records. Public claims derived from the private record must use stable evidence IDs and retain uncertainty. Historical negative results and classification boundaries must not be rewritten to improve a narrative.
 
-Run `swift test --scratch-path ../foundation-build`. Keep generated build files and local diagnostics outside the export inventory. Preserve applicable notices and follow Apache-2.0 section 4 when redistributing modified files. License adoption is complete; approval of the final public tree and repository owner remains pending.
+Keep generated build files and local diagnostics outside the tree (`target/`, `.build/`, scratch paths). Preserve applicable notices and follow Apache-2.0 section 4 when redistributing modified files. License adoption is complete. The maintenance remote is `https://github.com/Ergentics/ergentics-foundations`. That remote does not by itself approve every future tree.
+
+## Along the way
+
+Fetch `origin/main` before the next commit. If `git log HEAD..origin/main` is not empty, merge or rebase onto `main` first.
+
+A commit is one concern. The subject says what landed. The body says the contract consequence, including what the change does not claim: not authority, not a harvested corpus record, not a performance result. A correction of a decision rewrites the lead of that note in the same commit.
+
+A behavior change carries an independent vector or extends one. The expected hash comes from the Python recipe or a published digest, not from rerunning the implementation under test and pasting its output. Rust and WASM readers must match those bytes exactly. Numeric slack from another project, such as an `f32` memory model, does not apply to `CF-STATE-v1` or `PL-LOG-v1`.
+
+Do not import proprietary sibling trees. A public type may mirror a vocabulary. It does not copy a game engine, a harvest, or a vendored kernel. `commitment-reader` hashes bytes. It does not commit, and it does not become a Swift package dependency. Commit its `Cargo.lock`. Do not commit its `target/` directory.
+
+| Change | Run before pushing |
+|---|---|
+| `Sources/`, `Tests/`, `Package.swift` | `swift test --scratch-path /tmp/foundation-build` |
+| `rust/commitment-reader` | `cargo test --locked`, then `cargo build --locked --release --target wasm32-unknown-unknown`, then `node wasm-check.mjs` |
+| Docs only | Do not describe a test run that did not happen |
+
+`.github/workflows/check.yml` runs those checks on pull requests and on pushes to `main`. A green run is the merge check for the paths it covers. It is not performance evidence and not an authority proof.
