@@ -18,7 +18,11 @@ Routes and the DNS record stay a dashboard step. This file does not create them.
 
 ## Move
 
-This is the move: serve `demos/recital/` from a Worker on the existing Cloudflare zone, then attach `ergentics.com` after a person who can see the current page approves the replacement. The move is recorded here. It is not deployed.
+This is the move: add the recital as a page on the site that already publishes `https://ergentics.com/research/propulsion.html`. It is not a replacement of that site. The move is recorded here. It is not deployed.
+
+`/research/propulsion.html` is the pattern for how another area handles material: one HTML document at a path under the zone. This environment cannot read that document. A request receives HTTP 403 with `cf-mitigated: challenge`, so the layout, scripts, and asset paths on that page are not known here. The adapter does not guess them.
+
+The Worker `ergentics-recital` serves only the recital files. It does not become the origin for `ergentics.com`. A later route, after a person who can open the propulsion page confirms the fit, is a path such as `ergentics.com/recital` or `ergentics.com/research/<name>.html`. The existing research pages stay on the current origin. `wrangler.jsonc` has no route and no custom domain, so a deploy of this config does not attach the apex.
 
 R2 stays unused. The recital is a few HTML files and one small module. Workers static assets can serve those bytes. A bucket would be a second copy of the same files, and it would not be the object store.
 
