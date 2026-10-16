@@ -58,7 +58,18 @@ case "$rustc_version" in
     ;;
 esac
 
-rustup target add wasm32-unknown-unknown
+added=0
+for _attempt in 1 2 3 4 5; do
+  if rustup target add wasm32-unknown-unknown; then
+    added=1
+    break
+  fi
+  sleep $(( _attempt * 2 ))
+done
+if [[ "$added" != 1 ]]; then
+  echo "rustup target add wasm32-unknown-unknown failed" >&2
+  exit 1
+fi
 
 # archive.ubuntu.com answers 403 here, so libncurses6 cannot be installed.
 # swift-driver only needs the tinfo symbols that libncurses.so.6 re-exports,
@@ -71,9 +82,19 @@ fi
 if ! "${SWIFT_ROOT}/usr/bin/swift" --version 2>/dev/null | grep -q "Swift version ${SWIFT_VERSION}"; then
   work="$(mktemp -d)"
   trap 'rm -rf "$work"' EXIT
-  curl -fsSL "$TARBALL_URL" -o "${work}/${TARBALL}"
-  curl -fsSL "${TARBALL_URL}.sig" -o "${work}/${TARBALL}.sig"
-  curl --compressed -fsSL "$KEY_URL" -o "${work}/all-keys.asc"
+  curl_retry() {
+    local attempt
+    for attempt in 1 2 3 4 5; do
+      if curl --retry 5 --retry-all-errors --retry-delay 2 "$@"; then
+        return 0
+      fi
+      sleep $(( attempt * 3 ))
+    done
+    return 1
+  }
+  curl_retry -fsSL "$TARBALL_URL" -o "${work}/${TARBALL}"
+  curl_retry -fsSL "${TARBALL_URL}.sig" -o "${work}/${TARBALL}.sig"
+  curl_retry --compressed -fsSL "$KEY_URL" -o "${work}/all-keys.asc"
   export GNUPGHOME="${work}/gnupg"
   mkdir -p "$GNUPGHOME"
   chmod 700 "$GNUPGHOME"
